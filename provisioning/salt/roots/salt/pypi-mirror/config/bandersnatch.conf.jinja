@@ -1,0 +1,17 @@
+
+{% set config_mirror = salt['pillar.get']('bandersnatch:mirror', {}) %}
+
+[mirror]
+directory = {{ config_mirror.get('directory', '/data/pypi') }}
+master = {{ config_mirror.get('master', 'https://pypi.python.org') }}
+timeout = {{ config_mirror.get('timeout', '10') }}
+workers = {{ config_mirror.get('workers', '3') }}
+stop-on-error = {{ config_mirror.get('stop-on-error', 'false') }}
+delete-packages = {{ config_mirror.get('delete-packages', 'true') }}
+
+{% set config_stats = salt['pillar.get']('bandersnatch:statistics', {}) %}
+
+[statistics]
+access-log-pattern = {{ config_stats.get('access-log-pattern', '/var/log/nginx/pypi-mirror/access*.log') }}
+
+

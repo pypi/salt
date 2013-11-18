@@ -75,4 +75,5 @@ bandersnatch:
 
 /etc/bandersnatch.conf:
   file.managed:
-    - source: salt://pypi-mirror/config/bandersnatch.conf
+    - source: salt://pypi-mirror/config/bandersnatch.conf.jinja
+    - template: jinja
