@@ -70,3 +70,15 @@ pypi_schema_load:
       - hg: pypi-source
     - watch:
       - postgres_database: pypi_postgres_database
+
+pypi_sample_data_load:
+  cmd.wait:
+    - name: '/opt/pypi/env/bin/python /opt/pypi/src/tools/demodata.py'
+    - user: pypi
+    - cwd: /opt/pypi/src
+    - require:
+      - cmd: pypi_schema_load
+      - virtualenv: /opt/pypi/env
+      - file: /opt/pypi/src/config.ini
+    - watch:
+      - postgres_database: pypi_postgres_database
