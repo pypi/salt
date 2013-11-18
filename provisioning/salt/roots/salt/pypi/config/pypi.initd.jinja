@@ -1,0 +1,70 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          pypi
+# Required-Start:    $local_fs $remote_fs $network
+# Required-Stop:     $local_fs $remote_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts the pypi uwsgi server
+# Description:       starts the pypi uwsgi server
+### END INIT INFO
+
+. /etc/rc.d/init.d/functions
+
+daemon=/opt/pypi/env/bin/uwsgi
+pidfile=/var/run/pypi/pypi.pid
+lockfile=/var/lock/subsys/pypi
+
+prog=pypi
+
+daemon_opts="/opt/pypi/src/config.ini"
+
+start() {
+    [ -x $daemon ] || exit 5
+    echo -n $"Starting $prog: "
+    daemon $daemon $daemon_opts
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && touch $lockfile
+    return $retval
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc -p $pidfile $prog
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
+}
+
+reload() {
+    echo -n $"Reloading $prog: "
+    killproc -p $pidfile $prog -HUP
+    echo
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  reload)
+        reload
+        ;;
+  force-reload)
+        reload
+       ;;
+  restart)
+        stop
+        start
+        ;;
+      *)  
+        echo "Usage: $proc {start|stop|restart|reload|force-reload}" >&2
+        exit 1
+        ;;
+    esac
+    exit 0
