@@ -1,7 +1,4 @@
 
-include:
-  - firewall
-
 niceities:
   pkg.installed:
     - pkgs:

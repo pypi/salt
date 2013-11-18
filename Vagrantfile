@@ -22,5 +22,16 @@ Vagrant.configure("2") do |config|
       s.run_highstate = true
     end
   end
-end
 
+  config.vm.define "pypi" do |pypi|
+    pypi.vm.network "forwarded_port", guest: 80, host: 8080
+    pypi.vm.network "forwarded_port", guest: 443, host: 8443
+    pypi.vm.network "forwarded_port", guest: 8000, host: 8081
+
+    pypi.vm.provision :salt do |s|
+      s.verbose = true
+      s.minion_config = "provisioning/salt/minion/pypi-minion"
+      s.run_highstate = true
+    end
+  end
+end
