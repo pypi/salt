@@ -1,0 +1,8 @@
+file_client: local
+file_roots:
+  base:
+    - /srv/salt
+grains:
+  roles:
+    - develop
+    - pypi
