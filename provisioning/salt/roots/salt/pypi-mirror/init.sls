@@ -7,28 +7,23 @@ pypi-mirror:
   user.present:
     - home: /opt/bandersnatch
 
-/data:
-  file.directory:
-    - user: root
-    - group: root
-    - mode: 755
-
 /data/pypi-mirror:
   file.directory:
     - user: pypi-mirror
     - group: pypi-mirror
     - mode: 755
+    - makedirs: True
     - recurse:
       - user
       - group
     - require:
-      - file: /data
       - user: pypi-mirror
 
 /var/log/nginx/pypi-mirror:
   file.directory:
     - user: root
     - group: root
+    - makedirs: True
 
 /etc/nginx/conf.d/bandersnatch.conf:
   file.managed:
@@ -36,6 +31,7 @@ pypi-mirror:
     - user: root
     - group: root
     - mode: 640
+    - makedirs: True
     - require:
       - file: /var/log/nginx/pypi-mirror
 
@@ -45,12 +41,14 @@ pypi-mirror:
     - user: root
     - group: root
     - mode: 644
+    - makedirs: True
   
 /opt/bandersnatch:
   file.directory:
     - user: pypi-mirror
     - group: pypi-mirror
     - mode: 750
+    - makedirs: True
     - recurse:
       - user
       - group
