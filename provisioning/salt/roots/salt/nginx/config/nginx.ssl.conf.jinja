@@ -1,0 +1,3 @@
+ssl on;
+ssl_certificate     /etc/pki/tls/certs/{{ grains['host'] }}.crt;
+ssl_certificate_key /etc/pki/tls/certs/{{ grains['host'] }}.key;
