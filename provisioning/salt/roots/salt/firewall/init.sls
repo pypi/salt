@@ -5,8 +5,6 @@
     - group: root
     - mode: 600
     - template: jinja
-    - context:
-      ports: {{ pillar.get('firewall:ports', []) }} 
 
 iptables:
   service:

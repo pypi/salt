@@ -1,5 +1,8 @@
 # Firewall configuration written by system-config-firewall
 # Manual customization of this file is not recommended.
+
+{% set ports = salt['pillar.get']('firewall:ports', []) %}
+
 *filter
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
