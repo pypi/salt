@@ -48,7 +48,6 @@ pypi_postgres_citext:
 pypi_postgres_plpgsql:
   cmd.wait:
     - name: 'psql pypi -c "CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;"'
-    - query: 'CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;'
     - user: postgres
     - require:
       - postgres_database: pypi_postgres_database
