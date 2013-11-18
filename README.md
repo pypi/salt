@@ -1,5 +1,9 @@
 # pypi-salt
 
+**note**
+
+data in `provisioning/salt/roots/pillar` is strictly for development environments.
+
 ## OSX Setup
 
 - Download and Install [Virtual Box](https://www.virtualbox.org/wiki/Downloads).
