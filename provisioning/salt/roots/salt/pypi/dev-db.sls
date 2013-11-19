@@ -79,5 +79,6 @@ pypi_sample_data_load:
       - cmd: pypi_schema_load
       - virtualenv: /opt/pypi/env
       - file: /opt/pypi/src/config.ini
+      - file: /data/pypi
     - watch:
       - postgres_database: pypi_postgres_database

@@ -11,6 +11,7 @@ postgresql93-server:
   service:
     - name: postgresql-9.3
     - running
+    - enable: True
     - reload: True
     - watch:
       - file: /var/lib/pgsql/9.3/data/pg_hba.conf
