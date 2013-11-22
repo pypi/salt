@@ -75,3 +75,24 @@ bandersnatch:
   file.managed:
     - source: salt://pypi-mirror/config/bandersnatch.conf.jinja
     - template: jinja
+
+{% if 'develop' in grains['roles'] %}
+{% if not salt['file.directory_exists']('/data/pypi-mirror/web') %}
+bandersnatch_short_sync:
+  cmd.run:
+    - name: '( /opt/bandersnatch/bin/bandersnatch mirror ) & sleep 30; kill $!'
+    - cwd: /opt/bandersnatch
+    - user: pypi-mirror
+    - require:
+      - file: /etc/bandersnatch.conf
+      - virtualenv: /opt/bandersnatch
+{% endif %}
+{% endif %}
+
+/etc/cron.d/pypi-mirror:
+  file.managed:
+    - source: salt://pypi-mirror/config/crontab.jinja
+    - template: jinja
+    - require:
+      - file: /etc/bandersnatch.conf
+      - virtualenv: /opt/bandersnatch
