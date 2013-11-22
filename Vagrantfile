@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "pypi" do |pypi|
 
-    pypi.vm.network "private_network", ip: "192.168.57.10"
+    pypi.vm.network "private_network", ip: "192.168.57.11"
 
     pypi.vm.provision :salt do |s|
       s.verbose = true
