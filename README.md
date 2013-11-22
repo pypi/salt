@@ -12,7 +12,7 @@ data in `provisioning/salt/roots/pillar` is strictly for development environment
 
 - Start some servers!
   - pypi: `vagrant up pypi`
-    - navigate to http://localhost:8080/pypi and check it out!
+    - navigate to http://192.168.57.11/pypi and check it out!
   - pypi-mirror: `vagrant up mirror`
-    - navigate to http://localhost:8081/simple and check it out!
+    - navigate to http://192.168.57.20/simple and check it out!
 

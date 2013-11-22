@@ -13,9 +13,8 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "provisioning/salt/roots/", "/srv/"
 
   config.vm.define "pypi" do |pypi|
-    pypi.vm.network "forwarded_port", guest: 80, host: 8080
-    pypi.vm.network "forwarded_port", guest: 443, host: 8443
-    pypi.vm.network "forwarded_port", guest: 8000, host: 8081
+
+    pypi.vm.network "private_network", ip: "192.168.57.10"
 
     pypi.vm.provision :salt do |s|
       s.verbose = true
@@ -25,8 +24,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "mirror" do |mirror|
-    mirror.vm.network "forwarded_port", guest: 80, host: 8081
-    mirror.vm.network "forwarded_port", guest: 443, host: 8444
+
+    mirror.vm.network "private_network", ip: "192.168.57.20"
 
     mirror.vm.provision :salt do |s|
       s.verbose = true
