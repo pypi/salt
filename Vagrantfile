@@ -41,7 +41,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "pg_master" do |pg_master|
       pg_master.vm.network "private_network", ip: "192.168.57.5"
-      pg_master.vm.network "private_network", ip: "10.10.10.5"
+      pg_master.vm.network "private_network", ip: "172.16.1.5"
 
       pg_master.vm.provision :salt do |s|
         s.verbose = true
@@ -52,7 +52,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "pg_slave" do |pg_slave|
       pg_slave.vm.network "private_network", ip: "192.168.57.6"
-      pg_slave.vm.network "private_network", ip: "10.10.10.6"
+      pg_slave.vm.network "private_network", ip: "172.16.1.6"
 
       pg_slave.vm.provision :salt do |s|
         s.verbose = true

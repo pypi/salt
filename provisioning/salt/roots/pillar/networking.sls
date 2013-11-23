@@ -1,2 +1,2 @@
 
-pypi_internal_network: 10.10.10.0/24
+pypi_internal_network: 172.16.1.0/24
