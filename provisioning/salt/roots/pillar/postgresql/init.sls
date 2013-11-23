@@ -4,6 +4,6 @@ firewall:
     - 5432
 
 postgresql_cluster:
-  primary_server: 192.168.57.5
+  primary_server: 10.10.10.5
   standby_servers:
-    - 192.168.57.6
+    - 10.10.10.6

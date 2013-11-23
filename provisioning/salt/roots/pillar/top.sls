@@ -1,4 +1,8 @@
 base:
+
+  '*':
+    - networking
+
   'roles:pypi-mirror':
     - match: grain
     - pypi-mirror
