@@ -12,25 +12,53 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "provisioning/salt/roots/", "/srv/"
 
-  config.vm.define "pypi" do |pypi|
 
-    pypi.vm.network "private_network", ip: "192.168.57.11"
+  unless ENV['VAGRANT_SKIP_PYPI'] == '1'
+    config.vm.define "pypi" do |pypi|
 
-    pypi.vm.provision :salt do |s|
-      s.verbose = true
-      s.minion_config = "provisioning/salt/minion/pypi-minion"
-      s.run_highstate = true
+      pypi.vm.network "private_network", ip: "192.168.57.11"
+
+      pypi.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/pypi-minion"
+        s.run_highstate = true
+      end
+    end
+
+    config.vm.define "mirror" do |mirror|
+
+      mirror.vm.network "private_network", ip: "192.168.57.20"
+
+      mirror.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/mirror-minion"
+        s.run_highstate = true
+      end
     end
   end
 
-  config.vm.define "mirror" do |mirror|
+  if ENV['VAGRANT_POSTGRES_CLUSTER'] == '1'
 
-    mirror.vm.network "private_network", ip: "192.168.57.20"
+    config.vm.define "pg_master" do |pg_master|
+      pg_master.vm.network "private_network", ip: "192.168.57.5"
 
-    mirror.vm.provision :salt do |s|
-      s.verbose = true
-      s.minion_config = "provisioning/salt/minion/mirror-minion"
-      s.run_highstate = true
+      pg_master.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/pg_cluster-master-minion"
+        s.run_highstate = true
+      end
     end
+
+    config.vm.define "pg_slave" do |pg_slave|
+      pg_slave.vm.network "private_network", ip: "192.168.57.6"
+
+      pg_slave.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/pg_cluster-slave-minion"
+        s.run_highstate = true
+      end
+    end
+
   end
+
 end
