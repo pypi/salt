@@ -28,6 +28,9 @@ include:
     - require:
       - pkg: postgresql93-server
       - cmd: postgresql93-server
+{% else %}
+/var/lib/pgsql/9.3/data/recovery.conf:
+  file.absent
 {% endif %}
 
 restart_postgresql:
