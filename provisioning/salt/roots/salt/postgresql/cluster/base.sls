@@ -16,7 +16,6 @@ postgresql93-server:
     - watch:
       - file: /var/lib/pgsql/9.3/data/pg_hba.conf
       - file: /var/lib/pgsql/9.3/data/postgresql.conf
-      - file: /var/lib/pgsql/9.3/data/recovery.conf
     - require:
       - pkg: postgresql93-server
   cmd.wait:
