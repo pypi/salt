@@ -14,3 +14,4 @@ base:
     - match: grain
     - firewall
     - postgresql.cluster
+    - postgresql.cluster.pgpool

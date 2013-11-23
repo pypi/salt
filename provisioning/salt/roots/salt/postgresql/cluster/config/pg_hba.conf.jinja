@@ -7,3 +7,7 @@ host    replication postgres    {{ config.get('primary_server') }}/32       trus
 {% for server in config.get('standby_servers') %}
 host    replication postgres    {{ server }}/32       trust
 {% endfor %}
+host    all         postgres    {{ config.get('primary_server') }}/32       trust
+{% for server in config.get('standby_servers') %}
+host    all         postgres    {{ server }}/32       trust
+{% endfor %}
