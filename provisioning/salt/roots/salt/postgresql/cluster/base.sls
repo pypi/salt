@@ -15,9 +15,16 @@ postgresql93-server:
     - reload: True
     - watch:
       - file: /var/lib/pgsql/9.3/data/pg_hba.conf
+      - file: /var/lib/pgsql/9.3/data/postgresql.conf
+      - file: /var/lib/pgsql/9.3/data/recovery.conf
     - require:
       - pkg: postgresql93-server
   cmd.wait:
+  {% if 'slave' in grains['roles'] %}
+    - name: pg_basebackup -h {{ pillar['postgresql_cluster']['primary_server'] }} -D /var/lib/pgsql/9.3/data -U postgres
+    - user: postgres
+  {% else %}
     - name: service postgresql-9.3 initdb
+  {% endif %}
     - watch:
       - pkg: postgresql93-server

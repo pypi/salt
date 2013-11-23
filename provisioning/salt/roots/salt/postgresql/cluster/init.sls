@@ -1,6 +1,6 @@
 
 include:
-  - postgresql.93
+  - postgresql.cluster.base
 
 /var/lib/pgsql/9.3/backups/archivedir:
   file.directory:
