@@ -61,6 +61,28 @@ Vagrant.configure("2") do |config|
       end
     end
 
+    config.vm.define "pgpool0" do |pgpool0|
+      pgpool0.vm.network "private_network", ip: "192.168.57.7"
+      pgpool0.vm.network "private_network", ip: "172.16.57.7"
+
+      pgpool0.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/pg_cluster-pgpool"
+        s.run_highstate = true
+      end
+    end
+
+    config.vm.define "pgpool1" do |pgpool1|
+      pgpool1.vm.network "private_network", ip: "192.168.57.8"
+      pgpool1.vm.network "private_network", ip: "172.16.57.8"
+
+      pgpool1.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/pg_cluster-pgpool"
+        s.run_highstate = true
+      end
+    end
+
   end
 
 end

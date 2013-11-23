@@ -14,4 +14,7 @@ base:
     - match: grain
     - firewall
     - postgresql.cluster
+  'roles:postgresql_pgpool':
+    - match: grain
+    - firewall
     - postgresql.cluster.pgpool
