@@ -15,6 +15,10 @@ postgresql93-server:
     - reload: True
     - watch:
       - file: /var/lib/pgsql/9.3/data/pg_hba.conf
+      {% if 'postgresql_cluster' in grains['roles'] %}
+      - file: /var/lib/pgsql/9.3/data/postgresql.conf
+      - file: /var/lib/pgsql/9.3/data/recovery.conf
+      {% endif %}
     - require:
       - pkg: postgresql93-server
   cmd.wait:

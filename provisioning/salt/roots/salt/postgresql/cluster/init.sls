@@ -2,6 +2,19 @@
 include:
   - postgresql.93
 
+/var/lib/pgsql/9.3/backups/archivedir:
+  file.directory:
+    - user: postgres
+    - group: postgres
+    - mode: 750
+    - makedirs: True
+    - recurse:
+      - user
+      - group
+      - mode
+    - require:
+      - pkg: postgresql93-server
+
 /var/lib/pgsql/9.3/data/postgresql.conf:
   file.managed:
     - name: /var/lib/pgsql/9.3/data/postgresql.conf
@@ -26,6 +39,7 @@ include:
     - require:
       - pkg: postgresql93-server
       - cmd: postgresql93-server
+      - file: /var/lib/pgsql/9.3/backups/archivedir
 {% else %}
 /var/lib/pgsql/9.3/data/recovery.conf:
   file.absent:
@@ -36,6 +50,7 @@ include:
     - require:
       - pkg: postgresql93-server
       - cmd: postgresql93-server
+      - file: /var/lib/pgsql/9.3/backups/archivedir
 
 /var/lib/pgsql/9.3/data/recovery.done:
   file.managed:
@@ -46,6 +61,7 @@ include:
     - require:
       - pkg: postgresql93-server
       - cmd: postgresql93-server
+      - file: /var/lib/pgsql/9.3/backups/archivedir
 {% endif %}
 
 restart_postgresql:
