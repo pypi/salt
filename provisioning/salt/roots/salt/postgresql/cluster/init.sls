@@ -27,7 +27,8 @@ include:
       - pkg: postgresql93-server
       - cmd: postgresql93-server
 
-{% if not salt['file.file_exists']('/var/lib/pgsql/9.3/data/recovery.conf') and not salt['file.file_exists']('/var/lib/pgsql/9.3/data/recovery.done') %}
+{% if not salt['file.file_exists']('/var/lib/pgsql/9.3/data/recovery.conf')
+  and not salt['file.file_exists']('/var/lib/pgsql/9.3/data/recovery.done') %}
 /var/lib/pgsql/9.3/data/recovery.conf:
   file.managed:
     - name: /var/lib/pgsql/9.3/data/recovery.conf
