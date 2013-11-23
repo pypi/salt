@@ -23,12 +23,9 @@ listen_addresses = '*'
 {% if 'master' in grains['roles'] %}
 # Master
 wal_level = hot_standby
-max_wal_senders = 1
-wal_keep_segments = 50
-
-archive_mode = on
-archive_command = 'cp "%p" /var/lib/pgsql/9.3/backups/archivedir/"%f"'
-archive_timeout = 7200
+max_wal_senders = 10
+checkpoint_segments = 16
+wal_keep_segments = 32
 {% endif %}
 
 {% if 'slave' in grains['roles'] %}

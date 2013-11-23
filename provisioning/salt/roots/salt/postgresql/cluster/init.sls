@@ -2,19 +2,6 @@
 include:
   - postgresql.cluster.base
 
-/var/lib/pgsql/9.3/backups/archivedir:
-  file.directory:
-    - user: postgres
-    - group: postgres
-    - mode: 750
-    - makedirs: True
-    - recurse:
-      - user
-      - group
-      - mode
-    - require:
-      - pkg: postgresql93-server
-
 /var/lib/pgsql/9.3/data/postgresql.conf:
   file.managed:
     - name: /var/lib/pgsql/9.3/data/postgresql.conf
@@ -28,7 +15,8 @@ include:
       - cmd: postgresql93-server
 
 {% if not salt['file.file_exists']('/var/lib/pgsql/9.3/data/recovery.conf')
-  and not salt['file.file_exists']('/var/lib/pgsql/9.3/data/recovery.done') %}
+  and not salt['file.file_exists']('/var/lib/pgsql/9.3/data/recovery.done')
+  and 'slave' in grains['roles'] %}
 /var/lib/pgsql/9.3/data/recovery.conf:
   file.managed:
     - name: /var/lib/pgsql/9.3/data/recovery.conf
@@ -40,29 +28,6 @@ include:
     - require:
       - pkg: postgresql93-server
       - cmd: postgresql93-server
-      - file: /var/lib/pgsql/9.3/backups/archivedir
-{% else %}
-/var/lib/pgsql/9.3/data/recovery.conf:
-  file.absent:
-    - name: /var/lib/pgsql/9.3/data/recovery.conf
-    - user: postgres
-    - group: postgres
-    - mode: 600
-    - require:
-      - pkg: postgresql93-server
-      - cmd: postgresql93-server
-      - file: /var/lib/pgsql/9.3/backups/archivedir
-
-/var/lib/pgsql/9.3/data/recovery.done:
-  file.managed:
-    - name: /var/lib/pgsql/9.3/data/recovery.done
-    - user: postgres
-    - group: postgres
-    - mode: 600
-    - require:
-      - pkg: postgresql93-server
-      - cmd: postgresql93-server
-      - file: /var/lib/pgsql/9.3/backups/archivedir
 {% endif %}
 
 restart_postgresql:

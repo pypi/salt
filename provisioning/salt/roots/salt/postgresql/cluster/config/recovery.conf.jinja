@@ -4,7 +4,3 @@
 standby_mode = on
 primary_conninfo = 'host={{ config['primary_server'] }} port=5432'
 {% endif %}
-
-{% if 'master' in grains['roles'] %}
-restore_command = 'cp /var/lib/pgsql/9.3/backups/archivedir/"%f" "%p"'
-{% endif %}
