@@ -1,0 +1,9 @@
+#TYPE  DATABASE    USER        ADDRESS               METHOD
+{% set config = salt['pillar.get']('postgresql_cluster', {}) %}
+local   all         all                               ident
+host    all         all         127.0.0.1/32          md5
+host    all         all         ::1/128               md5
+host    replication postgres    {{ config.get('primary_server') }}/32       trust
+{% for server in config.get('standby_servers') %}
+host    replication postgres    {{ server }}/32       trust
+{% endfor %}
