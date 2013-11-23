@@ -84,3 +84,17 @@ restart_postgresql:
       - pkg: postgresql93-server
       - cmd: postgresql93-server
 
+/var/lib/pgsql/bin:
+  file.directory:
+    - user: postgres
+    - group: postgres
+    - mode: 750
+
+/var/lib/pgsql/bin/base-backup.bash:
+  file.managed:
+    - source: salt://postgresql/cluster/config/base-backup.bash
+    - user: postgres
+    - group: postgres
+    - mode: 750
+    - require:
+      - file: /var/lib/pgsql/bin
