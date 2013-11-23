@@ -1,0 +1,9 @@
+file_client: local
+file_roots:
+  base:
+    - /srv/salt
+grains:
+  roles:
+    - develop
+    - postgresql_cluster
+    - master

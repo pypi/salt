@@ -9,3 +9,7 @@ base:
     - match: grain
     - pypi
     - firewall
+
+  'roles:postgresql_cluster':
+    - match: grain
+    - postgresql.cluster

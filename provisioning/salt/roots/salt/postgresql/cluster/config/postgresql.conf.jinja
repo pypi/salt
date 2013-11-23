@@ -1,0 +1,37 @@
+# Default from PostgreSQL 9.3
+max_connections = 100
+shared_buffers = 128MB
+log_destination = 'stderr'
+logging_collector = on
+log_directory = 'pg_log'
+log_filename = 'postgresql-%a.log'
+log_truncate_on_rotation = on
+log_rotation_age = 1d
+log_rotation_size = 0
+log_line_prefix = '< %m >'
+log_timezone = 'UTC'
+datestyle = 'iso, mdy'
+timezone = 'UTC'
+lc_messages = 'en_US.UTF-8'
+lc_monetary = 'en_US.UTF-8'
+lc_numeric = 'en_US.UTF-8'
+lc_time = 'en_US.UTF-8'
+default_text_search_config = 'pg_catalog.english'
+
+listen_addresses = '*'
+
+{% if 'master' in grains['roles'] %}
+# Master
+wal_level = hot_standby
+max_wal_senders = 1
+wal_keep_segments = 50
+
+archive_mode = on
+archive_command = 'cp "%p" /var/lib/pgsql/9.3/backups/archivedir/"%f"'
+archive_timeout = 7200
+{% endif %}
+
+{% if 'slave' in grains['roles'] %}
+# Slave
+hot_standby = on
+{% endif %}
