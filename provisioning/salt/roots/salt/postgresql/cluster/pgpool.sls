@@ -3,11 +3,14 @@ pgpool-postgresql-93-repo:
     - sources:
       - pgdg-centos93: http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm
 
+postgres:
+  user.present
+
 pgpool-II-93:
   pkg:
     - installed
     - require:
-      - pkg: postgresql-93-repo
+      - pkg: pgpool-postgresql-93-repo
   service:
     - running
     - enable: True
@@ -22,6 +25,8 @@ pgpool-II-93:
     - user: postgres
     - group: postgres
     - mode: 750
+    - require:
+      - user: postgres
 
 /etc/pgpool-II-93/pool_hba.conf:
   file.managed:
@@ -35,6 +40,8 @@ pgpool-II-93:
     - user: postgres
     - group: postgres
     - mode: 640
+    - require:
+      - user: postgres
 
 /etc/pgpool-II-93/pcp.conf:
   file.managed:
