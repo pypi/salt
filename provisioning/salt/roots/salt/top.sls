@@ -12,4 +12,5 @@ base:
 
   'roles:postgresql_cluster':
     - match: grain
+    - firewall
     - postgresql.cluster
