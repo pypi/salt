@@ -13,10 +13,15 @@ virtual_ips:
     cidr: 172.16.57.0/24
 
 firewall:
-  ports:
-    - 9000
-    - 9694
-    - 9898
-    - 9999
-    - 5432
+  pgpool_watchdog:
+    port: 9000
+  pgpool_heartbeat:
+    protocol: udp
+    port: 9694
+  pgpool_pcp:
+    port: 9898
+  pgpool_proxy:
+    port: 9999
+  pgpool_postgres:
+    port: 5432
 

@@ -1,6 +1,8 @@
 
 firewall:
-  ports:
-    - 80
-    - 443
-    - 8000
+  http:
+    port: 80
+  https:
+    port: 443
+  http_dev:
+    port: 8000

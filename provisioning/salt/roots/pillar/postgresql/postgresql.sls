@@ -1,6 +1,6 @@
 
 firewall:
-  ports:
-    - 5432
+  postgresql:
+    port: 5432
 
 
