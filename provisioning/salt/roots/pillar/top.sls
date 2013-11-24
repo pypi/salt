@@ -12,4 +12,9 @@ base:
 
   'roles:postgresql_cluster':
     - match: grain
-    - postgresql
+    - postgresql.cluster
+    - postgresql.postgresql
+  'roles:postgresql_pgpool':
+    - match: grain
+    - postgresql.cluster
+    - postgresql.pgpool
