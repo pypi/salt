@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
 
       pgpool0.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/pg_cluster-pgpool"
+        s.minion_config = "provisioning/salt/minion/pg_cluster-pgpool0"
         s.run_highstate = true
       end
     end
@@ -78,7 +78,7 @@ Vagrant.configure("2") do |config|
 
       pgpool1.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/pg_cluster-pgpool"
+        s.minion_config = "provisioning/salt/minion/pg_cluster-pgpool1"
         s.run_highstate = true
       end
     end
