@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
 
       pypi.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/pypi-minion"
+        s.minion_config = "provisioning/salt/minion/pypi"
         s.run_highstate = true
       end
     end
@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
 
       mirror.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/mirror-minion"
+        s.minion_config = "provisioning/salt/minion/mirror"
         s.run_highstate = true
       end
     end
@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
 
       pg_master.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/pg_cluster-master-minion"
+        s.minion_config = "provisioning/salt/minion/pg_cluster-primary"
         s.run_highstate = true
       end
     end
@@ -56,7 +56,7 @@ Vagrant.configure("2") do |config|
 
       pg_slave.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/pg_cluster-slave-minion"
+        s.minion_config = "provisioning/salt/minion/pg_cluster-standby0"
         s.run_highstate = true
       end
     end
