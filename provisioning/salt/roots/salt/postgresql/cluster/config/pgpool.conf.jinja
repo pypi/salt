@@ -1,7 +1,8 @@
 {% set internal = salt['pillar.get']('pypi_internal_network') %}
 {% set postgres_nodes = salt['pillar.get']('postgresql_cluster') %}
 {% set pgpool_nodes = salt['pillar.get']('pgpool_cluster').get('nodes') %}
-
+{% set pgpool_vip = salt['pillar.get']('pgpool_cluster:virtual_ip') %}
+{% set ips = salt['ip_picker.ip_addrs'](cidr=internal) %}
 
 #------------------------------------------------------------------------------
 # CONNECTIONS
@@ -173,7 +174,7 @@ use_watchdog = on
 trusted_servers = ''
 ping_path = '/bin'
 
-wd_hostname = '{{ salt['ip_picker.ip_addrs'](cidr=internal)[0] }}'
+wd_hostname = '{{ ips[0] }}'
 wd_port = 9000
 wd_authkey = ''
 

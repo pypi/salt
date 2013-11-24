@@ -1,4 +1,6 @@
 import salt
+from salt.utils.network import in_subnet
+import socket
 
 def __virtual__():
     '''
@@ -27,7 +29,8 @@ def ip_addrs(interface=None, include_loopback=False, cidr=None):
     addrs = salt.utils.network.ip_addrs(interface=interface,
                                         include_loopback=include_loopback)
     if cidr:
-        return [i for i in addrs if salt.utils.network.in_subnet(cidr, [i])]
+        return sorted([i for i in addrs if in_subnet(cidr, [i])],
+                      key=lambda item: socket.inet_aton(item))
     else:
         return addrs
 
