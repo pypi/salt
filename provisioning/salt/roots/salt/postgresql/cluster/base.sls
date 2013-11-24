@@ -19,7 +19,7 @@ postgresql93-server:
     - require:
       - pkg: postgresql93-server
   cmd.wait:
-  {% if 'slave' in grains['roles'] %}
+  {% if 'standby' in grains['roles'] %}
     - name: pg_basebackup -h {{ pillar['postgresql_cluster']['primary_server'] }} -D /var/lib/pgsql/9.3/data -U postgres
     - user: postgres
   {% else %}

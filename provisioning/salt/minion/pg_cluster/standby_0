@@ -6,4 +6,4 @@ grains:
   roles:
     - develop
     - postgresql_cluster
-    - master
+    - standby

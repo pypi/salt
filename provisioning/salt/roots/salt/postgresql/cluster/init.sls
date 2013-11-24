@@ -14,7 +14,7 @@ include:
       - pkg: postgresql93-server
       - cmd: postgresql93-server
 
-{% if 'slave' in grains['roles'] %}
+{% if 'standby' in grains['roles'] %}
 /var/lib/pgsql/9.3/data/recovery.conf:
   file.managed:
     - name: /var/lib/pgsql/9.3/data/recovery.conf
@@ -36,7 +36,7 @@ restart_postgresql:
     - name: service postgresql-9.3 restart
     - watch:
       - file: /var/lib/pgsql/9.3/data/postgresql.conf
-{% if 'slave' in grains['roles'] %}
+{% if 'standby' in grains['roles'] %}
       - file: /var/lib/pgsql/9.3/data/recovery.conf
 {% endif %}
 

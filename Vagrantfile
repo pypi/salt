@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
 
       pypi.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/pypi-minion"
+        s.minion_config = "provisioning/salt/minion/web/pypi"
         s.run_highstate = true
       end
     end
@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
 
       mirror.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/mirror-minion"
+        s.minion_config = "provisioning/salt/minion/web/mirror"
         s.run_highstate = true
       end
     end
@@ -39,46 +39,46 @@ Vagrant.configure("2") do |config|
 
   if ENV['VAGRANT_POSTGRES_CLUSTER'] == '1'
 
-    config.vm.define "pg_master" do |pg_master|
-      pg_master.vm.network "private_network", ip: "192.168.57.5"
-      pg_master.vm.network "private_network", ip: "172.16.57.5"
+    config.vm.define "pg_primary" do |pg_primary|
+      pg_primary.vm.network "private_network", ip: "192.168.57.5"
+      pg_primary.vm.network "private_network", ip: "172.16.57.5"
 
-      pg_master.vm.provision :salt do |s|
+      pg_primary.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/pg_cluster-master-minion"
+        s.minion_config = "provisioning/salt/minion/pg_cluster/primary"
         s.run_highstate = true
       end
     end
 
-    config.vm.define "pg_slave" do |pg_slave|
-      pg_slave.vm.network "private_network", ip: "192.168.57.6"
-      pg_slave.vm.network "private_network", ip: "172.16.57.6"
+    config.vm.define "pg_standby_0" do |pg_standby_0|
+      pg_standby_0.vm.network "private_network", ip: "192.168.57.6"
+      pg_standby_0.vm.network "private_network", ip: "172.16.57.6"
 
-      pg_slave.vm.provision :salt do |s|
+      pg_standby_0.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/pg_cluster-slave-minion"
+        s.minion_config = "provisioning/salt/minion/pg_cluster/standby_0"
         s.run_highstate = true
       end
     end
 
-    config.vm.define "pgpool0" do |pgpool0|
-      pgpool0.vm.network "private_network", ip: "192.168.57.7"
-      pgpool0.vm.network "private_network", ip: "172.16.57.7"
+    config.vm.define "pgpool_0" do |pgpool_0|
+      pgpool_0.vm.network "private_network", ip: "192.168.57.7"
+      pgpool_0.vm.network "private_network", ip: "172.16.57.7"
 
-      pgpool0.vm.provision :salt do |s|
+      pgpool_0.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/pg_cluster-pgpool0"
+        s.minion_config = "provisioning/salt/minion/pg_cluster/pgpool_0"
         s.run_highstate = true
       end
     end
 
-    config.vm.define "pgpool1" do |pgpool1|
-      pgpool1.vm.network "private_network", ip: "192.168.57.8"
-      pgpool1.vm.network "private_network", ip: "172.16.57.8"
+    config.vm.define "pgpool_1" do |pgpool_1|
+      pgpool_1.vm.network "private_network", ip: "192.168.57.8"
+      pgpool_1.vm.network "private_network", ip: "172.16.57.8"
 
-      pgpool1.vm.provision :salt do |s|
+      pgpool_1.vm.provision :salt do |s|
         s.verbose = true
-        s.minion_config = "provisioning/salt/minion/pg_cluster-pgpool1"
+        s.minion_config = "provisioning/salt/minion/pg_cluster/pgpool_1"
         s.run_highstate = true
       end
     end
