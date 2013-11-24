@@ -1,5 +1,5 @@
 {% if 'develop' in grains['roles'] %}
-#*/5 * * * * pypi-mirror ( /opt/bandersnatch/bin/bandersnatch mirror >> /data/pypi-mirror/mirror-cron.log 2>&1 ) & sleep 15 ; kill $! 
+#*/1 * * * * pypi-mirror /opt/bandersnatch/bin/bandersnatch mirror |& logger -t bandersnatch[mirror]
 {% else %}
-*/1 * * * * pypi-mirror /opt/bandersnatch/bin/bandersnatch mirror >> /data/pypi-mirror/mirror-cron.log 2>&1
+*/1 * * * * pypi-mirror /opt/bandersnatch/bin/bandersnatch mirror |& logger -t bandersnatch[mirror]
 {% endif %}
