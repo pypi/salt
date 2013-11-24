@@ -1,6 +1,6 @@
 {% set config = salt['pillar.get']('postgresql_cluster', {}) %}
 
-{% if 'slave' in grains['roles'] %}
+{% if 'standby' in grains['roles'] %}
 standby_mode = on
 primary_conninfo = 'host={{ config['primary_server'] }} port=5432'
 {% endif %}

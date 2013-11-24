@@ -21,15 +21,15 @@ default_text_search_config = 'pg_catalog.english'
 {% set internal = salt['pillar.get']('pypi_internal_network') %}
 listen_addresses = '{{ salt['ip_picker.ip_addrs'](cidr=internal)[0] }},127.0.01'
 
-{% if 'master' in grains['roles'] %}
-# Master
+{% if 'primary' in grains['roles'] %}
+# Primary
 wal_level = hot_standby
 max_wal_senders = 10
 checkpoint_segments = 16
 wal_keep_segments = 32
 {% endif %}
 
-{% if 'slave' in grains['roles'] %}
-# Slave
+{% if 'standby' in grains['roles'] %}
+# Standby
 hot_standby = on
 {% endif %}
