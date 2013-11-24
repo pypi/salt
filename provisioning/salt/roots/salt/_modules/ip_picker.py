@@ -30,3 +30,22 @@ def ip_addrs(interface=None, include_loopback=False, cidr=None):
         return [i for i in addrs if salt.utils.network.in_subnet(cidr, [i])]
     else:
         return addrs
+
+def interfaces_for_cidr(cidr='0.0.0.0/0'):
+    '''
+    Return a dictionary of information about all the interfaces on the minion
+    which have an address in the givin CIDR.
+
+    CLI Example:
+
+    .. code-block:: bash
+
+        salt '*' network.interfaces_for_cidr cidr="192.168.1.1/24"
+    '''
+    interfaces = salt.utils.network.interfaces()
+    matched = []
+    for interface, data in interfaces.iteritems():
+        for net in data.get('inet'):
+            if salt.utils.network.in_subnet(cidr, [net['address']]):
+                matched.append(interface)
+    return list(set(matched))
