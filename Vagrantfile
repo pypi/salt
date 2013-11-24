@@ -39,22 +39,22 @@ Vagrant.configure("2") do |config|
 
   if ENV['VAGRANT_POSTGRES_CLUSTER'] == '1'
 
-    config.vm.define "pg_master" do |pg_master|
-      pg_master.vm.network "private_network", ip: "192.168.57.5"
-      pg_master.vm.network "private_network", ip: "172.16.57.5"
+    config.vm.define "pg_primary" do |pg_primary|
+      pg_primary.vm.network "private_network", ip: "192.168.57.5"
+      pg_primary.vm.network "private_network", ip: "172.16.57.5"
 
-      pg_master.vm.provision :salt do |s|
+      pg_primary.vm.provision :salt do |s|
         s.verbose = true
         s.minion_config = "provisioning/salt/minion/pg_cluster-primary"
         s.run_highstate = true
       end
     end
 
-    config.vm.define "pg_slave" do |pg_slave|
-      pg_slave.vm.network "private_network", ip: "192.168.57.6"
-      pg_slave.vm.network "private_network", ip: "172.16.57.6"
+    config.vm.define "pg_standby0" do |pg_standby0|
+      pg_standby0.vm.network "private_network", ip: "192.168.57.6"
+      pg_standby0.vm.network "private_network", ip: "172.16.57.6"
 
-      pg_slave.vm.provision :salt do |s|
+      pg_standby0.vm.provision :salt do |s|
         s.verbose = true
         s.minion_config = "provisioning/salt/minion/pg_cluster-standby0"
         s.run_highstate = true
