@@ -121,23 +121,6 @@ Vagrant.configure("2") do |config|
       end
     end
 
-    config.vm.define "gluster_2" do |gluster_2|
-      gluster_2.vm.network "private_network", ip: "192.168.57.22"
-      gluster_2.vm.network "private_network", ip: "172.16.57.22"
-
-      gluster_2.vm.provider :virtualbox do |vm|
-        file_to_disk = '.vagrant/tmp/gluster_2.vdi'
-        vm.customize ['createhd', '--filename', file_to_disk, '--size', 10 * 1024]
-        vm.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
-      end
-
-      gluster_2.vm.provision :salt do |s|
-        s.verbose = true
-        s.minion_config = "provisioning/salt/minion/gluster_cluster/node"
-        s.run_highstate = true
-      end
-    end
-
     config.vm.define "gluster_client" do |gluster_client|
       gluster_client.vm.network "private_network", ip: "192.168.57.29"
       gluster_client.vm.network "private_network", ip: "172.16.57.29"
