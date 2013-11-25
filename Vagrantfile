@@ -114,6 +114,13 @@ Vagrant.configure("2") do |config|
         vm.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
       end
 
+      gluster_1.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/gluster_cluster/node"
+        s.run_highstate = true
+      end
+    end
+
     config.vm.define "gluster_2" do |gluster_2|
       gluster_2.vm.network "private_network", ip: "192.168.57.22"
       gluster_2.vm.network "private_network", ip: "172.16.57.22"
