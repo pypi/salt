@@ -24,3 +24,7 @@ base:
     - match: grain
     - postgresql.cluster
     - postgresql.pgpool
+
+  'roles:gluster_node':
+    - match: grain
+    - glusterfs.server

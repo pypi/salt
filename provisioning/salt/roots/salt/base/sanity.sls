@@ -1,5 +1,5 @@
 
-niceities:
+niceties:
   pkg.installed:
     - pkgs:
       - htop

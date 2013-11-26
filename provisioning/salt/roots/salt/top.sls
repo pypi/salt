@@ -26,3 +26,10 @@ base:
     - firewall
     - keepalived
     - postgresql.cluster.pgpool
+
+  'roles:gluster_node':
+    - match: grain
+    - glusterfs.server
+  'roles:gluster_client':
+    - match: grain
+    - glusterfs.client
