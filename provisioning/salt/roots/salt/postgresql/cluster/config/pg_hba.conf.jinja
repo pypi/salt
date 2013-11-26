@@ -5,9 +5,22 @@ local   all         all                               ident
 host    all         all         127.0.0.1/32          md5
 host    all         all         ::1/128               md5
 host    replication postgres    {{ config.get('primary_server') }}/32       trust
-{% for server in config.get('standby_servers') %}
+
+{% for server in config.get('standby_servers') -%}
 host    replication postgres    {{ server }}/32       trust
-{% endfor %}
-{% for server in pgpool_config.get('nodes') %}
+{% endfor -%}
+
+{% for server in pgpool_config.get('nodes') -%}
 host    all         postgres    {{ server }}/32       trust
-{% endfor %}
+{% endfor -%}
+
+{% for rule, hba_entry in config.get('pg_hba', []).items() -%}
+
+{% set type = hba_entry.get('type', 'host') -%}
+{% set database = hba_entry.get('database', 'all') -%}
+{% set user = hba_entry.get('user', 'all') -%}
+{% set address = hba_entry.get('address', '0.0.0.0/0') -%}
+{% set method = hba_entry.get('method', 'md5') -%}
+
+{{ type }} {{ database }} {{ user }} {{ address }} {{ method }}
+{% endfor -%}
