@@ -2,6 +2,8 @@ base:
 
   '*':
     - networking
+    - users
+    - sudoers
 
   'roles:pypi-mirror':
     - match: grain

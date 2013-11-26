@@ -1,6 +1,9 @@
 base:
   '*':
     - base.sanity
+    - users
+    - sudoers
+
   'roles:pypi-mirror':
     - match: grain
     - pypi-mirror
