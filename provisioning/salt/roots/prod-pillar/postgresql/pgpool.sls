@@ -1,8 +1,8 @@
 
 pgpool_cluster:
   nodes:
-    - None
-    - None
+    - 172.16.57.4
+    - 172.16.57.5
   virtual_ip:
     172.16.57.100
 
