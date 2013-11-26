@@ -54,7 +54,7 @@ restart_postgresql:
 
 {% if 'primary' in grains['roles'] %}
 
-  {% for pg_user, config in pillar.get('postgresql_users').items() %}
+  {% for pg_user, config in pillar.get('postgresql_users', []).items() %}
 
   {% set name = config['name'] %}
   {% set password = config['password'] %}
@@ -69,7 +69,7 @@ restart_postgresql:
       - pkg: postgresql93-server
   {% endfor %}
 
-  {% for pg_database, config in pillar.get('postgresql_databases').items() %}
+  {% for pg_database, config in pillar.get('postgresql_databases', []).items() %}
 
   {% set name = config['name'] %}
   {% set owner = config.get('owner', 'postgres') %}
@@ -85,7 +85,7 @@ restart_postgresql:
  
   {% endfor %}
 
-  {% for pg_extension, config in pillar.get('postgresql_extensions').items() %}
+  {% for pg_extension, config in pillar.get('postgresql_extensions', []).items() %}
 
   {% set ext = config['name'] %}
   {% set database = config['database'] %}
