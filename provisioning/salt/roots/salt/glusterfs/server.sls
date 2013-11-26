@@ -1,22 +1,20 @@
 
 include:
   - firewall
-  - keepalived
+  - glusterfs.base
 
 glusterfs-server:
-  pkg.installed
+  pkg:
+    - installed
+    - require:
+      - pkgrepo: gluster-el6
 
 glusterd:
   service:
     - running
     - enable: True
-
-rpcbind:
-  pkg:
-    - installed
-  service:
-    - running
-    - enable: True
+    - require:
+      - pkg: glusterfs-server
 
 {% for brick, mount in salt['pillar.get']('gluster_cluster:bricks').iteritems() %}
 mk-brkfs:
@@ -53,10 +51,19 @@ create-volume-{{ volume }}:
       {% endfor %}
 
 {% if config.get('auth_allow', False) %}
-set-auth-{{ volume }}:
+set-auth_allow-{{ volume }}:
   cmd.run:
     - name: 'gluster volume set {{ volume }} auth.allow {{ config.get('auth_allow') }}'
     - unless: 'gluster volume info {{ volume }} | grep "auth.allow: {{ config.get('auth_allow') }}"'
+    - require:
+      - cmd: create-volume-{{ volume }}
+{% endif %}
+
+{% if config.get('network_ping-timeout', False) %}
+set-network_ping-timeout-{{ volume }}:
+  cmd.run:
+    - name: 'gluster volume set {{ volume }} network.ping-timeout {{ config.get('network_ping-timeout') }}'
+    - unless: 'gluster volume info {{ volume }} | grep "network.ping-timeout: {{ config.get('network_ping-timeout') }}"'
     - require:
       - cmd: create-volume-{{ volume }}
 {% endif %}

@@ -12,14 +12,7 @@ gluster_cluster:
         - 172.16.57.20:/data/glusterfs/pypi
         - 172.16.57.21:/data/glusterfs/pypi
       auth_allow: '172.16.57.*'
-  virtual_ip:
-    172.16.57.101
-
-virtual_ips:
-  172.16.57.101:
-    auth_pass: muchsecret
-    vrid: 52
-    cidr: 172.16.57.0/24
+      network_ping-timeout: 5
 
 firewall:
   gluster_daemon:
