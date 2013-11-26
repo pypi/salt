@@ -27,3 +27,7 @@ postgresql93-server:
   {% endif %}
     - watch:
       - pkg: postgresql93-server
+
+pypi_postgres_contrib:
+  pkg.installed:
+    - name: postgresql93-contrib

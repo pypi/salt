@@ -51,3 +51,57 @@ restart_postgresql:
     - require:
       - pkg: postgresql93-server
       - cmd: postgresql93-server
+
+{% if 'primary' in grains['roles'] %}
+
+  {% for pg_user, config in pillar.get('postgresql_users').items() %}
+
+  {% set name = config['name'] %}
+  {% set password = config['password'] %}
+
+{{ pg_user }}_postgres_user:
+  postgres_user.present:
+    - name: {{ name }}
+    - password: {{ password }}
+    - user: postgres
+    - require:
+      - service: postgresql-9.3
+      - pkg: postgresql93-server
+  {% endfor %}
+
+  {% for pg_database, config in pillar.get('postgresql_databases').items() %}
+
+  {% set name = config['name'] %}
+  {% set owner = config.get('owner', 'postgres') %}
+
+{{ pg_database }}_postgres_database:
+  postgres_database.present:
+    - name: {{ name }}
+    - owner: {{ owner }}
+     {% if config.get('owner', False) %}
+    - require:
+      - postgres_user: {{ owner }}
+     {% endif %}
+ 
+  {% endfor %}
+
+  {% for pg_extension, config in pillar.get('postgresql_extensions').items() %}
+
+  {% set ext = config['name'] %}
+  {% set database = config['database'] %}
+  {% set schema = config.get('schema', 'public') %}
+
+{{ database }}_{{ schema }}_postgres_extension_{{ ext }}:
+  cmd.wait:
+    - name: 'psql {{ database }} -c "CREATE EXTENSION IF NOT EXISTS {{ ext }} WITH SCHEMA {{ schema }};"'
+    - user: postgres
+    - require:
+      - postgres_database: {{ database }}_postgres_database
+      - pkg: pypi_postgres_contrib
+    - watch:
+      - postgres_database: {{ database }}_postgres_database
+      - pkg: pypi_postgres_contrib
+
+  {% endfor %}
+
+{% endif %}
