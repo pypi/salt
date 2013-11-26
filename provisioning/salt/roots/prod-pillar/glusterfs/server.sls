@@ -13,6 +13,13 @@ gluster_cluster:
         - 172.16.57.7:/data/glusterfs/pypi
       auth_allow: '172.16.57.*'
       network_ping-timeout: 5
+    testpypi:
+      replication: 2
+      nodes:
+        - 172.16.57.6:/data/glusterfs/testpypi
+        - 172.16.57.7:/data/glusterfs/testpypi
+      auth_allow: '172.16.57.*'
+      network_ping-timeout: 5
 
 firewall:
   gluster_daemon:
