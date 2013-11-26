@@ -15,18 +15,18 @@ virtual_ips:
 firewall:
   pgpool_watchdog:
     port: 9000
-    source: source: 172.16.57.0/24
+    source: 172.16.57.0/24
   pgpool_heartbeat:
     protocol: udp
     port: 9694
-    source: source: 172.16.57.0/24
+    source: 172.16.57.0/24
   pgpool_pcp:
     port: 9898
-    source: source: 172.16.57.0/24
+    source: 172.16.57.0/24
   pgpool_proxy:
     port: 9999
-    source: source: 172.16.57.0/24
+    source: 172.16.57.0/24
   pgpool_postgres:
     port: 5432
-    source: source: 172.16.57.0/24
+    source: 172.16.57.0/24
 
