@@ -24,7 +24,7 @@ mk-brkfs:
 
 {{ mount }}:
   mount.mounted:
-    - device: /dev/sdb
+    - device: {{ brick }}
     - fstype: ext4
     - mkmnt: True
     - opts:
