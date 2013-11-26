@@ -5,6 +5,10 @@ base:
     - users
     - sudoers
 
+  'roles:salt-master':
+    - match: grain
+    - salt-master
+
   'roles:pypi-mirror':
     - match: grain
     - pypi-mirror
