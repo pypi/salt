@@ -3,7 +3,6 @@ gluster_cluster:
   peers:
     - 172.16.57.20
     - 172.16.57.21
-    - 172.16.57.22
   bricks:
     /dev/sdb: /data/glusterfs
   volumes:
@@ -12,7 +11,6 @@ gluster_cluster:
       nodes:
         - 172.16.57.20:/data/glusterfs/pypi
         - 172.16.57.21:/data/glusterfs/pypi
-        - 172.16.57.22:/data/glusterfs/pypi
       auth_allow: '172.16.57.*'
   virtual_ip:
     172.16.57.101
