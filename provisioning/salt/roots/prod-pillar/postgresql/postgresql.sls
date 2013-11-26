@@ -1,7 +1,7 @@
 
 firewall:
   postgresql:
-    source: source: 172.16.57.0/24
+    source: 172.16.57.0/24
     port: 5432
 
 
