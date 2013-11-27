@@ -1,16 +1,23 @@
 
 gluster_cluster:
   peers:
-    - 172.16.57.20
-    - 172.16.57.21
+    - 172.16.57.30
+    - 172.16.57.31
   bricks:
     /dev/sdb: /data/glusterfs
   volumes:
     pypi:
       replication: 2
       nodes:
-        - 172.16.57.20:/data/glusterfs/pypi
-        - 172.16.57.21:/data/glusterfs/pypi
+        - 172.16.57.30:/data/glusterfs/pypi
+        - 172.16.57.31:/data/glusterfs/pypi
+      auth_allow: '172.16.57.*'
+      network_ping-timeout: 5
+    testpypi:
+      replication: 2
+      nodes:
+        - 172.16.57.30:/data/glusterfs/testpypi
+        - 172.16.57.31:/data/glusterfs/testpypi
       auth_allow: '172.16.57.*'
       network_ping-timeout: 5
 
