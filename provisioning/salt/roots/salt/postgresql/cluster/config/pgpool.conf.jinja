@@ -29,7 +29,7 @@ backend_weight{{ loop.index }} = 1
 #backend_flag{{ loop.index }} = 'ALLOW_TO_FAILOVER'
 {% endfor %}
 
-enable_pool_hba = off
+enable_pool_hba = {{ salt['pillar.get']('pgpool_cluster:enable_pool_hba', 'off') }}
 pool_passwd = 'pool_passwd'
 authentication_timeout = 60
 

@@ -22,14 +22,13 @@ base:
     - match: grain
     - postgresql.cluster
     - postgresql.postgresql
-  'G@roles:postgresql_cluster and G@roles:primary':
-    - match: compound
     - secrets.postgresql
 
   'roles:postgresql_pgpool':
     - match: grain
     - postgresql.cluster
     - postgresql.pgpool
+    - secrets.postgresql
 
   'roles:gluster_node':
     - match: grain
