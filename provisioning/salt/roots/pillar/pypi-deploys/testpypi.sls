@@ -14,6 +14,7 @@ pypi-deploy-testpypi:
 
   mailhost: localhost:25
 
+  https_only: True
   server_names:
     - testpypi.python.org
   url: https://testpypi.python.org

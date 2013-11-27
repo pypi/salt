@@ -3,7 +3,14 @@
 server {
   listen 80;
   server_name {{ " ".join(config['server_names']) }};
+
+  {% if config.get('https_only', False) %}
+  location / {
+    return 301 https://$server_name$request_uri;
+  }
+  {% else %}
   include conf.d/{{ config['name'] }}/app.conf;
+  {% endif %}
 }
 
 server {
@@ -11,4 +18,10 @@ server {
   server_name {{ " ".join(config['server_names']) }};
   include nginx.ssl.conf;
   include conf.d/{{ config['name'] }}/app.conf;
+}
+
+server {
+  listen 80;
+  server_name cheeseshop.python.org a.pypi.python.org b.pypi.python.org d.pypi.python.org g.pypi.python.org;
+  rewrite ^ $scheme://pypi.python.org$request_uri permanent;
 }

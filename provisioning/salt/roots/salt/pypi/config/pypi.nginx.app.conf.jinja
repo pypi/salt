@@ -6,6 +6,8 @@ error_log /var/log/nginx/{{ config['name'] }}/error.log;
 
 add_header Strict-Transport-Security "max-age=31536000";
 
+rewrite ^/$ {{ config['url'] }}/pypi redirect;
+
 location ~* ^/(pypi|daytime|mirrors|id|oauth|security).* {
   include uwsgi_params;
   uwsgi_pass unix:/var/run/{{ config['name'] }}/pypi.sock;
