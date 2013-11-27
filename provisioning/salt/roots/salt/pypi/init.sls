@@ -76,11 +76,17 @@ pypi-system-deps:
 
 {{ config['data_mount'] }}:
   mount.mounted:
-    - device: {{ config['data_device'] }}
+    - device: {{ config['data_device']['uri'] }}
     - fstype: {{ config['data_device']['type'] }}
     - mkmnt: True
     - opts:
       - defaults
+  file.directory:
+    - user: {{ config['user'] }}
+    - group: {{ config['group'] }}
+    - mode: 755
+    - require:
+      - user: {{ config['user'] }}
 
   {% endif %}
 
