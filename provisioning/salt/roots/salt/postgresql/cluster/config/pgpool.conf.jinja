@@ -9,7 +9,7 @@
 #------------------------------------------------------------------------------
 
 listen_addresses = '*'
-port = 9999
+port = {{ salt['pillar.get']('pgpool_cluster:listen_address', 9999)  }}
 socket_dir = '/var/run/pgpool-II-93/'
 
 pcp_port = 9898
