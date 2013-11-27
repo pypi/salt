@@ -12,11 +12,18 @@ base:
   'roles:pypi-mirror':
     - match: grain
     - pypi-mirror
-  'roles:pypi':
-    - match: grain
+
+  'G@roles:pypi not G@roles:develop':
+    - match: compound
     - pypi
     - pypi-deploys.testpypi
     - secrets.testpypi
+
+  'G@roles:pypi and G@roles:develop':
+    - match: compound
+    - pypi
+    - pypi-deploys.pypi-dev
+    - secrets.pypi-dev
 
   'roles:postgresql_cluster':
     - match: grain

@@ -1,3 +1,10 @@
+{% set deploys = {} %}
+{% for k,v in pillar.items() %}
+  {% if k.startswith('pypi-deploy-') %}
+    {% do deploys.update({k: v}) %}
+  {% endif %}
+{% endfor %}
+
 postgresql:
   pkg.installed
 
@@ -16,69 +23,87 @@ pypi_postgres_pg_hba:
       - pkg: postgresql93-server
       - cmd: postgresql93-server
 
-pypi_dev_postgres_user:
+{% for key, config in deploys.items() %}
+{% set secrets = salt['pillar.get']("secrets-"+key) %}
+
+{{ config['name'] }}_dev_postgres_user:
   postgres_user.present:
-    - name: pypi
-    - password: pypi
+    - name: {{ secrets['postgresql']['user'] }}
+    - password: {{ secrets['postgresql']['password'] }}
     - user: postgres
     - require:
       - service: postgresql-9.3
       - pkg: postgresql
 
-pypi_postgres_database:
+{{ config['name'] }}_postgres_database:
   postgres_database.present:
-    - name: pypi
-    - owner: pypi
+    - name: {{ secrets['postgresql']['database'] }}
+    - owner: {{ secrets['postgresql']['user'] }}
     - require:
-      - postgres_user: pypi_dev_postgres_user
+      - postgres_user: {{ config['name'] }}_dev_postgres_user
 
-pypi_postgres_citext:
+{{ config['name'] }}_postgres_citext:
   cmd.wait:
-    - name: 'psql pypi -c "CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;"'
+    - name: 'psql {{ secrets['postgresql']['database'] }} -c "CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;"'
     - user: postgres
     - require:
-      - postgres_database: pypi_postgres_database
-      - postgres_user: pypi_dev_postgres_user
+      - postgres_database: {{ config['name'] }}_postgres_database
+      - postgres_user: {{ config['name'] }}_dev_postgres_user
       - pkg: pypi_postgres_contrib
     - watch:
-      - postgres_database: pypi_postgres_database
-      - postgres_user: pypi_dev_postgres_user
+      - postgres_database: {{ config['name'] }}_postgres_database
+      - postgres_user: {{ config['name'] }}_dev_postgres_user
       - pkg: pypi_postgres_contrib
 
-pypi_postgres_plpgsql:
+{{ config['name'] }}_postgres_plpgsql:
   cmd.wait:
-    - name: 'psql pypi -c "CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;"'
+    - name: 'psql {{ secrets['postgresql']['database'] }} -c "CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;"'
     - user: postgres
     - require:
-      - postgres_database: pypi_postgres_database
-      - postgres_user: pypi_dev_postgres_user
+      - postgres_database: {{ config['name'] }}_postgres_database
+      - postgres_user: {{ config['name'] }}_dev_postgres_user
     - watch:
-      - postgres_database: pypi_postgres_database
-      - postgres_user: pypi_dev_postgres_user
+      - postgres_database: {{ config['name'] }}_postgres_database
+      - postgres_user: {{ config['name'] }}_dev_postgres_user
 
-pypi_schema_load:
-  cmd.wait:
-    - name: 'psql pypi -f /opt/pypi/src/pkgbase_schema.sql'
-    - user: pypi
-    - cwd: /opt/pypi/src
+{{ config['path'] }}/.pgpass:
+  file.managed:
+    - contents: "{{ secrets['postgresql']['host'] }}:*:{{ secrets['postgresql']['database'] }}:{{ secrets['postgresql']['user'] }}:{{ secrets['postgresql']['password'] }}"
+    - user: {{ config['user'] }}
+    - group: {{ config['group'] }}
+    - mode: 600
     - require:
-      - postgres_database: pypi_postgres_database
-      - postgres_user: pypi_dev_postgres_user
-      - cmd: pypi_postgres_plpgsql
-      - cmd: pypi_postgres_citext
-      - hg: pypi-source
-    - watch:
-      - postgres_database: pypi_postgres_database
+      - user: {{ config['user'] }}
+      - group: {{ config['group'] }}
 
-pypi_sample_data_load:
+{{ config['name'] }}_schema_load:
   cmd.wait:
-    - name: '/opt/pypi/env/bin/python /opt/pypi/src/tools/demodata.py'
-    - user: pypi
-    - cwd: /opt/pypi/src
+    - name: 'psql {{ secrets['postgresql']['database'] }} -U {{ secrets['postgresql']['user'] }} -h {{ secrets['postgresql']['host'] }} -f {{ config['path'] }}/src/pkgbase_schema.sql'
+    - user: {{ config['user'] }}
+    - cwd: {{ config['path'] }}
+    - env:
+      PGPASSWORD: {{ secrets['postgresql']['password'] }}
     - require:
-      - cmd: pypi_schema_load
-      - virtualenv: /opt/pypi/env
-      - file: /opt/pypi/src/config.ini
-      - file: /data/pypi
+      - postgres_database: {{ config['name'] }}_postgres_database
+      - postgres_user: {{ config['name'] }}_dev_postgres_user
+      - cmd: {{ config['name'] }}_postgres_plpgsql
+      - cmd: {{ config['name'] }}_postgres_citext
+      - hg: {{ config['name'] }}-source
+      - file: {{ config['path'] }}/.pgpass
     - watch:
-      - postgres_database: pypi_postgres_database
+      - postgres_database: {{ config['name'] }}_postgres_database
+
+{{ config['name'] }}_sample_data_load:
+  cmd.wait:
+    - name: '{{ config['path'] }}/env/bin/python {{ config['path'] }}/src/tools/demodata.py'
+    - user: {{ config['user'] }}
+    - cwd: {{ config['path'] }}/src
+    - require:
+      - cmd: {{ config['name'] }}_schema_load
+      - virtualenv: {{ config['path'] }}/env
+      - file: {{ config['path'] }}/src/config.ini
+      - file: {{ config['data_mount'] }}
+    - watch:
+      - postgres_database: {{ config['name'] }}_postgres_database
+
+{% endfor %}

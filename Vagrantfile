@@ -12,8 +12,20 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "provisioning/salt/roots/", "/srv/"
 
+  if ENV['VAGRANT_PYPI_DEV'] == '1'
+    config.vm.define "pypi_dev" do |pypi_dev|
 
-  unless ENV['VAGRANT_SKIP_PYPI'] == '1'
+      pypi_dev.vm.network "private_network", ip: "192.168.57.9"
+
+      pypi_dev.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/web/pypi_dev"
+        s.run_highstate = true
+      end
+    end
+  end
+
+  if ENV['VAGRANT_PYPI'] == '1'
     config.vm.define "pypi" do |pypi|
 
       pypi.vm.network "private_network", ip: "192.168.57.10"
