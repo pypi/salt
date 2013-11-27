@@ -1,0 +1,12 @@
+{% set config = salt['pillar.get'](app_key) %}
+
+[program:{{ config['name'] }}-worker]
+command = {{ config['path'] }}/env/bin/python {{ config['path'] }}/src/tools/worker.py
+autostart = true
+autorestart = true
+stopwaitsecs = 15
+stopsignal = TERM
+stdout_logfile = /var/log/{{ config['name'] }}/worker.stdout.log
+stderr_logfile = /var/log/{{ config['name'] }}/worker.stderr.log
+user = {{ config['user'] }}
+directory = {{ config['path'] }}/src

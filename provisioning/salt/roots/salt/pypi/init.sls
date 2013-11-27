@@ -186,6 +186,28 @@ pypi-system-deps:
     - require:
       - file: {{ config['path'] }}/src/config.ini
 
+/etc/supervisord.d/{{ config['name'] }}-worker.ini:
+  file.managed:
+    - source: salt://pypi/config/pypi-worker.ini.jinja
+    - user: root
+    - group: root
+    - mode: 640
+    - template: jinja
+    - context:
+      app_key: {{ key }}
+    - require:
+      - file: /var/log/{{ config['name'] }}
+      - file: {{ config['path'] }}/src/config.ini
+      - virtualenv: {{ config['path'] }}/env
+
+{{ config['name'] }}-supervisor:
+  cmd.wait:
+    - name: supervisorctl reread && supervisorctl update
+    - require:
+      - file: /etc/supervisord.d/{{ config['name'] }}-worker.ini
+    - watch:
+      - file: /etc/supervisord.d/{{ config['name'] }}-worker.ini
+
 {{ config['name'] }}-service:
   service:
     - name: {{ config['name'] }}
@@ -193,5 +215,14 @@ pypi-system-deps:
     - enable: True
     - require:
       - file: /etc/init.d/{{ config['name'] }}
+
+{{ config['name'] }}-reload:
+  cmd.wait:
+    - name: 'service {{ config['name'] }} reload && supervisorctl restart {{ config['name'] }}-worker'
+    - require:
+      - service: {{ config['name'] }}-service
+      - cmd: {{ config['name'] }}-supervisor
+    - watch:
+       - hg: {{ config['name'] }}-source
 
 {% endfor %}
