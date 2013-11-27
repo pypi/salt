@@ -55,3 +55,14 @@ pgpool-II-93:
     - require:
       - file: /etc/pgpool-II-93/pcp.conf
       - file: /var/log/pgpool-II
+
+{% for pg_user, config in pillar.get('postgresql_users', {}).items() %}
+
+{% set name = config['name'] %}
+{% set password = config['password'] %}
+
+{{ pg_user }}_pool_passwd:
+  cmd.run:
+    - name: 'pg_md5 --md5auth --username={{ name }} {{ password }}'
+
+{% endfor %}

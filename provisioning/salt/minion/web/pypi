@@ -4,5 +4,4 @@ file_roots:
     - /srv/salt
 grains:
   roles:
-    - develop
     - pypi

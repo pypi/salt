@@ -1,17 +1,20 @@
+{% set config = salt['pillar.get'](app_key) %}
+{% set secrets = salt['pillar.get']("secrets-"+app_key) %}
+
 [database]
 
 ; Postgres Database
-host = localhost
-name = pypi
-user = pypi
-password=pypi
+host = {{ secrets['postgresql']['host'] }}
+name = {{ secrets['postgresql']['database'] }}
+user = {{ secrets['postgresql']['user'] }}
+password={{ secrets['postgresql']['password'] }}
 
 ; Redis
 redis_url = redis://localhost:6379/0
 
 ; Storage Directories
-files_dir = /data/pypi/packages
-docs_dir = /data/pypi/packagedocs
+files_dir = {{ config['data_mount'] }}/packages
+docs_dir = {{ config['data_mount'] }}/packagedocs
 
 ; Third-Party
 pubsubhubbub = http://pubsubhubbub.appspot.com/
@@ -20,19 +23,19 @@ pubsubhubbub = http://pubsubhubbub.appspot.com/
 
 ; PyPI config
 debug_mode = no
-rss_file = /data/pypi/pypi_rss.xml
-packages_rss_file = /data/pypi/pypi_packages_rss.xml
+rss_file = {{ config['data_mount'] }}/pypi_rss.xml
+packages_rss_file = {{ config['data_mount'] }}/pypi_packages_rss.xml
 
 ; Email
-mailhost = localhost:25
+mailhost = {{ config['mailhost'] }}
 adminemail = cheeseshop@python.org
 replyto = cheeseshop@python.org
 
 ; Secrets
-sshkeys_update = /opt/pypi/src/sshkeys_update
-key_dir = /data/pypi/secret
-cheesecake_password = secret
-reset_secret = secret
+sshkeys_update = {{ config['path'] }}/src/sshkeys_update
+key_dir = {{ config['data_mount'] }}/secret
+cheesecake_password =  {{ secrets['webui']['cheescake_password'] }}
+reset_secret = {{ secrets['webui']['reset_secret'] }}
 
 ; URI Paths
 simple_script = /simple
@@ -40,8 +43,8 @@ raw_package_prefix = /raw-packages
 simple_sign_script = /serversig
 
 ; URLs
-url = http://localhost:8080/pypi
-files_url = http://localhost:8080/packages/
+url = {{ config['url'] }}/pypi
+files_url = {{ config['url'] }}/packages/
 pydotorg = https://www.python.org/
 package_docs_url = http://pythonhosted.org/
 
@@ -49,22 +52,22 @@ package_docs_url = http://pythonhosted.org/
 schemes = django_bcrypt, unix_disabled
 
 [logging]
-file = /var/log/pypi/pypi.log
-mailhost =
-fromaddr =
-toaddrs =
+file = /var/log/{{ config['name'] }}/pypi.log
+mailhost = {{ secrets['logging']['mailhost'] }}
+fromaddr = {{ secrets['logging']['fromaddr'] }}
+toaddrs = {{ secrets['logging']['toaddrs'] }}
 
 [sentry]
-dsn =
+dsn = {{ secrets['sentry']['dsn'] }}
 
 [uwsgi]
-uid=pypi
-gid=pypi
-wsgi-file = /opt/pypi/src/pypi.wsgi
-socket = /var/run/pypi/pypi.sock
-pidfile = /var/run/pypi/pypi.pid
+uid={{ config['user'] }}
+gid={{ config['group'] }}
+wsgi-file = {{ config['path'] }}/src/pypi.wsgi
+socket = /var/run/{{ config['name'] }}/pypi.sock
+pidfile = /var/run/{{ config['name'] }}/pypi.pid
 daemonize = 127.0.0.1:8224
-processes = 5
+processes = {{ config['uwsgi']['processes'] }}
 harakiri = 60
 reload-on-as = 400
 max-requests = 10000
@@ -77,5 +80,5 @@ log-5xx = true
 ; CDN API
 [fastly]
 api_domain = https://api.fastly.com/
-api_key =
-service_id =
+api_key = {{ secrets['fastly']['api_key'] }}
+service_id = {{ secrets['fastly']['service_id'] }}

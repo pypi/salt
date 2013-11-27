@@ -5,87 +5,11 @@ include:
   - pkg.hg
   - nginx
   - redis
+  - glusterfs.client
 {% if 'develop' in grains['roles'] %}
   - postgresql.93
   - pypi.dev-db
 {% endif %}
-
-pypi:
-  user.present:
-    - home: /opt/pypi
-
-/opt/pypi:
-  file.directory:
-    - user: pypi
-    - group: pypi
-    - mode: 755
-
-/var/log/pypi:
-  file.directory:
-    - user: pypi
-    - group: pypi
-    - mode: 750
-
-/var/run/pypi:
-  file.directory:
-    - user: pypi
-    - group: pypi
-    - mode: 755
-
-/data:
-  file.directory:
-    - user: root
-    - group: root
-    - mode: 755
-
-/data/pypi:
-  file.directory:
-    - user: pypi
-    - group: pypi
-    - mode: 755
-    - require:
-      - file: /data
-      - user: pypi
-
-/data/pypi/secret:
-  file.directory:
-    - user: pypi
-    - group: pypi
-    - mode: 750
-    - require:
-      - file: /data/pypi
-      - user: pypi
-
-/var/log/nginx/pypi:
-  file.directory:
-    - user: root
-    - group: root
-
-/etc/nginx/conf.d/pypi.conf:
-  file.managed:
-    - source: salt://pypi/config/pypi.nginx.conf.jinja
-    - user: root
-    - group: root
-    - mode: 640
-    - require:
-      - file: /var/log/nginx/pypi
-
-/etc/logrotate.d/pypi:
-  file.managed:
-    - source: salt://pypi/config/pypi.logrotate.conf
-    - user: root
-    - group: root
-    - mode: 644
-
-pypi-source:
-  hg.latest:
-    - name: https://bitbucket.org/pypa/pypi
-    - rev: tip
-    - target: /opt/pypi/src
-    - user: pypi
-    - require:
-      - user: pypi
-      - file: /opt/pypi
 
 pypi-system-deps:
   pkg.installed:
@@ -96,48 +20,177 @@ pypi-system-deps:
     - require:
       - pkgrepo: python27-el6
 
-/opt/pypi/env:
+{% set deploys = {} %}
+{% for k,v in pillar.items() %}
+  {% if k.startswith('pypi-deploy-') %}
+    {% do deploys.update({k: v}) %}
+  {% endif %}
+{% endfor %}
+
+{% for key, config in deploys.items() %}
+
+{{ config['name'] }}-user:
+  group.present:
+    - name: {{ config['group'] }}
+    - gid: {{ config['group_gid'] }}
+  user.present:
+    - name: {{ config['user'] }}
+    - uid: {{ config['user_uid'] }}
+    - gid: {{ config['group_gid'] }}
+    - home: {{ config['path'] }}
+    - createhome: True
+    - require:
+      - group: {{ config['group'] }}
+
+{{ config['path'] }}:
+  file.directory:
+    - user: {{ config['user'] }}
+    - group: {{ config['group'] }}
+    - mode: 755
+
+/var/log/{{ config['name'] }}:
+  file.directory:
+    - user: {{ config['user'] }}
+    - group: {{ config['group'] }}
+    - mode: 750
+
+/var/run/{{ config['name'] }}:
+  file.directory:
+    - user: {{ config['user'] }}
+    - group: {{ config['group'] }}
+    - mode: 755
+
+
+  {% if config['data_device']['type'] == "local" %}
+
+{{ config['data_mount'] }}:
+  file.directory:
+    - user: {{ config['user'] }}
+    - group: {{ config['group'] }}
+    - mode: 755
+    - makedirs: True
+    - require:
+      - user: {{ config['user'] }}
+
+  {% else %}
+
+{{ config['data_mount'] }}:
+  mount.mounted:
+    - device: {{ config['data_device']['uri'] }}
+    - fstype: {{ config['data_device']['type'] }}
+    - mkmnt: True
+    - opts:
+      - defaults
+  file.directory:
+    - user: {{ config['user'] }}
+    - group: {{ config['group'] }}
+    - mode: 755
+    - require:
+      - user: {{ config['user'] }}
+
+  {% endif %}
+
+/var/log/nginx/{{ config['name'] }}:
+  file.directory:
+    - user: root
+    - group: root
+
+/etc/nginx/conf.d/{{ config['name'] }}.conf:
+  file.managed:
+    - source: salt://pypi/config/pypi.nginx.conf.jinja
+    - template: jinja
+    - context:
+      app_key: {{ key }}
+    - user: root
+    - group: root
+    - mode: 640
+
+/etc/nginx/conf.d/{{ config['name'] }}:
+  file.directory
+
+/etc/nginx/conf.d/{{ config['name'] }}/app.conf:
+  file.managed:
+    - source: salt://pypi/config/pypi.nginx.app.conf.jinja
+    - template: jinja
+    - context:
+      app_key: {{ key }}
+    - user: root
+    - group: root
+    - mode: 640
+    - require:
+      - file: /etc/nginx/conf.d/{{ config['name'] }}
+      - file: /etc/nginx/conf.d/{{ config['name'] }}.conf
+      - file: /var/log/nginx/{{ config['name'] }}
+
+/etc/logrotate.d/{{ config['name'] }}:
+  file.managed:
+    - source: salt://pypi/config/pypi.logrotate.conf
+    - template: jinja
+    - context:
+      app_key: {{ key }}
+    - user: root
+    - group: root
+    - mode: 644
+
+{{ config['name'] }}-source:
+  hg.latest:
+    - name: https://bitbucket.org/pypa/pypi
+    - rev: tip
+    - target: {{ config['path'] }}/src
+    - user: {{ config['name'] }}
+    - require:
+      - user: {{ config['name'] }}
+      - file: {{ config['path'] }}
+
+/opt/{{ config['name'] }}/env:
   virtualenv.managed:
     - venv_bin: virtualenv-2.7
     - python: python2.7
     - system_site_packages: True
-    - user: pypi
-    - cwd: /opt/pypi/src
-    - requirements: /opt/pypi/src/requirements.txt
+    - user: {{ config['name'] }}
+    - cwd: {{ config['path'] }}/src
+    - requirements: {{ config['path'] }}/src/requirements.txt
     - require:
-      - file: /opt/pypi
-      - hg: pypi-source
-      - user: pypi
+      - file: {{ config['path'] }}
+      - hg: {{ config['name'] }}-source
+      - user: {{ config['user'] }}
       - pip: virtualenv-2.7
       - pkg: python27-m2crypto
       - pkg: pypi-system-deps
 
-/opt/pypi/src/config.ini:
+{{ config['path'] }}/src/config.ini:
   file.managed:
     - source: salt://pypi/config/pypi.ini.jinja
-    - user: pypi
-    - group: pypi
+    - user: {{ config['name'] }}
+    - group: {{ config['name'] }}
     - mode: 640
     - template: jinja
+    - context:
+      app_key: {{ key }}
     - require:
-      - file: /var/log/pypi
-      - file: /var/run/pypi
-      - virtualenv: /opt/pypi/env
+      - file: /var/log/{{ config['name'] }}
+      - file: /var/run/{{ config['name'] }}
+      - virtualenv: {{ config['path'] }}/env
 
-/etc/init.d/pypi:
+/etc/init.d/{{ config['name'] }}:
   file.managed:
     - source: salt://pypi/config/pypi.initd.jinja
+    - template: jinja
+    - context:
+      app_key: {{ key }}
     - user: root
     - group: root
     - mode: 755
     - template: jinja
     - require:
-      - file: /opt/pypi/src/config.ini
+      - file: {{ config['path'] }}/src/config.ini
 
-pypi-service:
+{{ config['name'] }}-service:
   service:
-    - name: pypi
+    - name: {{ config['name'] }}
     - running
     - enable: True
     - require:
-      - file: /etc/init.d/pypi
+      - file: /etc/init.d/{{ config['name'] }}
+
+{% endfor %}

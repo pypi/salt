@@ -1,24 +1,25 @@
+{% set config = salt['pillar.get'](app_key) %}
 #!/bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          pypi
+# Provides:          {{ config['name'] }}
 # Required-Start:    $local_fs $remote_fs $network
 # Required-Stop:     $local_fs $remote_fs $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: starts the pypi uwsgi server
-# Description:       starts the pypi uwsgi server
+# Short-Description: starts the {{ config['name'] }} uwsgi server
+# Description:       starts the {{ config['name'] }} uwsgi server
 ### END INIT INFO
 
 . /etc/rc.d/init.d/functions
 
-daemon=/opt/pypi/env/bin/uwsgi
-pidfile=/var/run/pypi/pypi.pid
-lockfile=/var/lock/subsys/pypi
+daemon={{ config['path'] }}/env/bin/uwsgi
+pidfile=/var/run/{{ config['name'] }}/pypi.pid
+lockfile=/var/lock/subsys/{{ config['name'] }}
 
-prog=pypi
+prog={{ config['name'] }}
 
-daemon_opts="/opt/pypi/src/config.ini"
+daemon_opts="{{ config['path'] }}/src/config.ini"
 
 start() {
     [ -x $daemon ] || exit 5
@@ -39,6 +40,14 @@ stop() {
     return $retval
 }
 
+check_status() {
+    status -p $pidfile
+}
+
+check_status_q() {
+    status -p $pidfile > /dev/null 2>&1
+}
+
 reload() {
     echo -n $"Reloading $prog: "
     killproc -p $pidfile $prog -HUP
@@ -47,24 +56,28 @@ reload() {
 
 case "$1" in
   start)
+        check_status_q && exit 0
         start
         ;;
   stop)
+        check_status_q || exit 0
         stop
+        ;;
+  status)
+        check_status
         ;;
   reload)
         reload
         ;;
   force-reload)
         reload
-       ;;
+        ;;
   restart)
         stop
         start
         ;;
-      *)  
-        echo "Usage: $proc {start|stop|restart|reload|force-reload}" >&2
+  *)
+        echo "Usage: $proc {start|stop|status|restart|reload|force-reload}" >&2
         exit 1
         ;;
-    esac
-    exit 0
+esac
