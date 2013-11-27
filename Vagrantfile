@@ -16,7 +16,8 @@ Vagrant.configure("2") do |config|
   unless ENV['VAGRANT_SKIP_PYPI'] == '1'
     config.vm.define "pypi" do |pypi|
 
-      pypi.vm.network "private_network", ip: "192.168.57.11"
+      pypi.vm.network "private_network", ip: "192.168.57.10"
+      pypi.vm.network "private_network", ip: "172.16.57.10"
 
       pypi.vm.provision :salt do |s|
         s.verbose = true
@@ -88,8 +89,8 @@ Vagrant.configure("2") do |config|
   if ENV['VAGRANT_GLUSTER'] == '1'
 
     config.vm.define "gluster_0" do |gluster_0|
-      gluster_0.vm.network "private_network", ip: "192.168.57.20"
-      gluster_0.vm.network "private_network", ip: "172.16.57.20"
+      gluster_0.vm.network "private_network", ip: "192.168.57.30"
+      gluster_0.vm.network "private_network", ip: "172.16.57.30"
 
       gluster_0.vm.provider :virtualbox do |vm|
         file_to_disk = '.vagrant/tmp/gluster_0.vdi'
@@ -105,8 +106,8 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.define "gluster_1" do |gluster_1|
-      gluster_1.vm.network "private_network", ip: "192.168.57.21"
-      gluster_1.vm.network "private_network", ip: "172.16.57.21"
+      gluster_1.vm.network "private_network", ip: "192.168.57.31"
+      gluster_1.vm.network "private_network", ip: "172.16.57.31"
 
       gluster_1.vm.provider :virtualbox do |vm|
         file_to_disk = '.vagrant/tmp/gluster_1.vdi'
@@ -122,8 +123,8 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.define "gluster_client" do |gluster_client|
-      gluster_client.vm.network "private_network", ip: "192.168.57.29"
-      gluster_client.vm.network "private_network", ip: "172.16.57.29"
+      gluster_client.vm.network "private_network", ip: "192.168.57.39"
+      gluster_client.vm.network "private_network", ip: "172.16.57.39"
 
       gluster_client.vm.provision :salt do |s|
         s.verbose = true
