@@ -10,7 +10,7 @@ pypi-deploy-testpypi:
   data_mount: /data/testpypi
   data_device:
     type: glusterfs
-    uri: 172.16.57.30:/testpypi
+    uri: 172.16.57.6:/testpypi
 
   mailhost: localhost:25
 
