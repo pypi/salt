@@ -10,7 +10,7 @@ secrets-pypi-deploy-testpypi:
     reset_secret: secret
   logging:
     mailhost: mail.python.org
-    fromaddrs: foo@bar.com
+    fromaddr: foo@bar.com
     toaddrs: fiz@bar.com
   sentry:
     dsn: deadbeef
