@@ -6,6 +6,7 @@ include:
   - nginx
   - redis
   - glusterfs.client
+  - supervisor
 {% if 'develop' in grains['roles'] %}
   - postgresql.93
   - pypi.dev-db
