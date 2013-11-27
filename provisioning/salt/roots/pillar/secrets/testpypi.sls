@@ -13,7 +13,7 @@ secrets-pypi-deploy-testpypi:
     fromaddr: foo@bar.com
     toaddrs: fiz@bar.com
   sentry:
-    dsn: deadbeef
+    dsn: ''
   fastly:
     api_key: deadbeef
     service_id: deadbeef
