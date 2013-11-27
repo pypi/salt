@@ -40,6 +40,14 @@ stop() {
     return $retval
 }
 
+check_status() {
+    status -p $pidfile
+}
+
+check_status_q() {
+    status -p $pidfile > /dev/null 2>&1
+}
+
 reload() {
     echo -n $"Reloading $prog: "
     killproc -p $pidfile $prog -HUP
@@ -48,24 +56,28 @@ reload() {
 
 case "$1" in
   start)
+        check_status_q && exit 0
         start
         ;;
   stop)
+        check_status_q || exit 0
         stop
+        ;;
+  status)
+        check_status
         ;;
   reload)
         reload
         ;;
   force-reload)
         reload
-       ;;
+        ;;
   restart)
         stop
         start
         ;;
-      *)  
-        echo "Usage: $proc {start|stop|restart|reload|force-reload}" >&2
+  *)
+        echo "Usage: $proc {start|stop|status|restart|reload|force-reload}" >&2
         exit 1
         ;;
-    esac
-    exit 0
+esac
