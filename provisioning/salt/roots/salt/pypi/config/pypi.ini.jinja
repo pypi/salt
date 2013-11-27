@@ -51,9 +51,9 @@ schemes = django_bcrypt, unix_disabled
 
 [logging]
 file = /var/log/{{ config['name'] }}/pypi.log
-mailhost = secrets['logging']['mailhost']
-fromaddr = secrets['logging']['fromaddr']
-toaddrs = secrets['logging']['toaddrs']
+mailhost = {{ secrets['logging']['mailhost'] }}
+fromaddr = {{ secrets['logging']['fromaddr'] }}
+toaddrs = {{ secrets['logging']['toaddrs'] }}
 
 [sentry]
 dsn = {{ secrets['sentry']['dsn'] }}
@@ -78,5 +78,5 @@ log-5xx = true
 ; CDN API
 [fastly]
 api_domain = https://api.fastly.com/
-api_key = secrets['fastly']['api_key']
-service_id = secrets['fastly']['service_id']
+api_key = {{ secrets['fastly']['api_key'] }}
+service_id = {{ secrets['fastly']['service_id'] }}
