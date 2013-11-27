@@ -224,5 +224,6 @@ pypi-system-deps:
       - cmd: {{ config['name'] }}-supervisor
     - watch:
        - hg: {{ config['name'] }}-source
+       - file: {{ config['path'] }}/src/config.ini
 
 {% endfor %}
