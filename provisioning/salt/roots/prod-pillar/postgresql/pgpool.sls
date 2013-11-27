@@ -3,6 +3,8 @@ pgpool_cluster:
   nodes:
     - 172.16.57.4
     - 172.16.57.5
+  listen_address: 5432
+  enable_pool_hba: 'on'
   virtual_ip:
     172.16.57.100
 
