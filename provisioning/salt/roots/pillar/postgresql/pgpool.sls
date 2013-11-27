@@ -4,7 +4,7 @@ pgpool_cluster:
     - 172.16.57.7
     - 172.16.57.8
   listen_address: 5432
-  enable_pool_hba: on
+  enable_pool_hba: 'on'
   virtual_ip:
     172.16.57.100
 
