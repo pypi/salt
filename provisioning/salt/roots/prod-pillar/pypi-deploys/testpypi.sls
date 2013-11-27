@@ -17,6 +17,7 @@ pypi-deploy-testpypi:
   https_only: True
   server_names:
     - testpypi.python.org
+    - testpypi.a.ssl.fastly.net
   url: https://testpypi.python.org
 
   uwsgi:
