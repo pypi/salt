@@ -159,6 +159,30 @@ pypi-system-deps:
       - pkg: python27-m2crypto
       - pkg: pypi-system-deps
 
+{{ config['path'] }}/secret:
+  file.directory:
+    - user: {{ config['name'] }}
+    - group: {{ config['group'] }}
+    - mode: 700
+
+{{ config['path'] }}/secret/pubkey:
+  file.managed:
+    - user: {{ config['name'] }}
+    - group: {{ config['group'] }}
+    - mode: 600
+    - contents_pillar: secrets-{{ key }}:pubkey
+    - require:
+      - file: {{ config['path'] }}/secret
+
+{{ config['path'] }}/secret/privkey:
+  file.managed:
+    - user: {{ config['name'] }}
+    - group: {{ config['group'] }}
+    - mode: 600
+    - contents_pillar: secrets-{{ key }}:privkey
+    - require:
+      - file: {{ config['path'] }}/secret
+
 {{ config['path'] }}/src/config.ini:
   file.managed:
     - source: salt://pypi/config/pypi.ini.jinja

@@ -17,3 +17,11 @@ secrets-pypi-deploy-testpypi:
   fastly:
     api_key: deadbeef
     service_id: deadbeef
+  pubkey: |
+    -----BEGIN PUBLIC KEY-----
+    publiclolnope
+    -----END PUBLIC KEY-----
+  privkey: |
+    -----BEGIN DSA PRIVATE KEY-----
+    privatelolnope
+    -----END DSA PRIVATE KEY-----

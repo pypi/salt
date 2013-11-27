@@ -33,7 +33,7 @@ replyto = cheeseshop@python.org
 
 ; Secrets
 sshkeys_update = {{ config['path'] }}/src/sshkeys_update
-key_dir = {{ config['data_mount'] }}/secret
+key_dir = {{ config['path'] }}/secret
 cheesecake_password =  {{ secrets['webui']['cheescake_password'] }}
 reset_secret = {{ secrets['webui']['reset_secret'] }}
 
