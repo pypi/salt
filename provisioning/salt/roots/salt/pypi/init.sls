@@ -46,7 +46,7 @@ pypi-system-deps:
   file.directory:
     - user: {{ config['user'] }}
     - group: {{ config['group'] }}
-    - mode: 750
+    - mode: 755
 
 /var/log/{{ config['name'] }}:
   file.directory:
