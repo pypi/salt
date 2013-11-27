@@ -98,7 +98,22 @@ pypi-system-deps:
     - user: root
     - group: root
     - mode: 640
+
+/etc/nginx/conf.d/{{ config['name'] }}:
+  file.directory
+
+/etc/nginx/conf.d/{{ config['name'] }}/app.conf:
+  file.managed:
+    - source: salt://pypi/config/pypi.nginx.app.conf.jinja
+    - template: jinja
+    - context:
+      app_key: {{ key }}
+    - user: root
+    - group: root
+    - mode: 640
     - require:
+      - file: /etc/nginx/conf.d/{{ config['name'] }}
+      - file: /etc/nginx/conf.d/{{ config['name'] }}.conf
       - file: /var/log/nginx/{{ config['name'] }}
 
 /etc/logrotate.d/{{ config['name'] }}:
