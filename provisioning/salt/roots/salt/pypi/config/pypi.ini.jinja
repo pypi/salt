@@ -1,6 +1,8 @@
 {% set config = salt['pillar.get'](app_key) %}
 {% set secrets = salt['pillar.get']("secrets-"+app_key) %}
 
+[database]
+
 ; Postgres Database
 host = {{ secrets['postgresql']['host'] }}
 name = {{ secrets['postgresql']['database'] }}
