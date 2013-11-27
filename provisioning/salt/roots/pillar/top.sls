@@ -15,6 +15,8 @@ base:
   'roles:pypi':
     - match: grain
     - pypi
+    - pypi-deploys.testpypi
+    - secrets.testpypi
 
   'roles:postgresql_cluster':
     - match: grain
