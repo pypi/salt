@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "provisioning/salt/roots/", "/srv/"
 
-  if ENV['VAGRANT_PYPI_DEV'] == '1'
+  unless ENV['VAGRANT_SKIP_PYPI_DEV'] == '1'
     config.vm.define "pypi_dev" do |pypi_dev|
 
       pypi_dev.vm.network "private_network", ip: "192.168.57.9"
