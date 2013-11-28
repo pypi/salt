@@ -26,7 +26,8 @@ nginx:
 
 /etc/nginx/nginx.conf:
   file.managed:
-    - source: salt://nginx/config/nginx.conf
+    - source: salt://nginx/config/nginx.conf.jinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 644

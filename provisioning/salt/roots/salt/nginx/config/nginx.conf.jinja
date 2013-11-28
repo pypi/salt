@@ -22,4 +22,13 @@ http {
 
     include /etc/nginx/conf.d/*.conf;
 
+    server {
+        listen 80 default;
+        location /nginx_status {
+            stub_status on;
+            access_log off;
+            allow {{ salt['pillar.get']('pypi_internal_network', '127.0.0.1') }};
+            deny all;
+        }
+    }
 }
