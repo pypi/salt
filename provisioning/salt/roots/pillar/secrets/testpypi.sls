@@ -17,6 +17,15 @@ secrets-pypi-deploy-testpypi:
   fastly:
     api_key: deadbeef
     service_id: deadbeef
+  uwsgi:
+    processes: 2
+  mailhost: localhost:25
+  smtp:
+    hostname: localhost
+    starttls: 'off'
+    auth: 'off'
+    login: None
+    password: None
   pubkey: |
     -----BEGIN PUBLIC KEY-----
     publiclolnope

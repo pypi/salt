@@ -13,12 +13,7 @@ pypi-deploy-devpypi:
     type: local
     uri: None
 
-  mailhost: localhost:25
-
   https_only: True
   server_names:
     - 192.168.57.9
   url: http://192.168.57.9
-
-  uwsgi:
-    processes: 2
