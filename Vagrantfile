@@ -25,6 +25,21 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  if ENV['VAGRANT_MONITORING'] == '1'
+    config.vm.define "monitoring_server" do |monitoring_server|
+
+      monitoring_server.vm.hostname = "pypi-monitoring"
+      monitoring_server.vm.network "private_network", ip: "192.168.57.200"
+      monitoring_server.vm.network "private_network", ip: "172.16.57.200"
+
+      monitoring_server.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/monitoring/server"
+        s.run_highstate = true
+      end
+    end
+  end
+
   if ENV['VAGRANT_PYPI'] == '1'
     config.vm.define "pypi" do |pypi|
 

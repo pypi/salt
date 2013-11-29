@@ -1,0 +1,10 @@
+[program:{{ program_name }}]
+command = gunicorn_django --bind unix:/var/run/graphite-web/gunicorn.sock --pythonpath=/usr/lib/python2.6/site-packages/graphite --settings=settings settings.py
+autostart = true
+autorestart = true
+stopwaitsecs = 15
+stopsignal = TERM
+stdout_logfile = /var/log/{{ program_name }}/gunicorn-stdout.log
+stderr_logfile = /var/log/{{ program_name }}/gunicorn-stderr.log
+user = {{ user }}
+directory = /usr/lib/python2.6/site-packages/graphite

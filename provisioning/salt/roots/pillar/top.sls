@@ -40,3 +40,7 @@ base:
   'roles:gluster_node':
     - match: grain
     - glusterfs.server
+
+  'roles:monitoring_server':
+    - match: grain
+    - monitoring.server

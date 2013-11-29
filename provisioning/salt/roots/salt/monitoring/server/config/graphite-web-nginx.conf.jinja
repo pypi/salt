@@ -1,0 +1,23 @@
+upstream graphite_web_server {
+  server unix:/var/run/graphite-web/gunicorn.sock fail_timeout=0;
+}
+
+server {
+  listen 80;
+  server_name {{ server_names }};
+
+  {% if https_only %}
+  location / {
+    return 301 https://$server_name$request_uri;
+  }
+  {% else %}
+  include conf.d/graphite-web/app.conf;
+  {% endif %}
+}
+
+server {
+  listen 443;
+  server_name {{ server_names }};
+  include nginx.ssl.conf;
+  include conf.d/graphite-web/app.conf;
+}

@@ -1,0 +1,20 @@
+client_max_body_size 64M;
+keepalive_timeout 5;
+
+access_log /var/log/nginx/graphite-web/access.log;
+error_log /var/log/nginx/graphite-web/error.log;
+
+root /usr/share/graphite/webapp;
+
+location /media/ {
+  root /usr/lib/python2.6/site-packages/django/contrib/admin/media;
+}
+
+try_files $uri/index.html $uri.html $uri @app;
+
+location @app {
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header Host $http_host;
+  proxy_redirect off;
+  proxy_pass http://graphite_web_server;
+}
