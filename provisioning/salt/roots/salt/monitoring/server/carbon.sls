@@ -21,6 +21,11 @@ graphite-pkgs:
       cache_query_interface: {{ carbon_config.get('cache_query_interface', '0.0.0.0') }}
       cache_query_port: {{ carbon_config.get('cache_query_port', 7002) }}
 
+/etc/carbon/storage-schemas.conf:
+  file.managed:
+    - source: salt://monitoring/server/config/storage-schemas.conf.jinja
+    - template: jinja
+
 carbon-cache:
   service:
     - running
@@ -28,3 +33,7 @@ carbon-cache:
     - restart: True
     - watch:
       - file: /etc/carbon/carbon.conf
+      - file: /etc/carbon/storage-schemas.conf
+    - require:
+      - file: /etc/carbon/carbon.conf
+      - file: /etc/carbon/storage-schemas.conf
