@@ -1,4 +1,4 @@
-{% set secrets = pillar.get('monitoring-secrets', {}) %}
+{% set secrets = pillar.get('monitoring_secrets', {}) %}
 
 firewall:
   riemann_ports:
