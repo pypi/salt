@@ -3,6 +3,7 @@ base:
     - base.sanity
     - users
     - sudoers
+    - monitoring.client.base
 
   'roles:salt-master':
     - match: grain

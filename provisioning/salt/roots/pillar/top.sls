@@ -4,6 +4,7 @@ base:
     - networking
     - users
     - sudoers
+    - monitoring.client
 
   'roles:salt-master':
     - match: grain

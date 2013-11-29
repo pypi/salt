@@ -1,0 +1,3 @@
+
+include:
+  - monitoring.client.base
