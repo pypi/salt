@@ -66,6 +66,8 @@ graphite-web-reload:
     - name: 'supervisorctl restart graphite-web'
     - require:
       - cmd: graphite-web-supervisor
+    - watch:
+      - file: /etc/graphite-web/local_settings.py
 
 /var/log/nginx/graphite-web:
   file.directory
