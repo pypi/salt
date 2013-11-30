@@ -45,3 +45,4 @@ base:
   'roles:monitoring_server':
     - match: grain
     - monitoring.server
+    - secrets.monitoring
