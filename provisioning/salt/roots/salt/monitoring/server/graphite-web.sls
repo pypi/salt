@@ -32,7 +32,7 @@ graphite-web-gunicorn:
     - source: salt://monitoring/server/config/local_settings.py.jinja
     - template: jinja
     - context:
-      secret_key: {{ secrets.get('secret_key') }}
+      secret_key: '{{ secrets.get('secret_key') }}'
       allowed_hosts: '{{ graphite_config.get('allowed_hosts', '*') }}'
       sqlite3_path: {{ graphite_config.get('sqlite3_path', '/var/lib/graphite-web/graphite.db') }}
 
