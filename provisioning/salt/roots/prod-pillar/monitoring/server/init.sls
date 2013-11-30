@@ -33,8 +33,7 @@ graphite:
   allowed_hosts: '*'
   sqlite3_path: /var/lib/graphite-web/graphite.db
   https_only: true
-  server_names:
-    - 172.16.57.10
+  server_names: {{ secrets.get('graphite', {}).get('server_names', ['_']) }}
 
 carbon:
   line_receiver_interface: 0.0.0.0
