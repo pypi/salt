@@ -1,4 +1,10 @@
-{% set secrets = pillar.get('monitoring_secrets', {}) %}
+include:
+  - secrets.monitoring:
+      defaults:
+        server_names:
+          - '_'
+        secret_key: deadbeef
+      key: monitoring_secrets
 
 firewall:
   riemann_ports:
@@ -29,11 +35,9 @@ riemann:
   graphite_downstream_port: 2003
 
 graphite:
-  secret_key: {{ secrets.get('graphite', {}).get('secret_key', 'deadbeef') }}
   allowed_hosts: '*'
   sqlite3_path: /var/lib/graphite-web/graphite.db
   https_only: true
-  server_names: {{ secrets.get('graphite', {}).get('server_names', ['_']) }}
 
 carbon:
   line_receiver_interface: 0.0.0.0

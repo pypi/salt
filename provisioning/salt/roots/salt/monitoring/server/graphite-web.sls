@@ -8,6 +8,7 @@ graphite:
     - present
 
 {% set graphite_config = pillar.get('graphite', {}) %}
+{% set secrets = pillar.get('monitoring_secrets', {}) %}
 
 {% for dir in ['log', 'lib', 'run'] %}
 /var/{{ dir }}/graphite-web:
@@ -31,7 +32,7 @@ graphite-web-gunicorn:
     - source: salt://monitoring/server/config/local_settings.py.jinja
     - template: jinja
     - context:
-      secret_key: {{ graphite_config.get('secret_key', 'deadbeef') }}
+      secret_key: {{ secrets.get('secret_key') }}
       allowed_hosts: '{{ graphite_config.get('allowed_hosts', '*') }}'
       sqlite3_path: {{ graphite_config.get('sqlite3_path', '/var/lib/graphite-web/graphite.db') }}
 
@@ -82,7 +83,7 @@ graphite-web-reload:
     - source: salt://monitoring/server/config/graphite-web-nginx.conf.jinja  
     - template: jinja
     - context:
-      server_names: {{ ", ".join(graphite_config.get('server_names', ['localhost'])) }}
+      server_names: {{ ", ".join(secrets.get('server_names')) }}
       https_only: {{ graphite_config.get('https_only', False) }}
     - require:
       - file: /var/log/nginx/graphite-web
