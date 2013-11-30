@@ -25,12 +25,12 @@ python-bucky:
 bucky-supervisor:
   cmd.wait:
     - name: supervisorctl reread && supervisorctl update
-  - require:
-    - file: /etc/supervisord.d/bucky.ini
-    - file: /etc/bucky/bucky.conf
-    - pkg: python-bucky
-  - watch:
-    - file: /etc/supervisord.d/bucky.ini
+    - require:
+      - file: /etc/supervisord.d/bucky.ini
+      - file: /etc/bucky/bucky.conf
+      - pkg: python-bucky
+    - watch:
+      - file: /etc/supervisord.d/bucky.ini
 
 /etc/collectd.conf:
   file.managed:
