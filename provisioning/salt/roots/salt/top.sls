@@ -13,10 +13,12 @@ base:
     - match: grain
     - pypi-mirror
     - firewall
+    - monitoring.client.nginx
   'roles:pypi':
     - match: grain
     - pypi
     - firewall
+    - monitoring.client.nginx
 
   'roles:postgresql_cluster':
     - match: grain
@@ -39,3 +41,4 @@ base:
     - match: grain
     - firewall
     - monitoring.server
+    - monitoring.client.nginx
