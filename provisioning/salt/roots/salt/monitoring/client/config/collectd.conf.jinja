@@ -1,0 +1,7 @@
+FQDNLookup   true
+LoadPlugin syslog
+LoadPlugin network
+<Plugin network>
+  Server "{{ collectd_host }} {% if collectd_port %}{{ collectd_port }}{% endif %}"
+</Plugin>
+Include "/etc/collectd.d"

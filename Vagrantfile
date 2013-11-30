@@ -15,11 +15,28 @@ Vagrant.configure("2") do |config|
   unless ENV['VAGRANT_SKIP_PYPI_DEV'] == '1'
     config.vm.define "pypi_dev" do |pypi_dev|
 
+      pypi_dev.vm.hostname = "pypi-dev"
       pypi_dev.vm.network "private_network", ip: "192.168.57.9"
+      pypi_dev.vm.network "private_network", ip: "172.16.57.9"
 
       pypi_dev.vm.provision :salt do |s|
         s.verbose = true
         s.minion_config = "provisioning/salt/minion/web/pypi_dev"
+        s.run_highstate = true
+      end
+    end
+  end
+
+  if ENV['VAGRANT_MONITORING'] == '1'
+    config.vm.define "monitoring_server" do |monitoring_server|
+
+      monitoring_server.vm.hostname = "pypi-monitoring"
+      monitoring_server.vm.network "private_network", ip: "192.168.57.200"
+      monitoring_server.vm.network "private_network", ip: "172.16.57.200"
+
+      monitoring_server.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/monitoring/server"
         s.run_highstate = true
       end
     end

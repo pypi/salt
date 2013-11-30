@@ -3,6 +3,7 @@ base:
     - base.sanity
     - users
     - sudoers
+    - monitoring.client.base
 
   'roles:salt-master':
     - match: grain
@@ -33,3 +34,8 @@ base:
   'roles:gluster_client':
     - match: grain
     - glusterfs.client
+
+  'roles:monitoring_server':
+    - match: grain
+    - firewall
+    - monitoring.server
