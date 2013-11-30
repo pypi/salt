@@ -22,6 +22,16 @@ python-bucky:
   file.managed:
     - source: salt://monitoring/client/config/bucky.ini
 
+bucky-supervisor:
+  cmd.wait:
+    - name: supervisorctl reread && supervisorctl update
+  - require:
+    - file: /etc/supervisord.d/bucky.ini
+    - file: /etc/bucky/bucky.conf
+    - pkg: python-bucky
+  - watch:
+    - file: /etc/supervisord.d/bucky.ini
+
 /etc/collectd.conf:
   file.managed:
     - source: salt://monitoring/client/config/collectd.conf.jinja
