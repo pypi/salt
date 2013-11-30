@@ -2,6 +2,9 @@
 {% set client_config = pillar.get('monitoring_client', {}) %}
 {% set bucky_config = pillar.get('bucky', {}) %}
 
+include:
+  - supervisor
+
 /etc/bucky/bucky.conf:
   file.managed:
     - source: salt://monitoring/client/config/bucky.conf.jinja
@@ -14,6 +17,10 @@
 
 python-bucky:
   pkg.installed
+
+/etc/supervisord.d/bucky.ini:
+  file.managed:
+    - source: salt://monitoring/client/config/bucky.ini
 
 /etc/collectd.conf:
   file.managed:
