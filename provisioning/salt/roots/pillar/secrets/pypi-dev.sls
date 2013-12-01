@@ -9,7 +9,6 @@ secrets-pypi-deploy-devpypi:
     cheescake_password: secret
     reset_secret: secret
   logging:
-    mailhost: mail.python.org
     fromaddr: foo@bar.com
     toaddrs: fiz@bar.com
   sentry:
@@ -19,7 +18,6 @@ secrets-pypi-deploy-devpypi:
     service_id: ''
   uwsgi:
     processes: 2
-  mailhost: localhost:25
   smtp:
     hostname: localhost
     starttls: 'off'

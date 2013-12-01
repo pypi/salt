@@ -27,7 +27,6 @@ rss_file = {{ config['data_mount'] }}/pypi_rss.xml
 packages_rss_file = {{ config['data_mount'] }}/pypi_packages_rss.xml
 
 ; Email
-mailhost = {{ secrets.get('mailhost', 'localhost:25') }}
 adminemail = cheeseshop@python.org
 replyto = cheeseshop@python.org
 
@@ -61,7 +60,6 @@ schemes = django_bcrypt, unix_disabled
 [logging]
 file = /var/log/{{ config['name'] }}/pypi.log
 mail_logger = {{ secrets['logging'].get('mail_logger', 'off') }}
-mailhost = {{ secrets['logging'].get('mailhost', '') }}
 fromaddr = {{ secrets['logging']['fromaddr'] }}
 toaddrs = {{ secrets['logging']['toaddrs'] }}
 
