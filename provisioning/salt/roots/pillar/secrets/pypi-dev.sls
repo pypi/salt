@@ -5,6 +5,9 @@ secrets-pypi-deploy-devpypi:
     database: testpypi
     user: testpypi
     password: testpypi
+  redis:
+    queue_redis_url: redis://localhost:6379/0
+    count_redis_url: redis://localhost:6379/1
   webui:
     cheescake_password: secret
     reset_secret: secret
