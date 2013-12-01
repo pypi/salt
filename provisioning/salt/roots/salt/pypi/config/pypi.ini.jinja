@@ -27,7 +27,7 @@ rss_file = {{ config['data_mount'] }}/pypi_rss.xml
 packages_rss_file = {{ config['data_mount'] }}/pypi_packages_rss.xml
 
 ; Email
-mailhost = {{ config['mailhost'] }}
+mailhost = {{ secrets.get('mailhost', 'localhost:25') }}
 adminemail = cheeseshop@python.org
 replyto = cheeseshop@python.org
 
@@ -48,12 +48,20 @@ files_url = {{ config['url'] }}/packages/
 pydotorg = https://www.python.org/
 package_docs_url = http://pythonhosted.org/
 
+[smtp]
+hostname = {{ secrets['smtp']['hostname'] }}
+starttls = {{ secrets['smtp'].get('starttls', 'off') }}
+auth = {{ secrets['smtp'].get('auth', 'off') }}
+login = {{ secrets['smtp'].get('login', '') }}
+password = {{ secrets['smtp'].get('password', '') }}
+
 [passlib]
 schemes = django_bcrypt, unix_disabled
 
 [logging]
 file = /var/log/{{ config['name'] }}/pypi.log
-mailhost = {{ secrets['logging']['mailhost'] }}
+mail_logger = {{ secrets['logging'].get('mail_logger', 'off') }}
+mailhost = {{ secrets['logging'].get('mailhost', '') }}
 fromaddr = {{ secrets['logging']['fromaddr'] }}
 toaddrs = {{ secrets['logging']['toaddrs'] }}
 
@@ -67,7 +75,7 @@ wsgi-file = {{ config['path'] }}/src/pypi.wsgi
 socket = /var/run/{{ config['name'] }}/pypi.sock
 pidfile = /var/run/{{ config['name'] }}/pypi.pid
 daemonize = 127.0.0.1:8224
-processes = {{ config['uwsgi']['processes'] }}
+processes = {{ secrets['uwsgi'].get('processes', 2) }}
 harakiri = 60
 reload-on-as = 400
 max-requests = 10000

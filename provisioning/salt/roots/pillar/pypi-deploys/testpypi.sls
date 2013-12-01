@@ -12,12 +12,7 @@ pypi-deploy-testpypi:
     type: glusterfs
     uri: 172.16.57.30:/testpypi
 
-  mailhost: localhost:25
-
   https_only: True
   server_names:
     - testpypi.python.org
   url: https://testpypi.python.org
-
-  uwsgi:
-    processes: 2

@@ -17,6 +17,15 @@ secrets-pypi-deploy-devpypi:
   fastly:
     api_key: ''
     service_id: ''
+  uwsgi:
+    processes: 2
+  mailhost: localhost:25
+  smtp:
+    hostname: localhost
+    starttls: 'off'
+    auth: 'off'
+    login: None
+    password: None
   pubkey: |
     -----BEGIN PUBLIC KEY-----
     publiclolnope
