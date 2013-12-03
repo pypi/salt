@@ -11,6 +11,26 @@ rsyslog:
     - watch:
       - file: /etc/rsyslog.d/*.conf
 
+/etc/redis.conf:
+  file.comment:
+    - regex: "^bind 127.0.0.1$"
+
+redis-bind-all:
+  file.append:
+    - name: /etc/redis.conf
+    - text: "bind 0.0.0.0"
+
+redis-daemon:
+  service:
+    - name: redis
+    - running
+    - restart: True
+    - watch:
+      - file: /etc/redis.conf
+    - require:
+      - pkg: redis
+      - file: /etc/redis.conf
+
 {% set deploys = {} %}
 {% for k,v in pillar.items() %}
   {% if k.startswith('pypi-deploy-') %}
