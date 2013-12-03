@@ -14,11 +14,17 @@ base:
     - pypi-mirror
     - firewall
     - monitoring.client.nginx
+
   'roles:pypi':
     - match: grain
-    - pypi
+    - pypi.web
     - firewall
     - monitoring.client.nginx
+
+  'roles:pypi_log':
+    - match: grain
+    - pypi.log
+    - firewall
 
   'roles:postgresql_cluster':
     - match: grain

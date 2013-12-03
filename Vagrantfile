@@ -55,6 +55,18 @@ Vagrant.configure("2") do |config|
       end
     end
 
+    config.vm.define "pypi_log" do |pypi_log|
+
+      pypi_log.vm.network "private_network", ip: "192.168.57.15"
+      pypi_log.vm.network "private_network", ip: "172.16.57.15"
+
+      pypi_log.vm.provision :salt do |s|
+        s.verbose = true
+        s.minion_config = "provisioning/salt/minion/web/pypi_log"
+        s.run_highstate = true
+      end
+    end
+
     config.vm.define "mirror" do |mirror|
 
       mirror.vm.network "private_network", ip: "192.168.57.20"
