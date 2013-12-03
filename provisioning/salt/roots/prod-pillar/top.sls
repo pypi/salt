@@ -16,9 +16,27 @@ base:
 
   'G@roles:pypi not G@roles:develop':
     - match: compound
-    - pypi
+    - pypi.web
     - pypi-deploys.testpypi
     - secrets.testpypi
+
+  'G@roles:pypi_log not G@roles:develop':
+    - match: compound
+    - pypi.log
+    - pypi-deploys.testpypi
+    - secrets.testpypi
+
+  'G@roles:pypi and G@roles:develop':
+    - match: compound
+    - pypi.web
+    - pypi-deploys.pypi-dev
+    - secrets.pypi-dev
+
+  'G@roles:pypi_log and G@roles:develop':
+    - match: compound
+    - pypi.log
+    - pypi-deploys.pypi-dev
+    - secrets.pypi-dev
 
   'roles:postgresql_cluster':
     - match: grain
