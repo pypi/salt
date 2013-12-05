@@ -2,6 +2,13 @@
 {% set client_config = pillar.get('monitoring_client', {}) %}
 {% set bucky_config = pillar.get('bucky', {}) %}
 
+{% set internal = salt['pillar.get']('pypi_internal_network') %}
+collectd-hostname:
+  host.present:
+    - ip: {{ salt['ip_picker.ip_addrs'](cidr=internal)[0] }}
+    - names:
+      - {{ grains['fqdn'] }}
+
 include:
   - supervisor
 
