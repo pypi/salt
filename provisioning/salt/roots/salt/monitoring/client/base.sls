@@ -44,6 +44,7 @@ bucky-supervisor:
     - source: salt://monitoring/client/config/collectd.conf.jinja
     - template: jinja
     - context:
+      hostname: {{ grains['fqdn'] }}
       collectd_host: {{ client_config.get('collectd_host', '127.0.0.1') }}
       collectd_port: {{ client_config.get('collectd_port', 25826) }}
 
