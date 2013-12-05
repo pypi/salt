@@ -73,6 +73,6 @@ pyOpenSSL:
 self-signed-cert:
   module.run:
     - name: tls.create_self_signed_cert
-    - CN: {{grains['host']}}
+    - CN: {{ grains['fqdn']. }}
     - require:
       - pkg: pyOpenSSL
