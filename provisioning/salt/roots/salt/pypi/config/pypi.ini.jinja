@@ -59,7 +59,7 @@ password = {{ secrets['smtp'].get('password', '') }}
 schemes = django_bcrypt, unix_disabled
 
 [logging]
-file = /var/log/{{ config['name'] }}/pypi.log
+file =
 mail_logger = {{ secrets['logging'].get('mail_logger', 'off') }}
 fromaddr = {{ secrets['logging']['fromaddr'] }}
 toaddrs = {{ secrets['logging']['toaddrs'] }}
