@@ -28,6 +28,9 @@ pypi-mirror:
 /etc/nginx/conf.d/bandersnatch.conf:
   file.managed:
     - source: salt://pypi-mirror/config/bandersnatch.nginx.conf
+    - template: jinja
+    - context:
+      server_names: {{ salt['pillar.get']('bandersnatch:server_names', ['_']) }}
     - user: root
     - group: root
     - mode: 640

@@ -15,3 +15,5 @@ bandersnatch:
     delete-packages: true
   statistics:
     access-log-pattern: /var/log/nginx/pypi-mirror/access*.log
+  server_names:
+    - mirror0.pypi.io
