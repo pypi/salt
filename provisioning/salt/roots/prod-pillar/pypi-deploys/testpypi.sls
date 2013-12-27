@@ -17,4 +17,4 @@ pypi-deploy-testpypi:
   server_names:
     - testpypi.python.org
     - testpypi.a.ssl.fastly.net
-  url: https://testpypi.a.ssl.fastly.net
+  url: https://testpypi.python.org
