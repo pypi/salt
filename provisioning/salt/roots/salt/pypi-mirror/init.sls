@@ -13,9 +13,6 @@ pypi-mirror:
     - group: pypi-mirror
     - mode: 755
     - makedirs: True
-    - recurse:
-      - user
-      - group
     - require:
       - user: pypi-mirror
 
