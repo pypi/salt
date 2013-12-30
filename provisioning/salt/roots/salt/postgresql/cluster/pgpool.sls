@@ -1,7 +1,6 @@
-pgpool-postgresql-93-repo:
-  pkg.installed:
-    - sources:
-      - pgdg-centos93: http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm
+
+include:
+  - postgresql.93.repo
 
 postgres:
   user.present
@@ -10,7 +9,7 @@ pgpool-II-93:
   pkg:
     - installed
     - require:
-      - pkg: pgpool-postgresql-93-repo
+      - pkgrepo: pgdg-93-centos
   service:
     - running
     - enable: True

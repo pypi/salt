@@ -1,13 +1,12 @@
-postgresql-93-repo:
-  pkg.installed:
-    - sources:
-      - pgdg-centos93: http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm
+
+include:
+  - postgresql.93.repo
 
 postgresql93-server:
   pkg:
     - installed
     - require:
-      - pkg: postgresql-93-repo
+      - pkgrepo: pgdg-93-centos
   service:
     - name: postgresql-9.3
     - running
