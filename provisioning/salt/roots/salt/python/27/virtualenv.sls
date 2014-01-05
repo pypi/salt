@@ -9,7 +9,7 @@ system-pip:
 virtualenv-2.7:
   pip.installed:
     - name: virtualenv
-    - pip_bin: pip-2.7
+    - pip_bin: pip2.7
     - require:
       - pkg: system-pip
       - pkg: python27
