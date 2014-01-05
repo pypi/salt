@@ -1,0 +1,3 @@
+
+rdiff-backup:
+  pkg.installed

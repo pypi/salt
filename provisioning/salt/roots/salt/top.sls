@@ -3,6 +3,7 @@ base:
     - base.sanity
     - users
     - sudoers
+    - backup.client
     - monitoring.client.base
 
   'roles:salt-master':
