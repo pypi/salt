@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
 
       pypi_dev.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/web/pypi_dev"
         s.run_highstate = true
       end
@@ -36,6 +37,7 @@ Vagrant.configure("2") do |config|
 
       monitoring_server.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/monitoring/server"
         s.run_highstate = true
       end
@@ -50,6 +52,7 @@ Vagrant.configure("2") do |config|
 
       pypi.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/web/pypi"
         s.run_highstate = true
       end
@@ -62,6 +65,7 @@ Vagrant.configure("2") do |config|
 
       pypi_log.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/web/pypi_log"
         s.run_highstate = true
       end
@@ -73,6 +77,7 @@ Vagrant.configure("2") do |config|
 
       mirror.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/web/mirror"
         s.run_highstate = true
       end
@@ -87,6 +92,7 @@ Vagrant.configure("2") do |config|
 
       pg_primary.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/pg_cluster/primary"
         s.run_highstate = true
       end
@@ -98,6 +104,7 @@ Vagrant.configure("2") do |config|
 
       pg_standby_0.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/pg_cluster/standby_0"
         s.run_highstate = true
       end
@@ -109,6 +116,7 @@ Vagrant.configure("2") do |config|
 
       pgpool_0.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/pg_cluster/pgpool_0"
         s.run_highstate = true
       end
@@ -120,6 +128,7 @@ Vagrant.configure("2") do |config|
 
       pgpool_1.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/pg_cluster/pgpool_1"
         s.run_highstate = true
       end
@@ -141,6 +150,7 @@ Vagrant.configure("2") do |config|
 
       gluster_0.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/gluster_cluster/node"
         s.run_highstate = true
       end
@@ -158,6 +168,7 @@ Vagrant.configure("2") do |config|
 
       gluster_1.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/gluster_cluster/node"
         s.run_highstate = true
       end
@@ -169,6 +180,7 @@ Vagrant.configure("2") do |config|
 
       gluster_client.vm.provision :salt do |s|
         s.verbose = true
+        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/gluster_cluster/client"
         s.run_highstate = true
       end
