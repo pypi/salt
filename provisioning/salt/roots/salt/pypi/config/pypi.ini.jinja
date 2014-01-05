@@ -48,6 +48,9 @@ files_url = {{ config['url'] }}/packages/
 pydotorg = https://www.python.org/
 package_docs_url = http://pythonhosted.org/
 
+; StatusPage.io
+statuspage_id = {{ config['statuspage_id'] }}
+
 [smtp]
 hostname = {{ secrets['smtp']['hostname'] }}
 starttls = {{ secrets['smtp'].get('starttls', 'off') }}

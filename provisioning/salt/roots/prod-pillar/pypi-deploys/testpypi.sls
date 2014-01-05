@@ -18,3 +18,5 @@ pypi-deploy-testpypi:
     - testpypi.python.org
     - testpypi.a.ssl.fastly.net
   url: https://testpypi.python.org
+
+  statuspage_id: 928bjjg42vzc

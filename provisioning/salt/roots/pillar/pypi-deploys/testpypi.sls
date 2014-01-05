@@ -17,3 +17,5 @@ pypi-deploy-testpypi:
   server_names:
     - testpypi.python.org
   url: https://testpypi.python.org
+
+  statuspage_id: 928bjjg42vzc

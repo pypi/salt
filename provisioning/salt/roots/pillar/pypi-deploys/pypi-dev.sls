@@ -17,3 +17,5 @@ pypi-deploy-devpypi:
   server_names:
     - 192.168.57.9
   url: http://192.168.57.9
+
+  statuspage_id: 928bjjg42vzc
