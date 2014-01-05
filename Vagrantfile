@@ -28,6 +28,28 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  if ENV['VAGRANT_BACKUP'] == '1'
+
+    config.vm.define "backup" do |backup|
+      backup.vm.network "private_network", ip: "192.168.57.201"
+      backup.vm.network "private_network", ip: "172.16.57.201"
+
+      backup.vm.provider :virtualbox do |vm|
+        file_to_disk = '.vagrant/tmp/backup.vdi'
+        vm.customize ['createhd', '--filename', file_to_disk, '--size', 10 * 1024]
+        vm.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
+      end
+
+      backup.vm.provision :salt do |s|
+        s.verbose = true
+        s.install_type = "git v0.17.2"
+        s.minion_config = "provisioning/salt/minion/backup/server"
+        s.run_highstate = true
+      end
+    end
+
+  end
+
   if ENV['VAGRANT_MONITORING'] == '1'
     config.vm.define "monitoring_server" do |monitoring_server|
 
