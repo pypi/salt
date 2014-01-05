@@ -49,3 +49,8 @@ base:
     - firewall
     - monitoring.server
     - monitoring.client.nginx
+
+  'roles:backup_server':
+    - match: grain
+    - firewall
+    - backup.server

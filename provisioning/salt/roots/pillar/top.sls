@@ -57,3 +57,7 @@ base:
   'roles:monitoring_server':
     - match: grain
     - monitoring.server
+
+  'roles:backup_server':
+    - match: grain
+    - backup.server
