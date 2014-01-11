@@ -44,6 +44,10 @@ base:
     - postgresql.postgresql
     - secrets.postgresql
 
+  'G@roles:postgresql_cluster and G@roles:primary':
+    - match: compound
+    - secrets.backup.postgres
+
   'roles:postgresql_pgpool':
     - match: grain
     - postgresql.cluster
