@@ -20,6 +20,9 @@ base:
     - pypi-deploys.testpypi
     - secrets.testpypi
 
+  'pypi-web0':
+    - secrets.backup.testpypi-files
+
   'G@roles:pypi_log not G@roles:develop':
     - match: compound
     - pypi.log
