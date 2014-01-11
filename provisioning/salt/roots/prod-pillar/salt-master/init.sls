@@ -6,6 +6,6 @@ firewall:
   salt_master_remote_mirror:
     port: 4505:4506
     source: 166.78.174.125
-  salt_master_remote_backup
+  salt_master_remote_backup:
     port: 4505:4506
     source: 23.253.80.94
