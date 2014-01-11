@@ -54,6 +54,20 @@ restart_postgresql:
 
 {% if 'primary' in grains['roles'] %}
 
+/var/lib/pgsql/9.3/backups/base:
+  file.directory:
+    - user: postgres
+    - group: postgres
+    - service: postgresql-9.3
+    - pkg: postgresql93-server
+
+/var/lib/pgsql/9.3/backups/archives:
+  file.directory:
+    - user: postgres
+    - group: postgres
+    - service: postgresql-9.3
+    - pkg: postgresql93-server
+
   {% for pg_user, config in pillar.get('postgresql_users', []).items() %}
 
   {% set name = config['name'] %}

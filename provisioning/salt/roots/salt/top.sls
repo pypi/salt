@@ -3,6 +3,7 @@ base:
     - base.sanity
     - users
     - sudoers
+    - backup.client
     - monitoring.client.base
 
   'roles:salt-master':
@@ -48,3 +49,8 @@ base:
     - firewall
     - monitoring.server
     - monitoring.client.nginx
+
+  'roles:backup_server':
+    - match: grain
+    - firewall
+    - backup.server
