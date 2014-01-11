@@ -31,6 +31,7 @@ base:
     - pypi.web
     - pypi-deploys.pypi-dev
     - secrets.pypi-dev
+    - secrets.backup.pypi-dev
 
   'G@roles:pypi_log and G@roles:develop':
     - match: compound
@@ -43,6 +44,10 @@ base:
     - postgresql.cluster
     - postgresql.postgresql
     - secrets.postgresql
+
+  'G@roles:postgresql_cluster and G@roles:primary':
+    - match: compound
+    - secrets.backup.postgres
 
   'roles:postgresql_pgpool':
     - match: grain
