@@ -37,6 +37,14 @@ bandersnatch:
 
 {% for mirror, config in salt['pillar.get']('bandersnatch').iteritems() %}
 
+/usr/share/www/mirror/{{ mirror }}/index.html:
+  file.managed:
+    - makedirs: True
+    - source: salt://pypi-mirror/config/index.html.jinja
+    - template: jinja
+    - context:
+      source_url: {{ config.get('mirror', {}).get('master', 'https://pypi.python.org') }}
+
 /data/{{ mirror }}-mirror:
   file.directory:
     - user: pypi-mirror
