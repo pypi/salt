@@ -30,4 +30,5 @@ bandersnatch:
     statistics:
       access-log-pattern: /var/log/nginx/testpypi-mirror/access*.log
     server_names:
+      - mirror-test0.pypi.io
       - testpypi.python.org
