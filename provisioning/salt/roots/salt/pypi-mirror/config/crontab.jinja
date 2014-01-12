@@ -1,5 +1,5 @@
 {% if 'develop' in grains['roles'] %}
-#*/1 * * * * pypi-mirror /opt/bandersnatch/bin/bandersnatch mirror |& logger -t bandersnatch[mirror]
+#*/1 * * * * pypi-mirror /opt/bandersnatch/bin/bandersnatch -c /etc/bandersnatch/{{ mirror }}.conf mirror |& logger -t bandersnatch[{{ mirror }}-mirror]
 {% else %}
-*/1 * * * * pypi-mirror /opt/bandersnatch/bin/bandersnatch mirror |& logger -t bandersnatch[mirror]
+*/1 * * * * pypi-mirror /opt/bandersnatch/bin/bandersnatch -c /etc/bandersnatch/{{ mirror }}.conf mirror |& logger -t bandersnatch[{{ mirror }}-mirror]
 {% endif %}
