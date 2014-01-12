@@ -11,7 +11,17 @@ real_ip_header X-Forwarded-For;
 
 rewrite ^/$ {{ config['url'] }}/pypi redirect;
 
-location ~* ^/(pypi|daytime|mirrors|id|oauth|security).* {
+location ~* ^/(daytime).* {
+  access_log off;
+  include uwsgi_params;
+  uwsgi_pass unix:/var/run/{{ config['name'] }}/pypi.sock;
+  uwsgi_param SCRIPT_NAME /$1;
+  # the following magic stands for "UWSGI_MODIFIER_MANAGE_PATH_INFO"
+  # .. when setting the SCRIPT_NAME remove that bit from the PATH_INFO
+  uwsgi_modifier1 30;
+}
+
+location ~* ^/(pypi|mirrors|id|oauth|security).* {
   include uwsgi_params;
   uwsgi_pass unix:/var/run/{{ config['name'] }}/pypi.sock;
   uwsgi_param SCRIPT_NAME /$1;
