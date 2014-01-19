@@ -1,7 +1,7 @@
 
 backup-server:
   volumes:
-    /dev/xvdc: /backup
+    /dev/xvdb: /backup
   backups:
     postgres-archives:
       directory: /backup/postgres/archives
