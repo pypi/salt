@@ -17,13 +17,13 @@ include:
       - defaults
 {% endfor %}
 
-{% for directory, config in salt['pillar.get']('backup-server:directories').iteritems() %}
+{% for backup, config in salt['pillar.get']('backup-server:backups').iteritems() %}
 
-{{ directory }}-{{ config['user'] }}:
+{{ backup }}-user:
   user.present:
     - name: {{ config['user'] }}
 
-{{ config['user'] }}-ssh:
+{{ backup }}-ssh:
   ssh_auth:
     - present
     - user: {{ config['user'] }}
@@ -38,16 +38,17 @@ include:
     - require:
       - user: {{ config['user'] }}
 
-{{ directory }}:
+{{ backup }}:
   file.directory:
+    - name: {{ config['directory'] }}
     - user: {{ config['user'] }}
     - makedirs: True
     - require:
       - user: {{ config['user'] }}
 
-{{ directory }}-increment-cleanup:
+{{ backup }}-increment-cleanup:
   file.managed:
-    - name: /etc/cron.d/{{ directory.replace('/', '_') }}-backup-cleanup
+    - name: /etc/cron.d/{{ backup }}-backup-cleanup
     - user: root
     - group: root
     - template: jinja
@@ -55,6 +56,6 @@ include:
     - context:
       cron: '0 3 * * *'
       job_user: root
-      job_command: 'rdiff-backup --force --remove-older-than {{ config['increment_retention'] }} {{ directory }}'
+      job_command: 'rdiff-backup --force --remove-older-than {{ config['increment_retention'] }} {{ config['directory'] }}'
 
 {% endfor %}
