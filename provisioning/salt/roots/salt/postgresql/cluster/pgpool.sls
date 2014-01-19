@@ -51,6 +51,8 @@ pgpool-II-93:
   file.managed:
     - source: salt://postgresql/cluster/config/pgpool.conf.jinja
     - template: jinja
+    - user: postgres
+    - mode: 740
     - require:
       - file: /etc/pgpool-II-93/pcp.conf
       - file: /var/log/pgpool-II
