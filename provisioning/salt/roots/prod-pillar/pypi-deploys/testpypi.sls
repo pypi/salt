@@ -6,7 +6,7 @@ pypi-deploy-testpypi:
   user_uid: 6666
   group_gid: 6666
 
-  fastly_syslog_name: testpypi-cdn
+  fastly_syslog_name: testpypicdn
   path: /opt/testpypi
   data_mount: /data/testpypi
   data_device:
