@@ -23,6 +23,7 @@ base:
     - secrets.pypi
 
   'pypi-web0':
+    - secrets.backup.pypi-files
     - secrets.backup.testpypi-files
 
   'G@roles:pypi_log not G@roles:develop':
