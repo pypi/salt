@@ -6,3 +6,9 @@ server {
   include nginx.ssl.conf;
   include conf.d/{{ config['name'] }}/app.conf;
 }
+
+server {
+  listen {{ config['tls_port'] }};
+  include nginx.ssl.conf;
+  include conf.d/{{ config['name'] }}/app.conf;
+}
