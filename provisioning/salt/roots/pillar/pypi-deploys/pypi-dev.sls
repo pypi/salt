@@ -13,7 +13,6 @@ pypi-deploy-devpypi:
     type: local
     uri: None
 
-  https_only: True
   server_names:
     - 192.168.57.9
   tls_port: 8999
