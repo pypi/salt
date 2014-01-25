@@ -1,8 +1,8 @@
 
 postgresql_cluster:
-  primary_server: 172.16.57.2
+  primary_server: 172.16.57.12
   standby_servers:
-    - 172.16.57.3
+    - 172.16.57.13
   pg_hba:
     testpypi:
       database: testpypi
