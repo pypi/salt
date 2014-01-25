@@ -16,6 +16,7 @@ pypi-deploy-testpypi:
   server_names:
     - testpypi.python.org
   tls_port: 9001
+  docs_port: 9011
   url: https://testpypi.python.org
 
   statuspage_id: 928bjjg42vzc

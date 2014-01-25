@@ -12,3 +12,8 @@ server {
   include nginx.ssl.conf;
   include conf.d/{{ config['name'] }}/app.conf;
 }
+
+server {
+  listen {{ config['docs_port'] }};
+  root {{ config['data_mount'] }}/packagedocs;
+}
