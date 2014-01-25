@@ -11,6 +11,8 @@ real_ip_header X-Forwarded-For;
 
 rewrite ^/$ {{ config['url'] }}/pypi redirect;
 
+client_max_body_size 100M;
+
 location ~* ^/(daytime).* {
   access_log off;
   include uwsgi_params;
