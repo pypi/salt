@@ -13,9 +13,9 @@ pypi-deploy-testpypi:
     type: glusterfs
     uri: 172.16.57.30:/testpypi
 
-  https_only: True
   server_names:
     - testpypi.python.org
+  tls_port: 9001
   url: https://testpypi.python.org
 
   statuspage_id: 928bjjg42vzc
