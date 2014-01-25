@@ -6,9 +6,3 @@ server {
   include nginx.ssl.conf;
   include conf.d/{{ config['name'] }}/app.conf;
 }
-
-server {
-  listen 80;
-  server_name cheeseshop.python.org a.pypi.python.org b.pypi.python.org d.pypi.python.org g.pypi.python.org;
-  rewrite ^ $scheme://pypi.python.org$request_uri permanent;
-}
