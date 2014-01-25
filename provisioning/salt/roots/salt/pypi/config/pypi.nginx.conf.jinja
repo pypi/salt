@@ -1,19 +1,6 @@
 {% set config = salt['pillar.get'](app_key) %}
 
 server {
-  listen 80;
-  server_name {{ " ".join(config['server_names']) }};
-
-  {% if config.get('https_only', False) %}
-  location / {
-    return 301 https://$server_name$request_uri;
-  }
-  {% else %}
-  include conf.d/{{ config['name'] }}/app.conf;
-  {% endif %}
-}
-
-server {
   listen 443;
   server_name {{ " ".join(config['server_names']) }};
   include nginx.ssl.conf;
