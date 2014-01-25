@@ -17,6 +17,7 @@ pypi-deploy-testpypi:
   server_names:
     - testpypi.python.org
     - testpypi.a.ssl.fastly.net
+  tls_port: 9001
   url: https://testpypi.python.org
 
   statuspage_id: 928bjjg42vzc

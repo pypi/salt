@@ -17,6 +17,7 @@ pypi-deploy-pypi:
   server_names:
     - pypi.python.org
     - pypi.a.ssl.fastly.net
+  tls_port: 9000
   url: https://pypi.python.org
 
   statuspage_id: 2p66nmmycsj3
