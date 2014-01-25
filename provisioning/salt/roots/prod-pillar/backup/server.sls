@@ -23,3 +23,13 @@ backup-server:
       user: testpypi
       increment_retention: 7D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAzAygdki5c3mszRXLv5fZmAkcDg6sFOjKt2TROCqC6KjAR0kX/lASYfj47yavmC5AZM+AM10T7LuwDgItUnrtqr1awEuseLgP5LX1BO5RHQI8oDsFfA+EcIkvExVh19Y2BE1wdxpCw2aSHMvkpxpTq7VoOlIydLNgPfLegaySfxTm0L8OEAXkLDYH3f8b1+UjGLs0qgt4pwxEYF+mSIAHqPNJ/ynWoMswryA+oCuuqB8723wmGlQhmjeQttYjiqdDda6Z9b9Vsuvhl9rskyLjwwUk0A5XosMdkZwaYNTrQiZ5bl/59Z2/dFRCOSrERPKdaC+hlaLBdoCTE6ASSn6TQQ==
+    pypi-packages:
+      directory: /backup/pypi/packages
+      user: pypi
+      increment_retention: 7D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAzAygdki5c3mszRXLv5fZmAkcDg6sFOjKt2TROCqC6KjAR0kX/lASYfj47yavmC5AZM+AM10T7LuwDgItUnrtqr1awEuseLgP5LX1BO5RHQI8oDsFfA+EcIkvExVh19Y2BE1wdxpCw2aSHMvkpxpTq7VoOlIydLNgPfLegaySfxTm0L8OEAXkLDYH3f8b1+UjGLs0qgt4pwxEYF+mSIAHqPNJ/ynWoMswryA+oCuuqB8723wmGlQhmjeQttYjiqdDda6Z9b9Vsuvhl9rskyLjwwUk0A5XosMdkZwaYNTrQiZ5bl/59Z2/dFRCOSrERPKdaC+hlaLBdoCTE6ASSn6TQQ==
+    pypi-packagedocs:
+      directory: /backup/pypi/packagedocs
+      user: pypi
+      increment_retention: 7D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAzAygdki5c3mszRXLv5fZmAkcDg6sFOjKt2TROCqC6KjAR0kX/lASYfj47yavmC5AZM+AM10T7LuwDgItUnrtqr1awEuseLgP5LX1BO5RHQI8oDsFfA+EcIkvExVh19Y2BE1wdxpCw2aSHMvkpxpTq7VoOlIydLNgPfLegaySfxTm0L8OEAXkLDYH3f8b1+UjGLs0qgt4pwxEYF+mSIAHqPNJ/ynWoMswryA+oCuuqB8723wmGlQhmjeQttYjiqdDda6Z9b9Vsuvhl9rskyLjwwUk0A5XosMdkZwaYNTrQiZ5bl/59Z2/dFRCOSrERPKdaC+hlaLBdoCTE6ASSn6TQQ==
