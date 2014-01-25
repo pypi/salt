@@ -19,6 +19,8 @@ base:
     - pypi.web
     - pypi-deploys.testpypi
     - secrets.testpypi
+    - pypi-deploys.pypi
+    - secrets.pypi
 
   'pypi-web0':
     - secrets.backup.testpypi-files
@@ -28,6 +30,8 @@ base:
     - pypi.log
     - pypi-deploys.testpypi
     - secrets.testpypi
+    - pypi-deploys.pypi
+    - secrets.pypi
 
   'G@roles:pypi and G@roles:develop':
     - match: compound
