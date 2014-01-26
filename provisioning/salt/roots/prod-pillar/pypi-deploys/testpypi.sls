@@ -6,6 +6,9 @@ pypi-deploy-testpypi:
   user_uid: 6666
   group_gid: 6666
 
+  source_uri: https://bitbucket.org/pypa/pypi
+  source_rev: default
+
   fastly_syslog_name: testpypicdn
   path: /opt/testpypi
   data_mount: /data/testpypi

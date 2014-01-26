@@ -6,6 +6,9 @@ pypi-deploy-pypi:
   user_uid: 7000
   group_gid: 7000
 
+  source_uri: https://bitbucket.org/pypa/pypi
+  source_rev: production
+
   fastly_syslog_name: counterpypicdn
   path: /opt/pypi
   data_mount: /data/pypi
