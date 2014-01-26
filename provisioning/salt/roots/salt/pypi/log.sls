@@ -63,4 +63,17 @@ redis-daemon:
       path: {{ config['path'] }}
       syslog_name: {{ config['fastly_syslog_name'] }}
 
+{{ config['user'] }}-integrate-stats-cron:
+  cron.present:
+    - name: {{ config['path'] }}/env/bin/python {{ config['path'] }}/src/tools/integrate-redis-stats.py
+    - minute: '*/15'
+    - user: {{ config['user'] }}
+
+{{ config['user'] }}-daily-database-cron:
+  cron.present:
+    - name: {{ config['path'] }}/env/bin/python {{ config['path'] }}/src/tools/daily.py
+    - minute: '0'
+    - hour: '6'
+    - user: {{ config['user'] }}
+
 {% endfor %}
