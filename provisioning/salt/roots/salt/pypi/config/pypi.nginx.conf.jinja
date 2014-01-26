@@ -15,5 +15,6 @@ server {
 
 server {
   listen {{ config['docs_port'] }};
+  port_in_redirect off;
   root {{ config['data_mount'] }}/packagedocs;
 }
