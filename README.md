@@ -16,5 +16,5 @@ data in `provisioning/salt/roots/pillar` is strictly for development environment
     - navigate to http://192.168.57.9/pypi
     - to hop into the environment:
       - `vagrant ssh`
-      - `sudo su - devpypi`
+      - `sudo -u devpypi -i`
       - `cd src`
