@@ -55,8 +55,8 @@ pypi-system-deps:
 
 {{ config['name'] }}-source:
   hg.latest:
-    - name: https://bitbucket.org/pypa/pypi
-    - rev: tip
+    - name: {{ config.get('source_uri', "https://bitbucket.org/pypa/pypi") }}
+    - rev: {{ config.get('source_rev', "tip") }}
     - target: {{ config['path'] }}/src
     - user: {{ config['name'] }}
     - require:
