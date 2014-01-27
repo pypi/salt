@@ -75,6 +75,7 @@ uid={{ config['user'] }}
 gid={{ config['group'] }}
 wsgi-file = {{ config['path'] }}/src/pypi.wsgi
 socket = /var/run/{{ config['name'] }}/pypi.sock
+stats = /var/run/{{ config['name'] }}/pypi-stats.sock
 pidfile = /var/run/{{ config['name'] }}/pypi.pid
 daemonize = 127.0.0.1:8224
 processes = {{ secrets['uwsgi'].get('processes', 2) }}
