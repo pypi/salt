@@ -60,6 +60,22 @@ bandersnatch:
     - group: root
     - makedirs: True
 
+/etc/nginx/conf.d/{{ mirror }}-mirror:
+  file.directory
+
+/etc/nginx/conf.d/{{ mirror }}-mirror/app.conf:
+  file.managed:
+    - source: salt://pypi-mirror/config/bandersnatch.nginx.app.conf
+    - template: jinja
+    - context:
+      mirror: {{ mirror }}
+    - user: root
+    - group: root
+    - mode: 640
+    - makedirs: True
+    - require:
+      - file: /etc/nginx/conf.d/{{ mirror }}-mirror
+
 /etc/nginx/conf.d/{{ mirror }}-mirror.conf:
   file.managed:
     - source: salt://pypi-mirror/config/bandersnatch.nginx.conf
@@ -67,11 +83,13 @@ bandersnatch:
     - context:
       mirror: {{ mirror }}
       server_names: {{ " ".join(config.get('server_names')) }}
+      tls_port: {{ config.get('tls_port', '8989') }}
     - user: root
     - group: root
     - mode: 640
     - makedirs: True
     - require:
+      - file: /etc/nginx/conf.d/{{ mirror }}-mirror/app.conf
       - file: /var/log/nginx/{{ mirror }}-mirror
 
 /etc/logrotate.d/{{ mirror }}-mirror:
