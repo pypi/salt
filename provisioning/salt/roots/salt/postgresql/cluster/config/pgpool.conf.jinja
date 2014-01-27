@@ -2,6 +2,7 @@
 {% set postgres_nodes = salt['pillar.get']('postgresql_cluster') %}
 {% set pgpool_nodes = salt['pillar.get']('pgpool_cluster').get('nodes') %}
 {% set pgpool_vip = salt['pillar.get']('pgpool_cluster:virtual_ip') %}
+{% set pgpool_vip_if = salt['pillar.get']('pgpool_cluster:virtual_ip_interface') %}
 {% set ips = salt['ip_picker.ip_addrs'](cidr=internal) %}
 
 #------------------------------------------------------------------------------
@@ -178,12 +179,12 @@ wd_hostname = '{{ ips[0] }}'
 wd_port = 9000
 wd_authkey = ''
 
-delegate_IP = ''
-#ifconfig_path = '/sbin'
-#if_up_cmd = 'sudo ifconfig eth2:0 inet $_IP_$ netmask 255.255.255.0'
-#if_down_cmd = 'sudo ifconfig eth2:0 down'
-#arping_path = '/usr/sbin'           # arping command path
-#arping_cmd = 'sudo arping -U $_IP_$ -w 1 -I eth2'
+delegate_IP = '{{ pgpool_vip }}'
+ifconfig_path = '/home/postgres/bin'
+if_up_cmd = 'ifconfig {{ pgpool_vip_if }}:0 inet $_IP_$ netmask 255.255.255.0'
+if_down_cmd = 'ifconfig {{ pgpool_vip_if }}:0 down'
+arping_path = '/home/postgres/bin'
+arping_cmd = 'arping -U $_IP_$ -w 1 -I {{ pgpool_vip_if }}'
 
 clear_memqcache_on_escalation = on
 wd_escalation_command = ''

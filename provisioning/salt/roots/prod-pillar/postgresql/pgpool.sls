@@ -5,14 +5,8 @@ pgpool_cluster:
     - 172.16.57.5
   listen_address: 5432
   enable_pool_hba: 'on'
-  virtual_ip:
-    172.16.57.100
-
-virtual_ips:
-  172.16.57.100:
-    auth_pass: sosecret
-    vrid: 51
-    cidr: 172.16.57.0/24
+  virtual_ip: 172.16.57.100
+  virtual_ip_interface: eth2
 
 firewall:
   pgpool_watchdog:
