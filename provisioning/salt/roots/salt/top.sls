@@ -21,11 +21,13 @@ base:
     - pypi.web
     - firewall
     - monitoring.client.nginx
+    - base.auto-highstate
 
   'roles:pypi_log':
     - match: grain
     - pypi.log
     - firewall
+    - base.auto-highstate
 
   'roles:postgresql_cluster':
     - match: grain
