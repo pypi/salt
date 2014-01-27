@@ -178,12 +178,12 @@ wd_hostname = '{{ ips[0] }}'
 wd_port = 9000
 wd_authkey = ''
 
-delegate_IP = ''
-#ifconfig_path = '/sbin'
-#if_up_cmd = 'sudo ifconfig eth2:0 inet $_IP_$ netmask 255.255.255.0'
-#if_down_cmd = 'sudo ifconfig eth2:0 down'
-#arping_path = '/usr/sbin'           # arping command path
-#arping_cmd = 'sudo arping -U $_IP_$ -w 1 -I eth2'
+delegate_IP = '{{ pgpool_vip }}'
+ifconfig_path = '/home/postgres/bin'
+if_up_cmd = 'ifconfig eth2:0 inet $_IP_$ netmask 255.255.255.0'
+if_down_cmd = 'ifconfig eth2:0 down'
+arping_path = '/home/postgres/bin'           # arping command path
+arping_cmd = 'arping -U $_IP_$ -w 1 -I eth2'
 
 clear_memqcache_on_escalation = on
 wd_escalation_command = ''

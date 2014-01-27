@@ -34,7 +34,6 @@ base:
   'roles:postgresql_pgpool':
     - match: grain
     - firewall
-    - keepalived
     - postgresql.cluster.pgpool
 
   'roles:gluster_node':
