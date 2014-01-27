@@ -6,4 +6,4 @@
 
 /etc/logrotate.d/salt:
   file.managed:
-    - source: salt:///base/config/salt-logrotate.conf
+    - source: salt://base/config/salt-logrotate.conf
