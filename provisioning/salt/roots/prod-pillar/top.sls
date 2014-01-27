@@ -13,6 +13,7 @@ base:
   'roles:pypi-mirror':
     - match: grain
     - pypi-mirror
+    - monitoring.client.dfw
 
   'G@roles:pypi not G@roles:develop':
     - match: compound
@@ -72,3 +73,4 @@ base:
   'roles:backup_server':
     - match: grain
     - backup.server
+    - monitoring.client.dfw

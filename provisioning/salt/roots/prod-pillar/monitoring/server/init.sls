@@ -26,6 +26,18 @@ firewall:
     port: 80
   https:
     port: 443
+  riemann_graphite_from_backup:
+    port: 2002
+    source: 23.253.80.94
+  graphite_ports_from_backup:
+    port: 2003:2004
+    source: 23.253.80.94
+  riemann_graphite_from_mirror:
+    port: 2002
+    source: 166.78.174.125
+  graphite_ports_from_mirror:
+    port: 2003:2004
+    source: 166.78.174.125
 
 riemann:
   host: 0.0.0.0
