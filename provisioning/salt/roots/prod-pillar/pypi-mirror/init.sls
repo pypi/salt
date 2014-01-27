@@ -4,6 +4,10 @@ firewall:
     port: 80
   https:
     port: 443
+  pypi-mirror:
+    port: 9000
+  testpypi-mirror:
+    port: 9001
 
 bandersnatch:
   pypi:
@@ -19,6 +23,7 @@ bandersnatch:
     server_names:
       - mirror0.pypi.io
       - pypi.python.org
+    tls_port: 9000
   testpypi:
     mirror:
       directory: /data/testpypi-mirror
@@ -32,3 +37,4 @@ bandersnatch:
     server_names:
       - mirror-test0.pypi.io
       - testpypi.python.org
+    tls_port: 9001
