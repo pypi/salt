@@ -63,6 +63,13 @@ redis-daemon:
       path: {{ config['path'] }}
       syslog_name: {{ config['fastly_syslog_name'] }}
 
+/etc/logrotate.d/{{ config['name'] }}-cdn:
+  file.managed:
+    - source: salt://pypi/config/pypi-syslog.logrotate.conf
+    - template: jinja
+    - context:
+      syslog_name: {{ config['fastly_syslog_name'] }}
+
 {{ config['user'] }}-integrate-stats-cron:
   cron.present:
     - name: {{ config['path'] }}/env/bin/python {{ config['path'] }}/src/tools/integrate-redis-stats.py

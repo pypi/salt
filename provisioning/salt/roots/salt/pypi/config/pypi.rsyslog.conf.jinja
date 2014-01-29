@@ -18,9 +18,15 @@ $SystemLogRateLimitInterval 0
 # Don't filter duplicate lines
 $RepeatedMsgReduction off
 
+$FileCreateMode 0644
+
 # Send all logging to a process, then discard it
 :app-name, isequal, "{{ syslog_name }}" :omprog:
+# Log everything from the CDN to a particular file and then discard it
+:app-name, isequal, "{{ syslog_name }}" /var/log/cdn/{{ syslog_name }}/access.log
 :app-name, isequal, "{{ syslog_name }}" ~
+
+$FileCreateMode 0640
 
 # Turn back on filtering duplicate lines
 $RepeatedMsgReduction on
