@@ -17,6 +17,7 @@ location ~* ^/(daytime).* {
   access_log off;
   include uwsgi_params;
   uwsgi_pass unix:/var/run/{{ config['name'] }}/pypi.sock;
+  uwsgi_param HTTP_X_FORWARDED_PROTO $scheme;
   uwsgi_param SCRIPT_NAME /$1;
   # the following magic stands for "UWSGI_MODIFIER_MANAGE_PATH_INFO"
   # .. when setting the SCRIPT_NAME remove that bit from the PATH_INFO
@@ -26,6 +27,7 @@ location ~* ^/(daytime).* {
 location ~* ^/(pypi|mirrors|id|oauth|security).* {
   include uwsgi_params;
   uwsgi_pass unix:/var/run/{{ config['name'] }}/pypi.sock;
+  uwsgi_param HTTP_X_FORWARDED_PROTO $scheme;
   uwsgi_param SCRIPT_NAME /$1;
   # the following magic stands for "UWSGI_MODIFIER_MANAGE_PATH_INFO"
   # .. when setting the SCRIPT_NAME remove that bit from the PATH_INFO
@@ -35,6 +37,7 @@ location ~* ^/(pypi|mirrors|id|oauth|security).* {
 location ~* ^/(simple|serversig|packages).* {
   include uwsgi_params;
   uwsgi_pass unix:/var/run/{{ config['name'] }}/pypi.sock;
+  uwsgi_param HTTP_X_FORWARDED_PROTO $scheme;
   uwsgi_param SCRIPT_NAME /$1;
   # the following magic stands for "UWSGI_MODIFIER_MANAGE_PATH_INFO"
   # .. when setting the SCRIPT_NAME remove that bit from the PATH_INFO
