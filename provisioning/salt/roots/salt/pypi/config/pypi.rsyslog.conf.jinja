@@ -20,10 +20,11 @@ $RepeatedMsgReduction off
 
 $DirCreateMode 0755
 
-# Send all logging to a process, then discard it
+# Send all logging to a process
 :app-name, isequal, "{{ syslog_name }}" :omprog:
-# Log everything from the CDN to a particular file and then discard it
+# Log everything from the CDN to a file
 :app-name, isequal, "{{ syslog_name }}" /var/log/cdn/{{ syslog_name }}/access.log
+# Discard logs
 :app-name, isequal, "{{ syslog_name }}" ~
 
 $DirCreateMode 0700
