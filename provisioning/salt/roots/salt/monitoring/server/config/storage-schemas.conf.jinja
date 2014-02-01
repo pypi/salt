@@ -2,6 +2,14 @@
 pattern = ^carbon\.
 retentions = 60:90d
 
+[downloads]
+pattern = ^stats\.downloads
+retentions = 10s:1h,1m:1d,1h:7d,1d:28d,28d:5y
+
+[downloads_counts]
+pattern = ^stats_counts\.downloads
+retentions = 10s:1h,1m:1d,1h:7d,1d:28d,28d:5y
+
 [default_10s_for_90d]
 pattern = .*
 retentions = 10s:90d
