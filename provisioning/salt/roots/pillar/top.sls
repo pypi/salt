@@ -44,6 +44,7 @@ base:
     - postgresql.cluster
     - postgresql.postgresql
     - secrets.postgresql
+    - secrets.monitoring.client.postgresql
 
   'G@roles:postgresql_cluster and G@roles:primary':
     - match: compound

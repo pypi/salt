@@ -6,6 +6,9 @@ postgresql_users:
   testpypi:
     name: testpypi
     password: testpypi
+  monitoring:
+    name: monitoring
+    password: monitoring
 
 postgresql_databases:
   pypi:

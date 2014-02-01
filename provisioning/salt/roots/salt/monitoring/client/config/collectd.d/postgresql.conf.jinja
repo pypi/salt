@@ -1,0 +1,56 @@
+LoadPlugin postgresql
+
+<Plugin postgresql>
+
+  <Query master_xlog_postition>
+    Statement "SELECT pg_xlog_location_diff(pg_current_xlog_location(), '0/0') AS offset;"
+    <Result>
+      Type gauge
+      InstancePrefix "master_xlog_postition"
+      ValuesFrom offset
+    </Result>
+  </Query>
+
+  <Query standby_xlog_rec>
+    Statement "SELECT pg_xlog_location_diff(pg_last_xlog_receive_location(), '0/0') AS receive;"
+    <Result>
+      Type gauge
+      InstancePrefix "standby_xlog_rec"
+      ValuesFrom receive
+    </Result>
+  </Query>
+
+  <Query standby_xlog_rep>
+    Statement "SELECT pg_xlog_location_diff(pg_last_xlog_replay_location(), '0/0') AS replay;"
+    <Result>
+      Type gauge
+      InstancePrefix "standby_xlog_rep"
+      ValuesFrom replay
+    </Result>
+  </Query>
+
+  <Query standby_approx_lag>
+    Statement "SELECT EXTRACT(EPOCH FROM (SELECT NOW() - pg_last_xact_replay_timestamp())) AS replication_delay;"
+    <Result>
+      Type gauge
+      InstancePrefix "standby_approx_lag"
+      ValuesFrom replication_delay
+    </Result>
+  </Query>
+
+  <Database postgres>
+    Host "{{ monitor_host }}"
+    Port "{{ monitor_port }}"
+    User "{{ monitor_user }}"
+    Password "{{ monitor_password }}"
+    {% if 'primary' in grains['roles'] %}
+    Query master_xlog_postition
+    {% endif %}
+    {% if 'standby' in grains['roles'] %}
+    Query standby_xlog_rec
+    Query standby_xlog_rep
+    Query standby_approx_lag
+    {% endif %}
+  </Database>
+
+</Plugin>

@@ -33,6 +33,7 @@ base:
     - match: grain
     - firewall
     - postgresql.cluster
+    - monitoring.client.postgresql
   'roles:postgresql_pgpool':
     - match: grain
     - firewall
