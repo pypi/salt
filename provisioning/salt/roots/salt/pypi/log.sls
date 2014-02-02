@@ -20,6 +20,10 @@ redis-bind-all:
     - name: /etc/redis.conf
     - text: "bind 0.0.0.0"
 
+vm.overcommit_memory:
+  sysctl.present:
+    - value: 1
+
 redis-daemon:
   service:
     - name: redis
@@ -30,6 +34,7 @@ redis-daemon:
     - require:
       - pkg: redis
       - file: /etc/redis.conf
+      - sysctl: vm.overcommit_memory
 
 {% set deploys = {} %}
 {% for k,v in pillar.items() %}
