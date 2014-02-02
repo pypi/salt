@@ -21,6 +21,7 @@ base:
     - pypi.web
     - firewall
     - monitoring.client.nginx
+    - monitoring.client.redis
     - base.auto-highstate
 
   'roles:pypi_log':
