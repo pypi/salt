@@ -41,6 +41,10 @@ bucky-supervisor:
       collectd_host: {{ client_config.get('collectd_host', '127.0.0.1') }}
       collectd_port: {{ client_config.get('collectd_port', 25826) }}
 
+/usr/local/lib/collectd/plugins:
+  file.recurse:
+    - source: salt://monitoring/client/plugins
+
 /etc/collectd.d/base.conf:
   file.managed:
     - source: salt://monitoring/client/config/collectd.d/base.conf
