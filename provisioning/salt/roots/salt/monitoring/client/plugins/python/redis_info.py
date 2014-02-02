@@ -142,6 +142,7 @@ def read_callback():
     dispatch_value(info, 'blocked_clients', 'gauge')
     dispatch_value(info, 'evicted_keys', 'gauge')
     dispatch_value(info, 'used_memory', 'bytes')
+    dispatch_value(info, 'used_memory_max', 'bytes')
     dispatch_value(info, 'changes_since_last_save', 'gauge')
     dispatch_value(info, 'total_connections_received', 'counter',
                    'connections_received')
