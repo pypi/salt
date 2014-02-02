@@ -28,6 +28,7 @@ base:
     - match: grain
     - pypi.log
     - firewall
+    - monitoring.client.redis
     - base.auto-highstate
 
   'roles:postgresql_cluster':
