@@ -78,7 +78,7 @@ redis-daemon:
 {{ config['user'] }}-integrate-stats-cron:
   cron.present:
     - name: {{ config['path'] }}/env/bin/python {{ config['path'] }}/src/tools/integrate-redis-stats.py
-    - minute: '*/15'
+    - minute: '0'
     - user: {{ config['user'] }}
 
 {{ config['user'] }}-daily-database-cron:
