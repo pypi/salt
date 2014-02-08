@@ -66,12 +66,30 @@ include:
 /etc/nginx/conf.d/{{ config['name'] }}:
   file.directory
 
+
+{% if config.get('rate_limit', False) %}
+/etc/nginx/conf.d/{{ config['name'] }}-ratelimit.conf:
+  file.managed:
+    - source: salt://pypi/config/pypi.nginx.ratelimit.conf.jinja
+    - template: jinja
+    - context:
+      zone_name: {{ config['name'] }}
+      zone_size: {{ config.get('rate_limit', {}).get('zone_size', '10m') }}
+      max_rate: {{ config.get('rate_limit', {}).get('max_rate', '1r/s') }}
+{% endif %}
+
 /etc/nginx/conf.d/{{ config['name'] }}/app.conf:
   file.managed:
     - source: salt://pypi/config/pypi.nginx.app.conf.jinja
     - template: jinja
     - context:
       app_key: {{ key }}
+{% if config.get('rate_limit', False) %}
+      rate_limit: True
+      zone_name: {{ config['name'] }}
+      burst: {{ config.get('rate_limit', {}).get('burst', 3) }}
+      nodelay: {{ config.get('rate_limit', {}).get('nodelay', False) }}
+{% endif %}
     - user: root
     - group: root
     - mode: 640
