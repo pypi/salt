@@ -13,6 +13,11 @@ rewrite ^/$ {{ config['url'] }}/pypi redirect;
 
 client_max_body_size 100M;
 
+error_page 500 502 503 504 /static/error/500.html;
+error_page 404 /static/error/400.html;
+error_page 429 /static/error/429.html;
+uwsgi_intercept_errors on;
+
 location ~* ^/(daytime).* {
   access_log off;
   include uwsgi_params;
