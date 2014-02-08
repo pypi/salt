@@ -32,7 +32,7 @@ location ~* ^/(daytime).* {
 location ~* ^/(pypi|mirrors|id|oauth|security).* {
   include uwsgi_params;
   {% if rate_limit is defined %}
-  limit_req zone={{ zone_name }} burst={{ burst }};
+  limit_req zone={{ zone_name }} burst={{ burst }} {% if nodelay -%}nodelay{%- endif -%};
   {% endif %}
   uwsgi_pass unix:/var/run/{{ config['name'] }}/pypi.sock;
   uwsgi_param HTTP_X_FORWARDED_PROTO $scheme;

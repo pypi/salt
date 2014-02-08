@@ -29,3 +29,4 @@ pypi-deploy-devpypi:
     zone_size: 30m
     max_rate: 5r/s
     burst: 10
+    nodelay: False

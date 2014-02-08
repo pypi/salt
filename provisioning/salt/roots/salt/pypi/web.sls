@@ -88,6 +88,7 @@ include:
       rate_limit: True
       zone_name: {{ config['name'] }}
       burst: {{ config.get('rate_limit', {}).get('burst', 3) }}
+      nodelay: {{ config.get('rate_limit', {}).get('nodelay', False) }}
 {% endif %}
     - user: root
     - group: root
