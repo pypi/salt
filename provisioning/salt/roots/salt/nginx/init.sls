@@ -1,4 +1,20 @@
 
+/etc/pki/rpm-gpg/RPM-GPG-KEY-NGINX:
+  file.managed:
+    - source: salt://nginx/config/RPM-GPG-KEY-NGINX
+    - user: root
+    - group: root
+    - mode: 444
+
+nginx-release:
+  pkgrepo.managed:
+    - humanname: nginx CentOS YUM repository
+    - baseurl: http://nginx.org/packages/centos/$releasever/$basearch/
+    - gpgcheck: 1
+    - gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NGINX
+    - require:
+      - file: /etc/pki/rpm-gpg/RPM-GPG-KEY-NGINX
+
 nginx:
   user.present:
     - system: True
@@ -11,6 +27,8 @@ nginx:
     - system: True
   pkg:
     - installed
+    - require:
+      - pkgrepo: nginx-release
   service:
     - running
     - enable: True
