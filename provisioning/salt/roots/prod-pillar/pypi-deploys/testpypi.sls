@@ -24,3 +24,10 @@ pypi-deploy-testpypi:
   url: https://testpypi.python.org
 
   statuspage_id: 928bjjg42vzc
+
+  rate_limit:
+    enable: True
+    zone_size: 10m
+    max_rate: 3r/s
+    burst: 6
+    nodelay: False
