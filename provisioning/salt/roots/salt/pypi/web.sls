@@ -10,6 +10,10 @@ include:
   - pypi.dev-db
 {% endif %}
 
+net.core.somaxconn:
+  sysctl.present:
+    - value: 1024
+
 {% set deploys = {} %}
 {% for k,v in pillar.items() %}
   {% if k.startswith('pypi-deploy-') %}
