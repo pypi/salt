@@ -23,3 +23,10 @@ pypi-deploy-devpypi:
   url: https://192.168.57.9
 
   statuspage_id: 928bjjg42vzc
+
+  rate_limit:
+    enable: True
+    zone_size: 30m
+    max_rate: 5r/s
+    burst: 10
+    nodelay: False
