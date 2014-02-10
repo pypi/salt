@@ -14,6 +14,12 @@ postgresql_cluster:
       user: pypi
       address: 172.16.57.0/24
       method: md5
+  postgresql:
+    shared_buffers: 128MB
+    work_mem: 32MB
+    maintenance_work_mem: 50MB
+    effective_cache_size: 256MB
+    pg_stat_statements: True
 
 pgpool_cluster:
   nodes:

@@ -99,6 +99,18 @@ restart_postgresql:
  
   {% endfor %}
 
+{% if salt['pillar.get']('postgresql_cluster:postgresql:pg_stat_statements', False) %}
+  cmd.wait:
+    - name: 'psql postgres -c "CREATE EXTENSION IF NOT EXISTS pg_stat_statements;"'
+    - user: postgres
+    - require:
+      - file: /var/lib/pgsql/9.3/data/postgresql.conf
+      - pkg: pypi_postgres_contrib
+    - watch:
+      - file: /var/lib/pgsql/9.3/data/postgresql.conf
+      - pkg: pypi_postgres_contrib
+{% endif %}
+
   {% for pg_extension, config in pillar.get('postgresql_extensions', []).items() %}
 
   {% set ext = config['name'] %}
