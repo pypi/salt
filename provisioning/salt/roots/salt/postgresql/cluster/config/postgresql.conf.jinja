@@ -38,7 +38,10 @@ wal_level = hot_standby
 archive_mode = on
 archive_command = 'cp -i %p /var/lib/pgsql/9.3/backups/archives/%f'
 max_wal_senders = 10
-checkpoint_segments = 16
+wal_buffers = 16MB
+checkpoint_completion_target = 0.9
+checkpoint_timeout = 10m
+checkpoint_segments = 32
 wal_keep_segments = 32
 {% endif %}
 
