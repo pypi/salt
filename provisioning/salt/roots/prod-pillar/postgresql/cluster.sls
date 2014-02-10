@@ -14,6 +14,8 @@ postgresql_cluster:
       user: pypi
       address: 172.16.57.0/24
       method: md5
+  postgresql:
+    pg_stat_statements: True
 
 pgpool_cluster:
   nodes:

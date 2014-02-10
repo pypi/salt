@@ -6,6 +6,10 @@ work_mem = {{ salt['pillar.get']('postgresql_cluster:postgresql:work_mem', '64MB
 maintenance_work_mem = {{ salt['pillar.get']('postgresql_cluster:postgresql:maintenance_work_mem', '820MB') }}
 effective_cache_size = {{ salt['pillar.get']('postgresql_cluster:postgresql:effective_cache_size', '4096MB') }}
 
+{% if salt['pillar.get']('postgresql_cluster:postgresql:pg_stat_statements', False) %}
+shared_preload_libraries = 'pg_stat_statements'
+{% endif %}
+
 log_destination = 'stderr'
 logging_collector = on
 log_directory = 'pg_log'
