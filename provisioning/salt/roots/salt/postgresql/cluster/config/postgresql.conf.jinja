@@ -1,6 +1,10 @@
 # Default from PostgreSQL 9.3
 max_connections = 100
-shared_buffers = 4096MB
+
+shared_buffers = {{ salt['pillar.get']('postgresql_cluster:postgresql:shared_buffers', '2048MB') }}
+work_mem = {{ salt['pillar.get']('postgresql_cluster:postgresql:work_mem', '64MB') }}
+maintenance_work_mem = {{ salt['pillar.get']('postgresql_cluster:postgresql:maintenance_work_mem', '820MB') }}
+effective_cache_size = {{ salt['pillar.get']('postgresql_cluster:postgresql:effective_cache_size', '4096MB') }}
 
 log_destination = 'stderr'
 logging_collector = on
