@@ -1,13 +1,20 @@
 # Default from PostgreSQL 9.3
 max_connections = 100
 shared_buffers = 4096MB
+
 log_destination = 'stderr'
 logging_collector = on
 log_directory = 'pg_log'
-log_filename = 'postgresql-%a.log'
-log_truncate_on_rotation = on
+log_filename = 'postgres-%Y-%m-%d_%H%M%S'
 log_rotation_age = 1d
-log_rotation_size = 0
+log_rotation_size = 1GB
+log_min_duration_statement = 250ms 
+log_checkpoints = on
+log_connections = on
+log_disconnections = on
+log_lock_waits = on
+log_temp_files = 0
+
 log_line_prefix = '< %m >'
 log_timezone = 'UTC'
 datestyle = 'iso, mdy'
