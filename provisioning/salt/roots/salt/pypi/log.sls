@@ -45,6 +45,32 @@ redis-daemon:
 
 {% for key, config in deploys.items() %}
 
+pypi-cdn-log-archiver:
+  pip.installed:
+    - name: pypi-cdn-log-archiver == 0.1.3
+    - bin_env: /opt/{{ config['name'] }}/env
+    - require:
+      - virtualenv: /opt/{{ config['name'] }}/env
+
+{{ config['path'] }}/env/bin/pypi-cdn-log-archiver-wrapper.sh:
+  file.managed:
+    - source: salt://pypi/config/pypi-cdn-log-archiver-wrapper.sh.jinja
+    - template: jinja
+    - user: {{ config['user'] }}
+    - group: {{ config['group'] }}
+    - mode: 0755
+    - virtualenv: /opt/{{ config['name'] }}/env
+    - context:
+      app_key: {{ key }}
+      path: {{ config['path'] }}
+      pypi_log_bucket: {{ config['cdn_log_archiver']['pypi_log_bucket'] }}
+      s3_host: {{ config['cdn_log_archiver']['s3_host'] }}
+      debug: {{ config['cdn_log_archiver']['debug'] }}
+    - require:
+      - user: {{ config['user'] }}
+      - group: {{ config['group'] }}
+      - virtualenv: /opt/{{ config['name'] }}/env
+
 {{ config['path'] }}/env/bin/rsyslog-cdn-wrapper.sh:
   file.managed:
     - source: salt://pypi/config/rsyslog-cdn-wrapper.sh.jinja
@@ -79,6 +105,13 @@ redis-daemon:
   cron.present:
     - name: {{ config['path'] }}/env/bin/python {{ config['path'] }}/src/tools/integrate-redis-stats.py
     - minute: '0'
+    - user: {{ config['user'] }}
+
+{{ config['user'] }}-cdn-log-archiver-cron:
+  cron.present:
+    - name: {{ config['path'] }}/env/bin/pypi-cdn-log-archiver
+    - minute: '0'
+    - hour: '4'
     - user: {{ config['user'] }}
 
 {{ config['user'] }}-daily-database-cron:

@@ -1,0 +1,11 @@
+{% set secrets = salt['pillar.get']("secrets-"+app_key) %}
+#!/bin/bash
+export ACCESS_KEY={{ secrets['cdn_log_archiver']['access_key'] }}
+export SECRET_KEY={{ secrets['cdn_log_archiver']['secret_key'] }}
+export PYPI_LOG_BUCKET={{ pypi_log_bucket }}
+export S3_HOST={{ s3_host }}
+{% if debug == 10 %}
+export DEBUG={{ debug }}
+{% endif %}
+
+{{ path }}/env/bin/python {{ path }}/env/bin/pypi-cdn-log-archiver
