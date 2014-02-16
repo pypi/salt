@@ -30,7 +30,7 @@ pypi-mirror:
 
 bandersnatch:
   pip.installed:
-    - name: bandersnatch == 1.0.5
+    - name: bandersnatch == 1.3
     - bin_env: /opt/bandersnatch
     - require:
       - virtualenv: /opt/bandersnatch
