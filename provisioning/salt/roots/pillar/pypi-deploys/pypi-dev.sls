@@ -34,4 +34,4 @@ pypi-deploy-devpypi:
   cdn_log_archiver:
     pypi_log_bucket: testpypi-cdn-logs
     s3_host: objects.dreamhost.com
-    debug: 10
+    debug: true

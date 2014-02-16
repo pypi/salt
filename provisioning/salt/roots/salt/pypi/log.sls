@@ -36,6 +36,18 @@ redis-daemon:
       - file: /etc/redis.conf
       - sysctl: vm.overcommit_memory
 
+
+/opt/pypi-cdn-log-archiver/env:
+  virtualenv.managed:
+    - system_site_packages: False
+
+pypi-cdn-log-archiver:
+  pip.installed:
+    - name: pypi-cdn-log-archiver == 0.1.4
+    - bin_env: /opt/pypi-cdn-log-archiver/env
+    - require:
+      - virtualenv: /opt/pypi-cdn-log-archiver/env
+
 {% set deploys = {} %}
 {% for k,v in pillar.items() %}
   {% if k.startswith('pypi-deploy-') %}
@@ -45,21 +57,14 @@ redis-daemon:
 
 {% for key, config in deploys.items() %}
 
-pypi-cdn-log-archiver:
-  pip.installed:
-    - name: pypi-cdn-log-archiver == 0.1.3
-    - bin_env: /opt/{{ config['name'] }}/env
-    - require:
-      - virtualenv: /opt/{{ config['name'] }}/env
-
-{{ config['path'] }}/env/bin/pypi-cdn-log-archiver-wrapper.sh:
+/opt/pypi-cdn-log-archiver/env/bin/pypi-cdn-log-archiver-wrapper.sh:
   file.managed:
     - source: salt://pypi/config/pypi-cdn-log-archiver-wrapper.sh.jinja
     - template: jinja
     - user: {{ config['user'] }}
     - group: {{ config['group'] }}
     - mode: 0755
-    - virtualenv: /opt/{{ config['name'] }}/env
+    - virtualenv: /opt/pypi-cdn-log-archiver/env
     - context:
       app_key: {{ key }}
       path: {{ config['path'] }}
@@ -69,7 +74,7 @@ pypi-cdn-log-archiver:
     - require:
       - user: {{ config['user'] }}
       - group: {{ config['group'] }}
-      - virtualenv: /opt/{{ config['name'] }}/env
+      - virtualenv: /opt/pypi-cdn-log-archiver/env
 
 {{ config['path'] }}/env/bin/rsyslog-cdn-wrapper.sh:
   file.managed:
@@ -109,7 +114,7 @@ pypi-cdn-log-archiver:
 
 {{ config['user'] }}-cdn-log-archiver-cron:
   cron.present:
-    - name: {{ config['path'] }}/env/bin/pypi-cdn-log-archiver
+    - name: /opt/pypi-cdn-log-archiver/env/bin/pypi-cdn-log-archiver-wrapper.sh
     - minute: '0'
     - hour: '4'
     - user: {{ config['user'] }}
