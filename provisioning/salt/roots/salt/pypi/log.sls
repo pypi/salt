@@ -57,7 +57,7 @@ pypi-cdn-log-archiver:
 
 {% for key, config in deploys.items() %}
 
-/opt/pypi-cdn-log-archiver/env/bin/pypi-cdn-log-archiver-wrapper.sh:
+/opt/pypi-cdn-log-archiver/env/bin/{{ config['name'] }}-cdn-log-archiver-wrapper.sh:
   file.managed:
     - source: salt://pypi/config/pypi-cdn-log-archiver-wrapper.sh.jinja
     - template: jinja
@@ -114,7 +114,7 @@ pypi-cdn-log-archiver:
 
 {{ config['user'] }}-cdn-log-archiver-cron:
   cron.present:
-    - name: /opt/pypi-cdn-log-archiver/env/bin/pypi-cdn-log-archiver-wrapper.sh
+    - name: /opt/pypi-cdn-log-archiver/env/bin/{{ config['name'] }}-cdn-log-archiver-wrapper.sh
     - minute: '0'
     - hour: '4'
     - user: {{ config['user'] }}
