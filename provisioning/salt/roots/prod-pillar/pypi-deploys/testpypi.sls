@@ -31,3 +31,8 @@ pypi-deploy-testpypi:
     max_rate: 3r/s
     burst: 6
     nodelay: False
+
+  cdn_log_archiver:
+    pypi_log_bucket: testpypi-cdn-logs
+    s3_host: objects.dreamhost.com
+    debug: true

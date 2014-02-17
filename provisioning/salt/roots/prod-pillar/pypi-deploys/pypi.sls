@@ -24,3 +24,8 @@ pypi-deploy-pypi:
   url: https://pypi.python.org
 
   statuspage_id: 2p66nmmycsj3
+
+  cdn_log_archiver:
+    pypi_log_bucket: pypi-cdn-logs
+    s3_host: objects.dreamhost.com
+    debug: false

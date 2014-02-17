@@ -35,3 +35,6 @@ secrets-pypi-deploy-devpypi:
     -----BEGIN DSA PRIVATE KEY-----
     privatelolnope
     -----END DSA PRIVATE KEY-----
+  cdn_log_archiver:
+    secret_key: lmsecretao
+    access_key: accesslol
