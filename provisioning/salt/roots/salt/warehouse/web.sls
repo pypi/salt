@@ -89,5 +89,11 @@ gunicorn:
       - git: {{ config['name'] }}-source
       - file: /etc/warehouse/{{ config['name'] }}.yml
 
+{{ config['name'] }}-reindex:
+  cron.present:
+    - name: "/opt/{{ config['name'] }}/env/bin/warehouse -c /etc/warehouse/{{ config['name'] }}.yml search reindex"
+    - minute: '0'
+    - user: {{ config['name'] }}
+
 
 {% endfor %}
