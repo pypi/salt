@@ -46,6 +46,7 @@ warehouse-deploy-devpypi:
       csp:
         default-src:
           - self
+          - {{ grains['fqdn'] }}:9000
           - "localhost:9000"
           - "192.168.57.9:9000"
     logging:

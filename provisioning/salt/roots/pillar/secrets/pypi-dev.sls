@@ -2,6 +2,9 @@
 secrets-pypi-deploy-devpypi:
   database_url: postgresql://testpypi:testpypi@localhost/testpypi
   database_download_statistics_url: postgresql://testpypi:testpypi@localhost/testpypi
+  elasticsearch:
+    host: localhost
+    port: 9200
   postgresql:
     host: 127.0.0.1
     database: testpypi
