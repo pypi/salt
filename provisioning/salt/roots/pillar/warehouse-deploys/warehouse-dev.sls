@@ -45,10 +45,13 @@ warehouse-deploy-devpypi:
     security:
       csp:
         default-src:
-          - self
-          - {{ grains['fqdn'] }}:9000
-          - "localhost:9000"
-          - "192.168.57.9:9000"
+          - "'self'"
+        style-src:
+          - "'self'"
+          - cloud.typography.com
+        font-src:
+          - "'self'"
+          - "data:"
     logging:
       formatters:
         console:
