@@ -1,5 +1,7 @@
 
 secrets-pypi-deploy-devpypi:
+  database_url: postgresql://testpypi:testpypi@localhost/testpypi
+  database_download_statistics_url: postgresql://testpypi:testpypi@localhost/testpypi
   postgresql:
     host: 127.0.0.1
     database: testpypi
