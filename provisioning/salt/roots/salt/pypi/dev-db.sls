@@ -68,7 +68,7 @@ pypi_postgres_pg_hba:
 
 {{ config['name'] }}_postgres_uuid-ossp:
   cmd.wait:
-    - name: 'psql {{ secrets['postgresql']['database'] }} -c \'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;\''
+    - name: 'psql {{ secrets['postgresql']['database'] }} -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\" WITH SCHEMA public;"'
     - user: postgres
     - require:
       - postgres_database: {{ config['name'] }}_postgres_database
