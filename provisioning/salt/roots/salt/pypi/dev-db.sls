@@ -66,6 +66,17 @@ pypi_postgres_pg_hba:
       - postgres_database: {{ config['name'] }}_postgres_database
       - postgres_user: {{ config['name'] }}_dev_postgres_user
 
+{{ config['name'] }}_postgres_uuid-ossp:
+  cmd.wait:
+    - name: 'psql {{ secrets['postgresql']['database'] }} -c \'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;\''
+    - user: postgres
+    - require:
+      - postgres_database: {{ config['name'] }}_postgres_database
+      - postgres_user: {{ config['name'] }}_dev_postgres_user
+    - watch:
+      - postgres_database: {{ config['name'] }}_postgres_database
+      - postgres_user: {{ config['name'] }}_dev_postgres_user
+
 {{ config['path'] }}/.pgpass:
   file.managed:
     - contents: "{{ secrets['postgresql']['host'] }}:*:{{ secrets['postgresql']['database'] }}:{{ secrets['postgresql']['user'] }}:{{ secrets['postgresql']['password'] }}"
@@ -86,6 +97,7 @@ pypi_postgres_pg_hba:
     - require:
       - postgres_database: {{ config['name'] }}_postgres_database
       - postgres_user: {{ config['name'] }}_dev_postgres_user
+      - cmd: {{ config['name'] }}_postgres_uuid-ossp
       - cmd: {{ config['name'] }}_postgres_plpgsql
       - cmd: {{ config['name'] }}_postgres_citext
       - hg: {{ config['name'] }}-source

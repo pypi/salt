@@ -25,9 +25,15 @@ postgresql_extensions:
   pypi_citext:
     name: citext
     database: pypi
+  pypi_uuid-ossp:
+    name: uuid-ossp
+    database: pypi
   testpypi_plpgsql:
     name: plpgsql
     database: testpypi
   testpypi_citext:
     name: citext
+    database: testpypi
+  testpypi_uuid-ossp:
+    name: uuid-ossp
     database: testpypi
