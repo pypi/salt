@@ -53,10 +53,16 @@ include:
       - file: {{ config['path'] }}
       - user: {{ config['user'] }}
 
+{{ config['name'] }}-source:
+  git.latest:
+    - name: {{ config.get('source_uri', "https://github.com/pypa/warehouse.git") }}
+    - rev: {{ config.get('source_rev', "master") }}
+    - user: {{ config['name'] }}
+    - target: /opt/{{ config['name'] }}/src
 
 {{ config['name'] }}-package:
   pip.installed:
-    - name: git+{{ config.get('source_uri', "https://github.com/pypa/warehouse.git") }}@{{ config.get('source_rev', "master") }}
+    - name: /opt/{{ config['name'] }}/src
     - user: {{ config['name'] }}
     - bin_env: /opt/{{ config['name'] }}/env
 
