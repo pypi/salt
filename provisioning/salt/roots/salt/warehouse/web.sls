@@ -78,4 +78,16 @@ gunicorn:
     - watch:
       - file: /etc/supervisord.d/{{ config['name'] }}.ini
 
+{{ config['name'] }}-reload:
+  cmd.wait:
+    - name: kill -HUP $(cat /var/run/{{ config['name'] }}/gunicorn.pid)
+    - require:
+      - git: {{ config['name'] }}-source
+      - pip: /opt/{{ config['name'] }}/src
+      - file: /etc/warehouse/{{ config['name'] }}.yml
+    - watch:
+      - git: {{ config['name'] }}-source
+      - file: /etc/warehouse/{{ config['name'] }}.yml
+
+
 {% endfor %}
