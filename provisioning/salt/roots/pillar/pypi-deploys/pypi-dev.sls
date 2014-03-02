@@ -7,7 +7,7 @@ pypi-deploy-devpypi:
   group_gid: 6666
 
   source_uri: https://bitbucket.org/pypa/pypi
-  source_rev: tip
+  source_rev: default
 
   fastly_syslog_name: pypi-dev
   path: /opt/devpypi

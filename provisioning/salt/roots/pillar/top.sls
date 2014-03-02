@@ -32,12 +32,14 @@ base:
     - pypi-deploys.pypi-dev
     - secrets.pypi-dev
     - secrets.backup.pypi-dev
+    - warehouse-deploys.warehouse-dev
 
   'G@roles:pypi_log and G@roles:develop':
     - match: compound
     - pypi.log
     - pypi-deploys.pypi-dev
     - secrets.pypi-dev
+    - warehouse-deploys.warehouse-dev
 
   'roles:postgresql_cluster':
     - match: grain

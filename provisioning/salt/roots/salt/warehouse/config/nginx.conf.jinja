@@ -1,0 +1,11 @@
+  upstream {{ app_name }}_server {
+    server unix:/var/run/{{ app_name }}/gunicorn.sock fail_timeout=0;
+  }
+
+  server {
+    listen {{ port }} ;
+    access_log /var/log/nginx/{{ app_name }}/access.log;
+    error_log /var/log/nginx/{{ app_name }}/error.log;
+    include nginx.ssl.conf;
+    include conf.d/{{ app_name }}/app.conf;
+  }
