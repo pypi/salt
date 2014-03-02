@@ -1,7 +1,7 @@
 
 /etc/pki/rpm-gpg/RPM-GPG-KEY-PYTHON-PYPY:
   file.managed:
-    - source: salt://python/PYPY/RPM-GPG-KEY-PYTHON-PYPY
+    - source: salt://python/pypy/RPM-GPG-KEY-PYTHON-PYPY
     - user: root
     - group: root
     - mode: 444
