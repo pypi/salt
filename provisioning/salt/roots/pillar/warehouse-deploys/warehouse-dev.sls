@@ -29,19 +29,6 @@ warehouse-deploy-devpypi:
       packages: "/data/devpypi/packages"
     urls:
       documentation: "http://pythonhosted.org/"
-    cache:
-      browser:
-        index: 1
-        simple: 1
-        packages: 1
-        project_detail: 1
-        user_profile: 1
-      varnish:
-        index: 120
-        simple: 120
-        packages: 120
-        project_detail: 120
-        user_profile: 120
     security:
       csp:
         default-src:
