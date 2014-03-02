@@ -6,6 +6,8 @@ warehouse-deploy-devpypi:
   group_gid: 7666
   path: /opt/devwarehouse
 
+  port: 9000
+
   source_uri: https://github.com/pypa/warehouse.git
   source_rev: master
   

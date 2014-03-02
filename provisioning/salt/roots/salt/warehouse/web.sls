@@ -33,7 +33,7 @@ include:
     - template: jinja
     - context:
       app_name: {{ config['name'] }}
-      port: 9000
+      port: {{ config ['port'] }}
 
 /opt/{{ config['name'] }}/gunicorn.py:
   file.managed:
