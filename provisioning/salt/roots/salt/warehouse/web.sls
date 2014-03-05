@@ -46,13 +46,21 @@ include:
       - file: /var/log/{{ config['name'] }}
       - file: /var/run/{{ config['name'] }}
 
-unicornherder:
+{{ config['name'] }}-psutil:
   pip.installed:
+    - name: psutil
     - user: {{ config['name'] }}
     - bin_env: /opt/{{ config['name'] }}/env
 
-gunicorn:
+{{ config['name'] }}-unicornherder:
   pip.installed:
+    - name: unicornherder
+    - user: {{ config['name'] }}
+    - bin_env: /opt/{{ config['name'] }}/env
+
+{{ config['name'] }}-gunicorn:
+  pip.installed:
+    - name: gunicorn
     - user: {{ config['name'] }}
     - bin_env: /opt/{{ config['name'] }}/env
 

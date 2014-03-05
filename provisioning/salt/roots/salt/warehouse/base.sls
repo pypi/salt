@@ -45,7 +45,7 @@ include:
 /opt/{{ config['name'] }}/env:
   virtualenv.managed:
     - venv_bin: virtualenv-pypy
-    - python: pypy
+    - python: /usr/bin/pypy
     - system_site_packages: False
     - user: {{ config['name'] }}
     - cwd:  {{ config['path'] }}/src
@@ -63,12 +63,15 @@ include:
 {{ config['name'] }}-package:
   pip.installed:
     - name: /opt/{{ config['name'] }}/src
+    - upgrade: True
     - user: {{ config['name'] }}
     - bin_env: /opt/{{ config['name'] }}/env
+
+{% set secrets_key = config['secrets_key'] %}
 
 /etc/warehouse/{{ config['name'] }}.yml:
   file.serialize:
     - formatter: json
-    - dataset: {{ config['config'] }}
+    - dataset: {{ pillar.get(secrets_key)['config'] }}
 
 {% endfor %}

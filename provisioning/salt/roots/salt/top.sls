@@ -24,6 +24,13 @@ base:
     - monitoring.client.redis
     - base.auto-highstate
 
+  'G@roles:warehouse':
+    - match: compound
+    - warehouse.web
+    - firewall
+    - monitoring.client.nginx
+    - base.auto-highstate
+
   'roles:pypi_log':
     - match: grain
     - pypi.log
