@@ -59,7 +59,7 @@ login = {{ secrets['smtp'].get('login', '') }}
 password = {{ secrets['smtp'].get('password', '') }}
 
 [passlib]
-schemes = django_bcrypt, unix_disabled
+schemes = bcrypt_sha256, bcrypt, django_bcrypt, unix_disabled
 
 [logging]
 file =
