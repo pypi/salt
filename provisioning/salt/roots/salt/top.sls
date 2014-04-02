@@ -9,6 +9,7 @@ base:
   'roles:salt-master':
     - match: grain
     - firewall
+    - cdn
 
   'roles:pypi-mirror':
     - match: grain
