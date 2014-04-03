@@ -1,6 +1,6 @@
 
 include:
-  - python.pypy
+  - python.34
 
 {% set deploys = {} %}
 {% for k,v in pillar.items() %}
@@ -44,8 +44,7 @@ include:
 
 /opt/{{ config['name'] }}/env:
   virtualenv.managed:
-    - venv_bin: virtualenv-pypy
-    - python: /usr/bin/pypy
+    - venv_bin: pyvenv-3.4
     - system_site_packages: False
     - user: {{ config['name'] }}
     - cwd:  {{ config['path'] }}/src
