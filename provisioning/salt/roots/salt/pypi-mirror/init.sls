@@ -7,6 +7,9 @@ pypi-mirror:
   user.present:
     - home: /opt/bandersnatch
 
+/etc/bandersnatch:
+  file.directory
+
 /opt/bandersnatch:
   file.directory:
     - user: pypi-mirror
@@ -102,9 +105,6 @@ bandersnatch:
     - group: root
     - mode: 644
     - makedirs: True
-
-/etc/bandersnatch:
-  file.directory
 
 /etc/bandersnatch/{{ mirror }}-mirror.conf:
   file.managed:
