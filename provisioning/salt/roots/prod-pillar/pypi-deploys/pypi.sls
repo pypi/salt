@@ -14,7 +14,7 @@ pypi-deploy-pypi:
   data_mount: /data/pypi
   data_device:
     type: glusterfs
-    uri: 172.16.57.6:/pypi
+    uri: 172.16.57.11:/pypi
 
   server_names:
     - pypi.python.org
