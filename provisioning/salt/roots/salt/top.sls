@@ -5,6 +5,7 @@ base:
     - sudoers
     - backup.client
     - monitoring.client.base
+    - auto-security
 
   'roles:salt-master':
     - match: grain
