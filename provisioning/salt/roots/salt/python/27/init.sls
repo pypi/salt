@@ -30,7 +30,7 @@ setuptools-2.7:
 
 pip-2.7:
   cmd.wait:
-    - name: 'curl https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python2.7'
+    - name: 'curl https://bootstrap.pypa.io/get-pip.py | python2.7'
     - watch:
       - pkg: python27
     - require:
