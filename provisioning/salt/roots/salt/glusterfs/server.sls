@@ -10,7 +10,7 @@ ignore-centos-gluster:
 
 ignore-centos-updates-gluster:
   cmd.run:
-    - name: yum-config-manager base --setopt=base.exclude=glusterfs\* --save
+    - name: yum-config-manager updates --setopt=base.exclude=glusterfs\* --save
     - unless: yum-config-manager updates | grep -Pzo 'glusterfs\*'
 
 glusterfs-server:
