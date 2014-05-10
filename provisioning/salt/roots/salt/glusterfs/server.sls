@@ -3,6 +3,16 @@ include:
   - firewall
   - glusterfs.base
 
+ignore-centos-gluster:
+  cmd.run:
+    - name: yum-config-manager base --setopt=base.exclude=glusterfs\* --save
+    - unless: yum-config-manager base | grep -Pzo 'glusterfs\*'
+
+ignore-centos-updates-gluster:
+  cmd.run:
+    - name: yum-config-manager base --setopt=base.exclude=glusterfs\* --save
+    - unless: yum-config-manager updates | grep -Pzo 'glusterfs\*'
+
 glusterfs-server:
   pkg:
     - installed
