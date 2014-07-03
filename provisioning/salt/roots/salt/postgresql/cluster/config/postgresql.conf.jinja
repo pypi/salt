@@ -1,5 +1,5 @@
 # Default from PostgreSQL 9.3
-max_connections = 100
+max_connections = 200
 
 shared_buffers = {{ salt['pillar.get']('postgresql_cluster:postgresql:shared_buffers', '2048MB') }}
 work_mem = {{ salt['pillar.get']('postgresql_cluster:postgresql:work_mem', '64MB') }}
