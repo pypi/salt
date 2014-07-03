@@ -38,6 +38,15 @@ LoadPlugin postgresql
     </Result>
   </Query>
 
+  <Query connections>
+    Statement "SELECT COUNT(*) as connection_count FROM pg_stat_activity;"
+    <Result>
+      Type gauge
+      InstancePrefix "connection_count"
+      ValuesFrom connection_count
+    </Result>
+  </Query>
+
   <Database postgres>
     Host "{{ monitor_host }}"
     Port "{{ monitor_port }}"
@@ -51,6 +60,7 @@ LoadPlugin postgresql
     Query standby_xlog_rep
     Query standby_approx_lag
     {% endif %}
+    Query connections
   </Database>
 
 </Plugin>
