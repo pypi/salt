@@ -38,3 +38,8 @@ backup-server:
       user: redis
       increment_retention: 7D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDxTag+DnPlV+9FEOuN0CtPhT8Al2yGKrbepmwWQRkYdcFEr6ZUUvhsaiDLQlQDaTxCtlbZnahyMR7Xo5SwnZLk4vbimIIAciqKdoFyBc1qbltxoj9cZwadKmMj2wCp4krOnzpR3arysBaEQ//gP2iRlZGAwJzI00L66IZURgYyoUVXYoa9rEEtaLfy/yVTA1TFbQPzBsPdptOlkPE8o7LkbniOlGER5sqrjCaXi1mrkcMUuIuxD0B6CSFIXS61Nu1VIVa9j60FIcfgWT+kMIOb/MqbHWcaVOfKSPcLClltQ1an2wpp3vpIj0L51rBRpGDsYU3oUIgrSQuCMv4/ljix
+    jython-site:
+      directory: /backup/jython-site
+      user: jython
+      increment_retention: 7D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDsmiVmvnhwQsvRCjyvnGMdkidVwD9j8FdbI8rhD2dfsYHC4URKTOhkDAHBlIN3DrFBcR++UKyyJkoxaoJGNt+3xKuRVO6lUEl6e9iuIQ0baI5Ds55uCpaeBNhRM2Oib83O8tu82gQLKHtZLh755O3fnilOPvGrwOUss2s9N9Z/AvqIn61/zbEIzTNtrw0EqtJR//5YVotHBf8OMC49Qgvcu1f+/d/MEm9WoyUTzSmgL/8M7urgpuxP+fANXOTVMteGOjKojf9UCXy5EY3pKL4ckJYs85+0xKytlxbNobkV9kydiFFlnuThyCDQ1RBwkYYeDVJFBuQWKAMLYA6RZXBD

@@ -6,7 +6,9 @@ niceties:
       - tmux
       - tree
       - bash-completion
+      {% if grains['os'] == 'CentOS' %}
       - vim-enhanced
+      {% endif %}
 
 time-sync:
   pkg.installed:
@@ -14,7 +16,11 @@ time-sync:
       - ntp
       - ntpdate
 
+{% if grains['os'] == 'CentOS' %}
 ntpd:
+{% else %}
+ntp:
+{% endif %}
   service:
     - running
     - enable: True 
