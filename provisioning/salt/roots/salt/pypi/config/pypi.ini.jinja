@@ -10,8 +10,9 @@ user = {{ secrets['postgresql']['user'] }}
 password={{ secrets['postgresql']['password'] }}
 
 ; Redis
-queue_redis_url = {{ secrets['redis']['queue_redis_url'] }}
-count_redis_url = {{ secrets['redis']['count_redis_url'] }}
+{% for key, value in secrets['redis'].iteritems() %}
+{{ key }} = {{ value }}
+{% endfor %}
 
 ; Storage Directories
 files_dir = {{ config['data_mount'] }}/packages

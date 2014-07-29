@@ -13,6 +13,7 @@ secrets-pypi-deploy-devpypi:
   redis:
     queue_redis_url: redis://localhost:6379/0
     count_redis_url: redis://localhost:6379/1
+    cache_redis_url: redis://localhost:6379/2
   webui:
     cheescake_password: secret
     reset_secret: secret
