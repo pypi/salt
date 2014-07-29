@@ -106,6 +106,7 @@ pypi-cdn-log-archiver:
     - context:
       syslog_name: {{ config['fastly_syslog_name'] }}
 
+{% if 'cron_workers' in grains['roles'] %}
 {{ config['user'] }}-integrate-stats-cron:
   cron.present:
     - name: {{ config['path'] }}/env/bin/python {{ config['path'] }}/src/tools/integrate-redis-stats.py
@@ -125,5 +126,6 @@ pypi-cdn-log-archiver:
     - minute: '0'
     - hour: '6'
     - user: {{ config['user'] }}
+{% endif %}
 
 {% endfor %}
