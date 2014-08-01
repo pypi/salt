@@ -1,4 +1,4 @@
-
+{% if grains['os'] == 'CentOS' %}
 /etc/pki/rpm-gpg/RPM-GPG-KEY-NGINX:
   file.managed:
     - source: salt://nginx/config/RPM-GPG-KEY-NGINX
@@ -14,6 +14,7 @@ nginx-release:
     - gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NGINX
     - require:
       - file: /etc/pki/rpm-gpg/RPM-GPG-KEY-NGINX
+{% endif %}
 
 nginx:
   user.present:
@@ -27,15 +28,19 @@ nginx:
     - system: True
   pkg:
     - installed
+    {% if grains['os'] == 'CentOS' %}
     - require:
       - pkgrepo: nginx-release
+    {% endif %}
   service:
     - running
     - enable: True
     - reload: True
     - watch:
       - file: /etc/nginx/nginx.conf
+      {% if grains['os'] == 'CentOS' %}
       - file: /etc/nginx/nginx.ssl.conf
+      {% endif %}
       - file: /etc/nginx/conf.d/*
     - require:
       - file: /etc/nginx/nginx.conf
@@ -52,6 +57,7 @@ nginx:
     - require:
       - file: /var/log/nginx
 
+{% if grains['os'] == 'CentOS' %}
 /etc/nginx/nginx.ssl.conf:
   file.managed:
     - source: salt://nginx/config/nginx.ssl.conf.jinja
@@ -61,6 +67,7 @@ nginx:
     - mode: 644
     - require:
       - module: self-signed-cert
+{% endif %}
 
 /etc/logrotate.d/nginx:
   file.managed:
@@ -84,6 +91,7 @@ nginx:
 /etc/nginx/conf.d/ssl.conf:
   file.absent
 
+{% if grains['os'] == 'CentOS' %}
 pyOpenSSL:
   pkg:
     - installed
@@ -94,3 +102,4 @@ self-signed-cert:
     - CN: {{ grains['fqdn'] }}
     - require:
       - pkg: pyOpenSSL
+{% endif %}

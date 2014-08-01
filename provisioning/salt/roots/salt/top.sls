@@ -4,8 +4,11 @@ base:
     - users
     - sudoers
     - backup.client
+    # XXX We should get stuff to work with Ubuntu, too.
+    {% if grains['os'] == 'CentOS' %}
     - monitoring.client.base
     - auto-security
+    {% endif %}
 
   'roles:salt-master':
     - match: grain
@@ -55,6 +58,10 @@ base:
   'roles:gluster_client':
     - match: grain
     - glusterfs.client
+
+  'roles:jython_web':
+    - match: grain
+    - jython
 
   'roles:monitoring_server':
     - match: grain

@@ -10,6 +10,10 @@ base:
     - match: grain
     - salt-master
 
+  'roles:jython_web'
+    - match: grain
+    - secrets.backup.jython
+
   'roles:pypi-mirror':
     - match: grain
     - pypi-mirror
