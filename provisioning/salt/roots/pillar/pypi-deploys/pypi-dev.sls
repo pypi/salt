@@ -20,6 +20,8 @@ pypi-deploy-devpypi:
     - 192.168.57.9
   tls_port: 8999
   docs_port: 8989
+  internal_pypi_port: 40713
+  internal_docs_port: 40715
   url: https://192.168.57.9
 
   statuspage_id: 928bjjg42vzc

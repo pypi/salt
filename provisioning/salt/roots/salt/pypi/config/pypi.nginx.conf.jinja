@@ -20,3 +20,16 @@ server {
   root {{ config['data_mount'] }}/packagedocs;
   rewrite ^([^.]*[^/])$ $http_x_forwarded_proto://$http_host$request_uri/ permanent;
 }
+
+server {
+  listen {{ config['internal_pypi_port']}}
+  include conf.d/{{ config['name'] }}/app.conf;
+}
+
+server {
+  listen {{ config['internal_docs_port']}}
+  server_name_in_redirect off;
+  port_in_redirect off;
+  root {{ config['data_mount'] }}/packagedocs;
+  rewrite ^([^.]*[^/])$ $http_x_forwarded_proto://$http_host$request_uri/ permanent;
+}
