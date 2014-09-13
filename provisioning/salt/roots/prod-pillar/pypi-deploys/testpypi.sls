@@ -21,6 +21,8 @@ pypi-deploy-testpypi:
     - testpypi.a.ssl.fastly.net
   tls_port: 9001
   docs_port: 9011
+  internal_pypi_port: 40714
+  internal_docs_port: 40716
   url: https://testpypi.python.org
 
   statuspage_id: 928bjjg42vzc

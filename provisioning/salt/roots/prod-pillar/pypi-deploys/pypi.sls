@@ -21,6 +21,8 @@ pypi-deploy-pypi:
     - pypi.a.ssl.fastly.net
   tls_port: 9000
   docs_port: 9010
+  internal_pypi_port: 40713
+  internal_docs_port: 40715
   url: https://pypi.python.org
 
   statuspage_id: 2p66nmmycsj3
