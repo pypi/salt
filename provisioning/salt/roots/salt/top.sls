@@ -6,6 +6,9 @@ base:
     - backup.client
     - monitoring.client.base
     - auto-security
+
+  '* and not G@roles:pypi-mirror'
+    - match: compound
     - openvpn.routing
 
   'roles:salt-master':
