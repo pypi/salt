@@ -6,6 +6,7 @@ base:
     - backup.client
     - monitoring.client.base
     - auto-security
+    - openvpn.routing
 
   'roles:salt-master':
     - match: grain
