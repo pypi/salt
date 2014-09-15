@@ -28,9 +28,4 @@
         ipaddr: {{ vpn1_internal.address }}
         netmask: {{ vpn1_internal.subnet }}
         gateway: {{ gateway }}
-
-  cmd.wait:  # Work around https://bugs.launchpad.net/ubuntu/+source/ifupdown/+bug/1301015
-    - name: ifdown {{ interface }} && ifup {{ interface }}
-    - watch:
-      - network: {{ interface }}
 {% endfor %}
