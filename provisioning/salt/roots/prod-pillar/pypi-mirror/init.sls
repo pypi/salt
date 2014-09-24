@@ -15,7 +15,7 @@ bandersnatch:
       directory: /data/pypi-mirror
       master: https://pypi.python.org
       timeout: 10
-      workers: 20
+      workers: 10
       stop-on-error: false
       delete-packages: true
     statistics:
