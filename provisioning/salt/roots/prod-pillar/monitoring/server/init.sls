@@ -32,12 +32,6 @@ firewall:
   graphite_ports_from_backup:
     port: 2003:2004
     source: 23.253.80.94
-  riemann_graphite_from_dfw_mirror:
-    port: 2002
-    source: 23.253.244.33
-  graphite_ports_from_dfw_mirror:
-    port: 2003:2004
-    source: 23.253.244.33
   riemann_graphite_from_syd_mirror:
     port: 2002
     source: 119.9.24.35
@@ -50,6 +44,12 @@ firewall:
   graphite_ports_from_hkgmirror:
     port: 2003:2004
     source: 119.9.93.202
+  riemann_graphite_from_ord_mirror:
+    port: 2002
+    source: 23.253.174.176
+  graphite_ports_from_ord_mirror:
+    port: 2003:2004
+    source: 23.253.174.176
 
 
 riemann:

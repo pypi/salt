@@ -12,6 +12,6 @@ firewall:
   salt_master_hkg_mirror:
     port: 4505:4506
     source: 119.9.93.202
-  salt_master_dfw_mirror:
+  salt_master_ord_mirror:
     port: 4505:4506
-    source: 23.253.244.33
+    source: 23.253.174.176
