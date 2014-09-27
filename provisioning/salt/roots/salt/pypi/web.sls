@@ -5,6 +5,7 @@ include:
   - redis
   - glusterfs.client
   - supervisor
+  - monitoring.client.pypi-backend
 {% if 'develop' in grains['roles'] %}
   - postgresql.93
   - pypi.dev-db
