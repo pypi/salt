@@ -9,3 +9,9 @@ firewall:
   salt_master_remote_backup:
     port: 4505:4506
     source: 23.253.80.94
+  salt_master_syd_mirror:
+    port: 4505:4506
+    source: 119.9.24.35
+  salt_master_hkg_mirror:
+    port: 4505:4506
+    source: 119.9.93.202
