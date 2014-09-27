@@ -1,6 +1,7 @@
 
 include:
   - nginx
+  - monitoring.client.pypi-mirror
 
 pypi-mirror:
   user.present:
