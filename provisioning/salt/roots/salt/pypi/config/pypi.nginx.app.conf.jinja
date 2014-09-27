@@ -21,7 +21,7 @@ error_page 404 /static/error/400.html;
 error_page 429 /static/error/429.html;
 uwsgi_intercept_errors on;
 
-location ~* ^/(daytime).* {
+location ~* ^/(daytime|serial).* {
   access_log off;
   include uwsgi_params;
   uwsgi_pass unix:/var/run/{{ config['name'] }}/pypi.sock;
