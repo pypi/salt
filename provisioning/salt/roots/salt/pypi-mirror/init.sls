@@ -9,6 +9,10 @@ pypi-mirror:
 /etc/bandersnatch:
   file.directory
 
+bandersnatch_virtualenv:
+  pkg.installed:
+    - name: python-virtualenv
+
 /opt/bandersnatch:
   file.directory:
     - mode: 755
