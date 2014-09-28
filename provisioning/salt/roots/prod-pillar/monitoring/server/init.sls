@@ -50,6 +50,12 @@ firewall:
   graphite_ports_from_ord_mirror:
     port: 2003:2004
     source: 23.253.174.176
+  riemann_graphite_from_dfw_mirror:
+    port: 2002
+    source: 166.78.174.125
+  graphite_ports_from_dfw_mirror:
+    port: 2003:2004
+    source: 166.78.174.125
 
 
 riemann:

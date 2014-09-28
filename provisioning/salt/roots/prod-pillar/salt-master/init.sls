@@ -15,3 +15,6 @@ firewall:
   salt_master_ord_mirror:
     port: 4505:4506
     source: 23.253.174.176
+  salt_master_dfw_mirror:
+    port: 4505:4506
+    source: 166.78.174.125
