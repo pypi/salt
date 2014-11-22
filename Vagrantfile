@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box"
   config.vm.box = "centos-min"
+  config.vm.provision "shell", inline: "yum -y update nss\*"
 
   config.vm.synced_folder "provisioning/salt/roots/", "/srv/"
 
