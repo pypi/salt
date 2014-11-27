@@ -5,6 +5,7 @@ access_log /var/log/nginx/{{ config['name'] }}/access.log;
 error_log /var/log/nginx/{{ config['name'] }}/error.log;
 
 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
+add_header Public-Key-Pins 'max-age=600; includeSubDomains; pin-sha256="WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18="; pin-sha256="5C8kvU039KouVrl52D0eZSGf4Onjo4Khs8tmyTlV3nU="; pin-sha256="5C8kvU039KouVrl52D0eZSGf4Onjo4Khs8tmyTlV3nU="; pin-sha256="lCppFqbkrlJ3EcVFAkeip0+44VaoJUymbnOaEUk7tEU="; pin-sha256="TUDnr0MEoJ3of7+YliBMBVFB4/gJsv5zO7IxD9+YoWI="; pin-sha256="x4QzPSC810K5/cMjb05Qm4k3Bw5zBn4lTdO/nEW/Td4=";';
 
 set_real_ip_from 0.0.0.0/0;
 real_ip_header X-Forwarded-For;
