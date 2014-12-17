@@ -40,7 +40,7 @@ listen_addresses = '{{ salt['ip_picker.ip_addrs'](cidr=internal)[0] }},127.0.01'
 # Primary
 wal_level = hot_standby
 archive_mode = on
-archive_command = 'cp -i %p /var/lib/pgsql/9.3/backups/archives/%f'
+archive_command = 'gzip < %p > /var/lib/pgsql/9.3/backups/archives/%f'
 max_wal_senders = 10
 wal_buffers = 16MB
 checkpoint_completion_target = 0.9
