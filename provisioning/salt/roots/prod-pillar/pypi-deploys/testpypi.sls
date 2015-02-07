@@ -11,6 +11,7 @@ pypi-deploy-testpypi:
 
   fastly_syslog_name: testpypicdn
   path: /opt/testpypi
+  site_packages: False
   data_mount: /data/testpypi
   data_device:
     type: glusterfs

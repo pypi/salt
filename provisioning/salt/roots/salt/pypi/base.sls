@@ -67,7 +67,7 @@ pypi-system-deps:
   virtualenv.managed:
     - venv_bin: virtualenv-2.7
     - python: /usr/bin/python2.7
-    - system_site_packages: True
+    - system_site_packages: {{ config.get('site_packages', True) }}
     - user: {{ config['name'] }}
     - cwd: {{ config['path'] }}/src
     - requirements: {{ config['path'] }}/src/requirements.txt
