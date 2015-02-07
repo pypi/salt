@@ -11,6 +11,7 @@ pypi-deploy-pypi:
 
   fastly_syslog_name: counterpypicdn
   path: /opt/pypi
+  site_packages: False
   data_mount: /data/pypi
   data_device:
     type: glusterfs
