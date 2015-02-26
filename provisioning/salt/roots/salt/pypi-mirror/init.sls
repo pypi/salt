@@ -25,7 +25,7 @@ bandersnatch_virtualenv:
 
 bandersnatch:
   pip.installed:
-    - name: bandersnatch == 1.6.1
+    - name: bandersnatch==1.7
     - bin_env: /opt/bandersnatch
     - require:
       - virtualenv: /opt/bandersnatch
