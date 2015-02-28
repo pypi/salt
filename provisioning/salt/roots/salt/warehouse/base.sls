@@ -55,7 +55,7 @@ include:
 {{ config['name'] }}-source:
   git.latest:
     - name: {{ config.get('source_uri', "https://github.com/pypa/warehouse.git") }}
-    - rev: {{ config.get('source_rev', "master") }}
+    - rev: {{ config.get('source_rev', "werkzeug") }}
     - user: {{ config['name'] }}
     - target: /opt/{{ config['name'] }}/src
 

@@ -9,8 +9,8 @@ warehouse-deploy-devpypi:
   port: 9000
 
   source_uri: https://github.com/pypa/warehouse.git
-  source_rev: master
-  
+  source_rev: werkzeug
+
   config:
     debug: true
     site:

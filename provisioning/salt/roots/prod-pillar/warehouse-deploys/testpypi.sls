@@ -12,4 +12,4 @@ warehouse-deploy-testpypi:
   secrets_key: secrets-warehouse-testpypi
 
   source_uri: https://github.com/pypa/warehouse.git
-  source_rev: master
+  source_rev: werkzeug
