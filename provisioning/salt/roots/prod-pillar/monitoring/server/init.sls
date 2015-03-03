@@ -28,34 +28,16 @@ firewall:
     port: 443
   riemann_graphite_from_backup:
     port: 2002
-    source: 23.253.80.94
+    source: 166.78.184.219
   graphite_ports_from_backup:
     port: 2003:2004
-    source: 23.253.80.94
-  riemann_graphite_from_syd_mirror:
-    port: 2002
-    source: 119.9.24.35
-  graphite_ports_from_syd_mirror:
-    port: 2003:2004
-    source: 119.9.24.35
-  riemann_graphite_from_hkg_mirror:
-    port: 2002
-    source: 119.9.93.202
-  graphite_ports_from_hkgmirror:
-    port: 2003:2004
-    source: 119.9.93.202
+    source: 166.78.184.219
   riemann_graphite_from_ord_mirror:
     port: 2002
     source: 23.253.174.176
   graphite_ports_from_ord_mirror:
     port: 2003:2004
     source: 23.253.174.176
-  riemann_graphite_from_dfw_mirror:
-    port: 2002
-    source: 166.78.174.125
-  graphite_ports_from_dfw_mirror:
-    port: 2003:2004
-    source: 166.78.174.125
 
 
 riemann:
