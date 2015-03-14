@@ -111,11 +111,20 @@ pypi-cdn-log-archiver:
       syslog_name: {{ config['fastly_syslog_name'] }}
 
 /etc/logrotate.d/{{ config['name'] }}-cdn:
+  file.absent
+
+/etc/logrotate-{{config['name']}}-cdn.conf:
   file.managed:
     - source: salt://pypi/config/pypi-syslog.logrotate.conf
     - template: jinja
     - context:
       syslog_name: {{ config['fastly_syslog_name'] }}
+
+{{config['name']}}-hourly-logrotate-cron:
+  cron.present:
+    - name: /usr/sbin/logrotate -f /etc/logrotate-{{config['name']}}-cdn.conf
+    - minute: '0'
+    - user: root
 
 {% if 'cron_workers' in grains['roles'] %}
 {{ config['user'] }}-integrate-stats-cron:
