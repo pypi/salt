@@ -17,6 +17,9 @@ pypi-deploy-testpypi:
     type: glusterfs
     uri: 172.16.57.11:/testpypi
 
+  docs_bucket: pypi-docs-staging
+  files_bucket: pypi-files-staging
+
   server_names:
     - testpypi.python.org
     - testpypi.a.ssl.fastly.net

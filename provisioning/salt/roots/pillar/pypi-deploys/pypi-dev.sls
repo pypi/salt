@@ -16,6 +16,9 @@ pypi-deploy-devpypi:
     type: local
     uri: None
 
+  docs_bucket: pypi-docs
+  files_bucket: pypi-files
+
   server_names:
     - 192.168.57.9
   tls_port: 8999

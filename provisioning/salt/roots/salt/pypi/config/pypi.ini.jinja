@@ -18,6 +18,14 @@ password={{ secrets['postgresql']['password'] }}
 files_dir = {{ config['data_mount'] }}/packages
 docs_dir = {{ config['data_mount'] }}/packagedocs
 
+; S3 Buckets
+files_bucket = {{ config['files_bucket'] }}
+docs_bucket = {{ config['docs_bucket'] }}
+
+; AWS Key
+aws_access_key_id = {{ secrets['aws']['aws_access_key_id'] }}
+aws_secret_access_key = {{ secrets['aws']['aws_secret_access_key'] }}
+
 ; Third-Party
 pubsubhubbub = http://pubsubhubbub.appspot.com/
 

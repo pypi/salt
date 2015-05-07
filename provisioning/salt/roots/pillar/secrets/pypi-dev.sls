@@ -14,6 +14,9 @@ secrets-pypi-deploy-devpypi:
     queue_redis_url: redis://localhost:6379/0
     count_redis_url: redis://localhost:6379/1
     cache_redis_url: redis://localhost:6379/2
+  aws:
+    aws_access_key_id: deadbeef
+    aws_secret_access_key: deadbeef
   webui:
     cheescake_password: secret
     reset_secret: secret
