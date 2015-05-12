@@ -13,6 +13,7 @@ server {
   include conf.d/{{ config['name'] }}/app.conf;
 }
 
+{% if serve_docs %}
 server {
   listen {{ config['docs_port'] }};
   server_name_in_redirect off;
@@ -20,6 +21,7 @@ server {
   root {{ config['data_mount'] }}/packagedocs;
   rewrite ^([^.]*[^/])$ $http_x_forwarded_proto://$http_host$request_uri/ permanent;
 }
+{% endif %}
 
 server {
   listen {{ config['internal_pypi_port']}};

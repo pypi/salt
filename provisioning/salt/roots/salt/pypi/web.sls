@@ -75,6 +75,11 @@ pypi-docs-proxy:
     - template: jinja
     - context:
       app_key: {{ key }}
+{% if config['docs_bucket'] %}
+      serve_docs: False
+{% else %}
+      serve_docs: True
+{% endif %}
     - user: root
     - group: root
     - mode: 640
@@ -175,13 +180,30 @@ pypi-docs-proxy:
       - file: {{ config['path'] }}/src/config.ini
       - virtualenv: {{ config['path'] }}/env
 
+{% if config['docs_bucket'] %}
+/etc/supervisord.d/{{ config['name'] }}-docs-proxy.ini:
+  file.managed:
+    - source: salt://pypi/config/pypi-docs-proxy.ini.jinja
+    - user: root
+    - group: root
+    - mode: 640
+    - template: jinja
+    - context:
+      app_key: {{ key }}
+{% else %}
+/etc/supervisord.d/{{ config['name'] }}-docs-proxy.ini:
+  file.absent
+{% endif %}
+
 {{ config['name'] }}-supervisor:
   cmd.wait:
     - name: supervisorctl reread && supervisorctl update
     - require:
       - file: /etc/supervisord.d/{{ config['name'] }}-worker.ini
+      - file: /etc/supervisord.d/{{ config['name'] }}-docs-proxy.ini
     - watch:
       - file: /etc/supervisord.d/{{ config['name'] }}-worker.ini
+      - file: /etc/supervisord.d/{{ config['name'] }}-docs-proxy.ini
 
 {{ config['name'] }}-service:
   service:
