@@ -15,6 +15,17 @@ net.core.somaxconn:
   sysctl.present:
     - value: 1024
 
+/opt/pypi-docs-proxy/env:
+  virtualenv.managed:
+    - system_site_packages: False
+
+pypi-docs-proxy:
+  pip.installed:
+    - name: pypi-docs-proxy == 1.3
+    - bin_env: /opt/pypi-docs-proxy/env
+    - require:
+      - virtualenv: /opt/pypi-docs-proxy/env
+
 {% set deploys = {} %}
 {% for k,v in pillar.items() %}
   {% if k.startswith('pypi-deploy-') %}
