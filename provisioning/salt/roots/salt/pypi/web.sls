@@ -15,6 +15,24 @@ net.core.somaxconn:
   sysctl.present:
     - value: 1024
 
+/opt/pypi-docs-proxy/env:
+  virtualenv.managed:
+    - system_site_packages: False
+
+pypi-docs-proxy-eventlet:
+  pip.installed:
+    - name: eventlet
+    - bin_env: /opt/pypi-docs-proxy/env
+    - require:
+      - virtualenv: /opt/pypi-docs-proxy/env
+
+pypi-docs-proxy:
+  pip.installed:
+    - name: pypi-docs-proxy == 1.3
+    - bin_env: /opt/pypi-docs-proxy/env
+    - require:
+      - virtualenv: /opt/pypi-docs-proxy/env
+
 {% set deploys = {} %}
 {% for k,v in pillar.items() %}
   {% if k.startswith('pypi-deploy-') %}
@@ -64,6 +82,11 @@ net.core.somaxconn:
     - template: jinja
     - context:
       app_key: {{ key }}
+{% if config['docs_bucket'] %}
+      serve_docs: False
+{% else %}
+      serve_docs: True
+{% endif %}
     - user: root
     - group: root
     - mode: 640
@@ -164,13 +187,30 @@ net.core.somaxconn:
       - file: {{ config['path'] }}/src/config.ini
       - virtualenv: {{ config['path'] }}/env
 
+{% if config['docs_bucket'] %}
+/etc/supervisord.d/{{ config['name'] }}-docs-proxy.ini:
+  file.managed:
+    - source: salt://pypi/config/pypi-docs-proxy.ini.jinja
+    - user: root
+    - group: root
+    - mode: 640
+    - template: jinja
+    - context:
+      app_key: {{ key }}
+{% else %}
+/etc/supervisord.d/{{ config['name'] }}-docs-proxy.ini:
+  file.absent
+{% endif %}
+
 {{ config['name'] }}-supervisor:
   cmd.wait:
     - name: supervisorctl reread && supervisorctl update
     - require:
       - file: /etc/supervisord.d/{{ config['name'] }}-worker.ini
+      - file: /etc/supervisord.d/{{ config['name'] }}-docs-proxy.ini
     - watch:
       - file: /etc/supervisord.d/{{ config['name'] }}-worker.ini
+      - file: /etc/supervisord.d/{{ config['name'] }}-docs-proxy.ini
 
 {{ config['name'] }}-service:
   service:
