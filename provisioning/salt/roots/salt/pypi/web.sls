@@ -19,6 +19,13 @@ net.core.somaxconn:
   virtualenv.managed:
     - system_site_packages: False
 
+pypi-docs-proxy-eventlet:
+  pip.installed:
+    - name: eventlet
+    - bin_env: /opt/pypi-docs-proxy/env
+    - require:
+      - virtualenv: /opt/pypi-docs-proxy/env
+
 pypi-docs-proxy:
   pip.installed:
     - name: pypi-docs-proxy == 1.3

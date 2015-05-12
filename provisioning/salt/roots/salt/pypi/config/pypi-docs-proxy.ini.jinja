@@ -1,7 +1,7 @@
 {% set config = salt['pillar.get'](app_key) %}
 
 [program:{{ config['name'] }}-docs-proxy]
-command = /opt/pypi-docs-proxy/env/bin/gunicorn -b 0.0.0.0:{{ config['docs_port'] }} --access-logfile - --error-logfile - docs_proxy:application
+command = /opt/pypi-docs-proxy/env/bin/gunicorn -k eventlet -b 0.0.0.0:{{ config['docs_port'] }} --access-logfile - --error-logfile - docs_proxy:application
 autostart = true
 autorestart = true
 stopwaitsecs = 15
