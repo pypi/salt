@@ -18,7 +18,7 @@ pypi-deploy-pypi:
     uri: 172.16.57.11:/pypi
 
   docs_bucket:
-  files_bucket:
+  files_bucket: pypi-files
 
   server_names:
     - pypi.python.org
