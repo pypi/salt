@@ -17,7 +17,7 @@ pypi-deploy-pypi:
     type: glusterfs
     uri: 172.16.57.11:/pypi
 
-  docs_bucket:
+  docs_bucket: pypi-docs
   files_bucket: pypi-files
 
   server_names:
