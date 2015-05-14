@@ -33,8 +33,8 @@ pubsubhubbub = http://pubsubhubbub.appspot.com/
 
 ; PyPI config
 debug_mode = no
-rss_file = {{ config['data_mount'] }}/pypi_rss.xml
-packages_rss_file = {{ config['data_mount'] }}/pypi_packages_rss.xml
+rss_file = /tmp/{{ app_key }}-rss.xml
+packages_rss_file = /tmp/{{ app_key }}-packages_rss.xml
 
 ; Email
 adminemail = PyPI Admin <admin@mail.pypi.python.org>
