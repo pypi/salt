@@ -39,6 +39,7 @@ base:
     - firewall
     - monitoring.client.redis
     - base.auto-highstate
+    - elasticsearch
 
   'roles:postgresql_cluster':
     - match: grain

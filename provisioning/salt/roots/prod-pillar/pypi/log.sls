@@ -17,3 +17,6 @@ firewall:
   redis:
     source: 172.16.57.0/24
     port: 6379
+  elasticsearch:
+    source: 172.16.57.0/24
+    port: 9200
