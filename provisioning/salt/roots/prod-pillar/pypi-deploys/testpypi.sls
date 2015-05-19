@@ -14,8 +14,8 @@ pypi-deploy-testpypi:
   site_packages: False
   data_mount: /data/testpypi
   data_device:
-    type: glusterfs
-    uri: 172.16.57.11:/testpypi
+    type: local
+    uri: None
 
   docs_bucket: pypi-docs-staging
   files_bucket: pypi-files-staging

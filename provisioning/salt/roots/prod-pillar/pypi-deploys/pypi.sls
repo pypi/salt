@@ -14,8 +14,8 @@ pypi-deploy-pypi:
   site_packages: False
   data_mount: /data/pypi
   data_device:
-    type: glusterfs
-    uri: 172.16.57.11:/pypi
+    type: local
+    uri: None
 
   docs_bucket: pypi-docs
   files_bucket: pypi-files
