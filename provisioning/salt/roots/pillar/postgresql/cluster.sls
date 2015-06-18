@@ -4,11 +4,6 @@ postgresql_cluster:
   standby_servers:
     - 172.16.57.6
   pg_hba:
-    testpypi:
-      database: testpypi
-      user: testpypi
-      address: 172.16.57.0/24
-      method: md5
     pypi:
       database: pypi
       user: pypi
