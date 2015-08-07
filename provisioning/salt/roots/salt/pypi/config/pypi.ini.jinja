@@ -5,6 +5,7 @@
 
 ; Postgres Database
 host = {{ secrets['postgresql']['host'] }}
+port = {{ secrets['postgresql'].get('port', '5432') }}
 name = {{ secrets['postgresql']['database'] }}
 user = {{ secrets['postgresql']['user'] }}
 password={{ secrets['postgresql']['password'] }}
