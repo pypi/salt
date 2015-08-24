@@ -114,3 +114,5 @@ service_id = {{ secrets['fastly']['service_id'] }}
 [blocking]
 blocked_timeout = {{ secrets.get('blocking', {}).get('blocked_timeout', 600) }}
 blocked_attempts = {{ secrets.get('blocking', {}).get('blocked_attempts', 10) }}
+blocked_attempts_ip = {{ secrets.get('blocking', {}).get('blocked_attempts_ip', 20) }}
+blocked_attempts_user = {{ secrets.get('blocking', {}).get('blocked_attempts_user', 1000) }}
