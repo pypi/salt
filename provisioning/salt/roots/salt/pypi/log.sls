@@ -137,7 +137,7 @@ pypi-cdn-log-archiver:
   cron.present:
     - name: {{ config['path'] }}/env/bin/python {{ config['path'] }}/src/tools/index.py
     - minute: '0'
-    - hour: '0'
+    - hour: '*/8'
     - user: {{ config['user'] }}
 {% endif %}
 
