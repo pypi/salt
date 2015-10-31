@@ -1,8 +1,9 @@
 
 python27-repo-pkg-deps:
   pkg.installed:
-    - pygpgme
-    - yum-utils
+    - pkgs:
+      - pygpgme
+      - yum-utils
 
 /etc/pki/rpm-gpg/RPM-GPG-KEY-PYTHON-27:
   file.managed:
@@ -22,6 +23,7 @@ python27-el6:
     - sslcacert: /etc/pki/tls/certs/ca-bundle.crt
     - require:
       - file: /etc/pki/rpm-gpg/RPM-GPG-KEY-PYTHON-27
+      - pkg: python27-repo-pkg-deps
 
 python27:
   pkg.installed:
