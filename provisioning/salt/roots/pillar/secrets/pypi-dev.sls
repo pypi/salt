@@ -47,3 +47,9 @@ secrets-pypi-deploy-devpypi:
   cdn_log_archiver:
     secret_key: lmsecretao
     access_key: accesslol
+  authomatic:
+    secure: 'true'
+    secret: randodataz
+   google:
+     client_id: deadbeef-deadbeef.googleusercontent.com
+     client_secret: deadbeef
