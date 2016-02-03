@@ -13,6 +13,12 @@ pypi-system-deps:
     - require:
       - pkgrepo: python27-el6
 
+
+# Fix an error with Elastcisearch's IPv6 going sideways
+net.ipv6.conf.all.disable_ipv6:
+  sysctl.present:
+    - value: 1
+
 {% set deploys = {} %}
 {% for k,v in pillar.items() %}
   {% if k.startswith('pypi-deploy-') %}
