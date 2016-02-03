@@ -29,8 +29,8 @@ aws_secret_access_key = {{ secrets['aws']['aws_secret_access_key'] }}
 
 ; ElasticSearch
 {% if secrets.get('releases_index_url', False) and secrets.get('releases_index_name', False) %}
-;releases_index_url = {{ secrets['releases_index_url'] }}
-;releases_index_name = {{ secrets['releases_index_name'] }}
+releases_index_url = {{ secrets['releases_index_url'] }}
+releases_index_name = {{ secrets['releases_index_name'] }}
 {% endif %}
 
 ; Third-Party
