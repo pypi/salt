@@ -11,6 +11,9 @@ Vagrant.configure("2") do |config|
   config.vm.box = "centos-min"
   config.vm.provision "shell", inline: "yum -y update nss\*"
 
+  # Fix for https://bugs.centos.org/view.php?id=9212
+  config.vm.provision "shell", inline: "yum -y update python"
+
   config.vm.synced_folder "provisioning/salt/roots/", "/srv/"
 
   unless ENV['VAGRANT_SKIP_PYPI_DEV'] == '1'
