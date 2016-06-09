@@ -31,13 +31,6 @@ pypi-deploy-pypi:
 
   statuspage_id: 2p66nmmycsj3
 
-  rate_limit:
-    enable: True
-    zone_size: 10m
-    max_rate: 10r/s
-    burst: 6
-    nodelay: False
-
   cdn_log_archiver:
     pypi_log_bucket: pypi-cdn-logs
     s3_host: objects.dreamhost.com
