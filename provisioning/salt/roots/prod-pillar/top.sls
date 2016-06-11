@@ -53,27 +53,6 @@ base:
     - pypi-deploys.pypi-dev
     - secrets.pypi-dev
 
-  'roles:postgresql_cluster':
-    - match: grain
-    - postgresql.cluster
-    - postgresql.postgresql
-    - secrets.postgresql
-    - secrets.monitoring.client.postgresql
-
-  'G@roles:postgresql_cluster and G@roles:primary':
-    - match: compound
-    - secrets.backup.postgres
-
-  'roles:postgresql_pgpool':
-    - match: grain
-    - postgresql.cluster
-    - postgresql.pgpool
-    - secrets.postgresql
-
-  'roles:gluster_node':
-    - match: grain
-    - glusterfs.server
-
   'roles:monitoring_server':
     - match: grain
     - monitoring.server
