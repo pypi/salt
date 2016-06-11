@@ -3,7 +3,6 @@ include:
   - pypi.base
   - nginx
   - redis
-  - glusterfs.client
   - supervisor
   - monitoring.client.pypi-backend
 {% if 'develop' in grains['roles'] %}

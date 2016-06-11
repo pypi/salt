@@ -41,23 +41,6 @@ base:
     - base.auto-highstate
     - elasticsearch
 
-  'roles:postgresql_cluster':
-    - match: grain
-    - firewall
-    - postgresql.cluster
-    - monitoring.client.postgresql
-  'roles:postgresql_pgpool':
-    - match: grain
-    - firewall
-    - postgresql.cluster.pgpool
-
-  'roles:gluster_node':
-    - match: grain
-    - glusterfs.server
-  'roles:gluster_client':
-    - match: grain
-    - glusterfs.client
-
   'roles:monitoring_server':
     - match: grain
     - firewall
