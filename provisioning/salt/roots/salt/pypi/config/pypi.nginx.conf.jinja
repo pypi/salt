@@ -19,7 +19,7 @@ server {
   server_name_in_redirect off;
   port_in_redirect off;
   root {{ config['data_mount'] }}/packagedocs;
-  rewrite ^([^.]*[^/])$ $http_x_forwarded_proto://$http_host$request_uri/ permanent;
+  rewrite ^([^.]*[^/])$ https://$http_host$request_uri/ permanent;
 }
 {% endif %}
 
@@ -33,5 +33,5 @@ server {
   server_name_in_redirect off;
   port_in_redirect off;
   root {{ config['data_mount'] }}/packagedocs;
-  rewrite ^([^.]*[^/])$ $http_x_forwarded_proto://$http_host$request_uri/ permanent;
+  rewrite ^([^.]*[^/])$ https://$http_host$request_uri/ permanent;
 }
