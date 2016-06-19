@@ -226,7 +226,7 @@ pypi-docs-proxy:
       - service: {{ config['name'] }}-service
       - cmd: {{ config['name'] }}-supervisor
     - watch:
-       - hg: {{ config['name'] }}-source
+       - git: {{ config['name'] }}-source
        - file: {{ config['path'] }}/src/config.ini
 
 {% endfor %}

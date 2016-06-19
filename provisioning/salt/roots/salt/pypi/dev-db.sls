@@ -100,7 +100,7 @@ pypi_postgres_pg_hba:
       - cmd: {{ config['name'] }}_postgres_uuid-ossp
       - cmd: {{ config['name'] }}_postgres_plpgsql
       - cmd: {{ config['name'] }}_postgres_citext
-      - hg: {{ config['name'] }}-source
+      - git: {{ config['name'] }}-source
       - file: {{ config['path'] }}/.pgpass
     - watch:
       - postgres_database: {{ config['name'] }}_postgres_database

@@ -6,7 +6,7 @@ pypi-deploy-pypi:
   user_uid: 7000
   group_gid: 7000
 
-  source_uri: https://bitbucket.org/pypa/pypi
+  source_uri: https://github.com/pypa/pypi-legacy.git
   source_rev: production
 
   fastly_syslog_name: counterpypicdn

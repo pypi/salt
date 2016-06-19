@@ -2,7 +2,7 @@
 include:
   - python.27.virtualenv
   - python.27.m2crypto
-  - pkg.hg
+  - pkg.git
 
 pypi-system-deps:
   pkg.installed:
@@ -60,9 +60,9 @@ net.ipv6.conf.all.disable_ipv6:
     - mode: 755
 
 {{ config['name'] }}-source:
-  hg.latest:
-    - name: {{ config.get('source_uri', "https://bitbucket.org/pypa/pypi") }}
-    - rev: {{ config.get('source_rev', "tip") }}
+  git.latest:
+    - name: {{ config.get('source_uri', "https://github.com/pypa/pypi-legacy.git") }}
+    - branch: {{ config.get('source_rev', "master") }}
     - target: {{ config['path'] }}/src
     - user: {{ config['name'] }}
     - require:
@@ -79,7 +79,7 @@ net.ipv6.conf.all.disable_ipv6:
     - requirements: {{ config['path'] }}/src/requirements.txt
     - require:
       - file: {{ config['path'] }}
-      - hg: {{ config['name'] }}-source
+      - git: {{ config['name'] }}-source
       - user: {{ config['user'] }}
       - pip: virtualenv-2.7
       - pkg: python27-m2crypto
