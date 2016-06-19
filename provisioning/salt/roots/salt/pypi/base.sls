@@ -62,7 +62,7 @@ net.ipv6.conf.all.disable_ipv6:
 {{ config['name'] }}-source:
   git.latest:
     - name: {{ config.get('source_uri', "https://github.com/pypa/pypi-legacy.git") }}
-    - branch: {{ config.get('source_rev', "master") }}
+    - rev: {{ config.get('source_rev', "master") }}
     - target: {{ config['path'] }}/src
     - user: {{ config['name'] }}
     - require:
