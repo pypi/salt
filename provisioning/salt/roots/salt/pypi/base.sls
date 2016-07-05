@@ -94,6 +94,22 @@ net.ipv6.conf.all.disable_ipv6:
     - template: jinja
     - context:
       app_key: {{ key }}
+      variantt: ""
+    - require:
+      - file: /var/log/{{ config['name'] }}
+      - file: /var/run/{{ config['name'] }}
+      - virtualenv: {{ config['path'] }}/env
+
+{{ config['path'] }}/src/config-xmlrpc.ini:
+  file.managed:
+    - source: salt://pypi/config/pypi.ini.jinja
+    - user: {{ config['name'] }}
+    - group: {{ config['name'] }}
+    - mode: 640
+    - template: jinja
+    - context:
+      app_key: {{ key }}
+      variantt: "xmlrpc"
     - require:
       - file: /var/log/{{ config['name'] }}
       - file: /var/run/{{ config['name'] }}
