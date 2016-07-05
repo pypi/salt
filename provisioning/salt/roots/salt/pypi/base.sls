@@ -94,7 +94,7 @@ net.ipv6.conf.all.disable_ipv6:
     - template: jinja
     - context:
       app_key: {{ key }}
-      variantt: ""
+      variant: ""
     - require:
       - file: /var/log/{{ config['name'] }}
       - file: /var/run/{{ config['name'] }}
@@ -109,7 +109,7 @@ net.ipv6.conf.all.disable_ipv6:
     - template: jinja
     - context:
       app_key: {{ key }}
-      variantt: "xmlrpc"
+      variant: "-xmlrpc"
     - require:
       - file: /var/log/{{ config['name'] }}
       - file: /var/run/{{ config['name'] }}
