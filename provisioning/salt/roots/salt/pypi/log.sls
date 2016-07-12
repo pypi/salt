@@ -139,6 +139,13 @@ pypi-cdn-log-archiver:
     - minute: '0'
     - hour: '*/1'
     - user: {{ config['user'] }}
+
+{{ config['user'] }}-index-for-trove-cron:
+  cron.present:
+    - name: {{ config['path'] }}/env/bin/python {{ config['path'] }}/src/tools/index-trove.py
+    - minute: '30'
+    - hour: '*/1'
+    - user: {{ config['user'] }}
 {% endif %}
 
 {% endfor %}
