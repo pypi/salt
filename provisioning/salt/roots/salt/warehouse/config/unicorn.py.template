@@ -1,4 +1,0 @@
-bind = "unix:/var/run/{{ app_name }}/gunicorn.sock"
-workers = {{ workers }}
-accesslog = "/var/log/{{ app_name }}/gunicorn.access.log"
-errorlog = "/var/log/{{ app_name }}/gunicorn.error.log"
