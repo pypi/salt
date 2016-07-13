@@ -106,6 +106,9 @@ disable-logging = true
 log-5xx = true
 listen = 1024
 buffer-size = 16384
+ignore-sigpipe = true
+ignore-write-errors = true
+disable-write-exception = true
 
 ; CDN API
 [fastly]
