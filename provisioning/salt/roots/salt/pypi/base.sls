@@ -10,7 +10,7 @@ pypi-system-deps:
       - postgresql-devel
       - gcc
     - require:
-      - pkgrepo: python27-el6
+      - pkgrepo: ewdurbin-pythons-el6
 
 
 # Fix an error with Elastcisearch's IPv6 going sideways
