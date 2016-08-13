@@ -1,7 +1,7 @@
 include:
   - python.copr
 
-python34-devel:
+python35-devel:
   pkg.installed:
     - require:
       - pkgrepo: ewdurbin-pythons-el6

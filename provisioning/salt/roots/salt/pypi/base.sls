@@ -1,7 +1,6 @@
 
 include:
   - python.27.virtualenv
-  - python.27.m2crypto
   - pkg.git
 
 pypi-system-deps:
@@ -11,7 +10,7 @@ pypi-system-deps:
       - postgresql-devel
       - gcc
     - require:
-      - pkgrepo: python27-el6
+      - pkgrepo: ewdurbin-pythons-el6
 
 
 # Fix an error with Elastcisearch's IPv6 going sideways
@@ -82,7 +81,6 @@ net.ipv6.conf.all.disable_ipv6:
       - git: {{ config['name'] }}-source
       - user: {{ config['user'] }}
       - pip: virtualenv-2.7
-      - pkg: python27-m2crypto
       - pkg: pypi-system-deps
 
 {{ config['path'] }}/src/config.ini:

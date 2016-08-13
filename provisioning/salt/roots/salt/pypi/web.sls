@@ -16,6 +16,8 @@ net.core.somaxconn:
 
 /opt/pypi-docs-proxy/env:
   virtualenv.managed:
+    - venv_bin: virtualenv-2.7
+    - python: /usr/bin/python2.7
     - system_site_packages: False
 
 pypi-docs-proxy-eventlet:
