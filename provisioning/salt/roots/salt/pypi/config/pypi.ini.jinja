@@ -75,14 +75,10 @@ login = {{ secrets['smtp'].get('login', '') }}
 password = {{ secrets['smtp'].get('password', '') }}
 
 [passlib]
-{% if app_key == 'pypi-deploy-testpypi' %}
 schemes = argon2, bcrypt_sha256, bcrypt, django_bcrypt, unix_disabled
 argon2__time_cost=6
 argon2__memory_cost=1024
 argon2__parallelism=6
-{% else %}
-schemes = bcrypt_sha256, bcrypt, django_bcrypt, unix_disabled
-{% endif %}
 
 [logging]
 file =
