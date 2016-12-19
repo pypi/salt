@@ -33,5 +33,5 @@ pypi-deploy-pypi:
 
   cdn_log_archiver:
     pypi_log_bucket: pypi-cdn-logs
-    s3_host: objects.dreamhost.com
+    s3_host: objects-us-west-1.dream.io
     debug: false
