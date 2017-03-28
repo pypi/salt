@@ -8,8 +8,8 @@ system-pip:
 
 virtualenv-2.7:
   pip.installed:
-    - name: virtualenv==1.10.1
-    - pip_bin: pip2.7
+    - name: virtualenv
+    - pip_bin: /usr/bin/pip2.7
     - require:
       - pkg: system-pip
       - pkg: python27

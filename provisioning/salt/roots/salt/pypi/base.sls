@@ -72,7 +72,7 @@ net.ipv6.conf.all.disable_ipv6:
 
 /opt/{{ config['name'] }}/env:
   virtualenv.managed:
-    - venv_bin: virtualenv-2.7
+    - venv_bin: /usr/bin/virtualenv
     - python: /usr/bin/python2.7
     - system_site_packages: {{ config.get('site_packages', True) }}
     - user: {{ config['name'] }}

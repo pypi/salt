@@ -13,7 +13,7 @@ supervisor-python-psutil:
 
 supervisor==3.0:
   pip.installed:
-    - bin_env: python-pip
+    - bin_env: /usr/bin/pip
     - require:
       - pkg: supervisor-python-pip
       - pkg: supervisor-python-psutil
