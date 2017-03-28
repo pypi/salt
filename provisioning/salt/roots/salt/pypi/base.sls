@@ -9,6 +9,8 @@ pypi-system-deps:
       - python27-devel
       - postgresql-devel
       - gcc
+      - openssl-devel
+      - libffi-devel
     - require:
       - pkgrepo: ewdurbin-pythons-el6
 
