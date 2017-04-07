@@ -125,6 +125,11 @@ blocked_attempts = {{ secrets.get('blocking', {}).get('blocked_attempts', 10) }}
 blocked_attempts_ip = {{ secrets.get('blocking', {}).get('blocked_attempts_ip', 20) }}
 blocked_attempts_user = {{ secrets.get('blocking', {}).get('blocked_attempts_user', 1000) }}
 
+[xmlrpc]
+max_concurrent = {{ secrets.get('xmlrpc', {}).get('max_concurrent', 9999) }}
+enforce = {{ secrets.get('xmlrpc', {}).get('enforce', 'false') }}
+request_log_file = /var/log/{{ config['name'] }}/xmlrpc.log
+
 [authomatic]
 secure = {{ secrets.get('authomatic', {}).get('secure', 'true') }}
 secret = {{ secrets.get('authomatic', {}).get('secret', 'randodata') }}
