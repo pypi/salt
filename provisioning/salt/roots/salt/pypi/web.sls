@@ -29,7 +29,7 @@ pypi-docs-proxy-eventlet:
 
 pypi-docs-proxy:
   pip.installed:
-    - name: pypi-docs-proxy == 1.3
+    - name: pypi-docs-proxy == 1.4
     - bin_env: /opt/pypi-docs-proxy/env
     - require:
       - virtualenv: /opt/pypi-docs-proxy/env
