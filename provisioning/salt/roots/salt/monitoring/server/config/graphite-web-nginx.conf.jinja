@@ -10,6 +10,10 @@ server {
   location / {
     return 301 https://$server_name$request_uri;
   }
+  location /.well-known/acme-challenge/ {
+    alias /etc/lego/.well-known/acme-challenge/;
+    try_files $uri =404;
+  }
   {% else %}
   include conf.d/graphite-web/app.conf;
   {% endif %}
