@@ -32,7 +32,7 @@ redis-daemon:
     - watch:
       - file: /etc/redis.conf
     - require:
-      - pkg: redis
+      - pkg: redis28
       - file: /etc/redis.conf
       - sysctl: vm.overcommit_memory
 
