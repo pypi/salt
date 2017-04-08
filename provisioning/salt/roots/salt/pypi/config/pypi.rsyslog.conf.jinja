@@ -9,9 +9,6 @@ $InputTCPServerRun 514
 $ModLoad imtcp
 $InputTCPServerRun 514
 
-$ModLoad omprog
-$ActionOMProgBinary {{ path }}/env/bin/rsyslog-cdn-wrapper.sh
-
 # Don't rate-limit
 $SystemLogRateLimitInterval 0
 
@@ -20,8 +17,6 @@ $RepeatedMsgReduction off
 
 $DirCreateMode 0755
 
-# Send all logging to a process
-:app-name, isequal, "{{ syslog_name }}" :omprog:
 # Log everything from the CDN to a file
 :app-name, isequal, "{{ syslog_name }}" /var/log/cdn/{{ syslog_name }}/access.log
 # Discard logs
