@@ -2,6 +2,7 @@
 include:
   - nginx
   - monitoring.client.pypi-mirror
+  - python.27.virtualenv
 
 pypi-mirror:
   user.present:
@@ -10,22 +11,21 @@ pypi-mirror:
 /etc/bandersnatch:
   file.directory
 
-bandersnatch_virtualenv:
-  pkg.installed:
-    - name: python-virtualenv
-
 /opt/bandersnatch:
   file.directory:
     - mode: 755
     - makedirs: True
   virtualenv.managed:
+    - venv_bin: /usr/bin/virtualenv
+    - python: /usr/bin/python2.7
     - system_site_packages: False
     - require:
       - file: /opt/bandersnatch
+      - pip: virtualenv-2.7
 
 bandersnatch:
   pip.installed:
-    - name: bandersnatch==2.0.0
+    - name: bandersnatch==1.11
     - bin_env: /opt/bandersnatch
     - require:
       - virtualenv: /opt/bandersnatch
