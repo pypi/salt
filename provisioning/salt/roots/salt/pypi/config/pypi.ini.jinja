@@ -81,7 +81,7 @@ argon2__memory_cost=1024
 argon2__parallelism=6
 
 [logging]
-file =
+file = /var/log/{{ config['name'] }}/pypi.log
 mail_logger = {{ secrets['logging'].get('mail_logger', 'off') }}
 fromaddr = {{ secrets['logging']['fromaddr'] }}
 toaddrs = {{ secrets['logging']['toaddrs'] }}
@@ -107,6 +107,7 @@ post-buffering = 8192
 chmod-socket = 666
 disable-logging = true
 log-5xx = true
+logto2 = /var/log/{{ config['name'] }}/uwsgi.log
 listen = 1024
 buffer-size = 16384
 ignore-sigpipe = true
