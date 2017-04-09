@@ -36,7 +36,7 @@ lego_extract:
 
 lego_bootstrap:
   cmd.run:
-    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="{{ grains['fqdn'] }}" --webroot /etc/lego --path /etc/lego run
+    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="{{ grains['fqdn'] }}" --webroot /etc/lego --path /etc/lego --key-type ec256 run
     - creates: /etc/lego/certificates/{{ grains['fqdn'] }}.json
     - require:
       - file: /etc/lego/.well-known/acme-challenge
@@ -44,6 +44,6 @@ lego_bootstrap:
 
 lego_renew:
   cron.present:
-    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="{{ grains['fqdn'] }}" --webroot /etc/lego --path /etc/lego renew --days 30
+    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="{{ grains['fqdn'] }}" --webroot /etc/lego --path /etc/lego --key-type ec256  renew --days 30 && service nginx reload
     - hour: 0
     - minute: random
