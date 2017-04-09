@@ -30,7 +30,6 @@ base:
     - secrets.testpypi
     - pypi-deploys.pypi
     - secrets.pypi
-    - secrets.backup.counter-redis
 
   'G@roles:warehouse not G@roles:develop':
     - match: compound
