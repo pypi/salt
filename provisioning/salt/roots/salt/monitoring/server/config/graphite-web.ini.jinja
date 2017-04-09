@@ -1,5 +1,5 @@
 [program:{{ program_name }}]
-command = gunicorn_django -w 4 --bind unix:/var/run/graphite-web/gunicorn.sock --pythonpath=/usr/lib/python2.6/site-packages/graphite --settings=settings settings.py
+command = gunicorn_django -w 8 --bind unix:/var/run/graphite-web/gunicorn.sock --pythonpath=/usr/lib/python2.6/site-packages/graphite --settings=settings settings.py
 autostart = true
 autorestart = true
 stopwaitsecs = 15
