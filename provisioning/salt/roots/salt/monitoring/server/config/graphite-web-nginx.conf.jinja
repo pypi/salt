@@ -23,5 +23,6 @@ server {
   listen 443;
   server_name {{ server_names }};
   include nginx.ssl.conf;
+  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
   include conf.d/graphite-web/app.conf;
 }
