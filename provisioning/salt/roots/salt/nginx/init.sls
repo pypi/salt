@@ -63,7 +63,7 @@ nginx:
     - group: root
     - mode: 644
     - require:
-      - module: self-signed-cert
+      - sls: tls
 
 /etc/logrotate.d/nginx:
   file.managed:
