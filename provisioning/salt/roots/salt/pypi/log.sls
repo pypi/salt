@@ -44,7 +44,7 @@ redis-daemon:
 
 pypi-cdn-log-archiver:
   pip.installed:
-    - name: pypi-cdn-log-archiver == 0.1.7
+    - name: pypi-cdn-log-archiver == 0.1.8
     - bin_env: /opt/pypi-cdn-log-archiver/env
     - require:
       - virtualenv: /opt/pypi-cdn-log-archiver/env
