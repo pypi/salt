@@ -5,7 +5,7 @@ crypto_packages:
 
 generate_dhparams:
   cmd.run:
-    - name: openssl dhparam -out /etc/pki/tls/private/dhparams.pem
+    - name: openssl dhparam -out /etc/pki/tls/private/dhparams.pem 4096
     - creates: /etc/pki/tls/private/dhparams.pem
     - require:
       - pkg: crypto_packages
