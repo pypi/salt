@@ -31,7 +31,7 @@ location ~* ^/(daytime|serial).* {
   uwsgi_modifier1 30;
 }
 
-location ~* ^/(pypi|mirrors|id|oauth|security|tos|google_login).* {
+location ~* ^/(pypi|mirrors|id|oauth|security|tos|google_login|openid_login|openid_claim).* {
   include uwsgi_params;
   {% if rate_limit is defined %}
   limit_req zone={{ zone_name }} burst={{ burst }} {% if nodelay -%}nodelay{%- endif -%};
