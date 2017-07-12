@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
 
-  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box"
+  config.vm.box_url = "https://github.com/CommanderK5/packer-centos-template/releases/download/0.6.8/vagrant-centos-6.8.box"
   config.vm.box = "centos-min"
   config.vm.provision "shell", inline: "yum -y update nss\*"
 
@@ -25,7 +25,6 @@ Vagrant.configure("2") do |config|
 
       pypi_dev.vm.provision :salt do |s|
         s.verbose = true
-        s.install_type = "git v0.17.2"
         s.minion_config = "provisioning/salt/minion/web/pypi_dev"
         s.run_highstate = true
       end

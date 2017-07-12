@@ -50,6 +50,6 @@ secrets-pypi-deploy-devpypi:
   authomatic:
     secure: 'true'
     secret: randodataz
-   google:
-     client_id: deadbeef-deadbeef.googleusercontent.com
-     client_secret: deadbeef
+  google:
+    client_id: deadbeef-deadbeef.googleusercontent.com
+    client_secret: deadbeef
