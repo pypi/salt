@@ -1,4 +1,6 @@
 
+datadog_api_key: bizzfuzz
+
 secrets-pypi-deploy-devpypi:
   database_url: postgresql://testpypi:testpypi@localhost/testpypi
   database_download_statistics_url: postgresql://testpypi:testpypi@localhost/testpypi
@@ -50,6 +52,6 @@ secrets-pypi-deploy-devpypi:
   authomatic:
     secure: 'true'
     secret: randodataz
-   google:
-     client_id: deadbeef-deadbeef.googleusercontent.com
-     client_secret: deadbeef
+  google:
+    client_id: deadbeef-deadbeef.googleusercontent.com
+    client_secret: deadbeef
