@@ -1,4 +1,6 @@
 
+datadog_api_key: bizzfuzz
+
 secrets-pypi-deploy-devpypi:
   database_url: postgresql://testpypi:testpypi@localhost/testpypi
   database_download_statistics_url: postgresql://testpypi:testpypi@localhost/testpypi

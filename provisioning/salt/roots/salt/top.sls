@@ -1,6 +1,7 @@
 base:
   '*':
     - base.sanity
+    - datadog
     - users
     - sudoers
     - backup.client
