@@ -42,6 +42,8 @@ datadog-agent:
         Main:
             dd_url: https://app.datadoghq.com
             api_key: {{ pillar.get('datadog_api_key') }}
+            use_dogstatsd: yes
+            dogstatsd_port: 18125
     - require:
       - file: /etc/dd-agent/datadog.conf
 
