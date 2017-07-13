@@ -5,7 +5,7 @@ base:
     - users
     - sudoers
     - monitoring.client
-    - monitoring.datadog
+    - secrets.monitoring.datadog
 
   'roles:salt-master':
     - match: grain
