@@ -26,6 +26,19 @@ location ~* ^/(daytime|serial).* {
   uwsgi_modifier1 30;
 }
 
+location ~* ^/pypi/.*/json$ {
+  include uwsgi_params;
+  {% if rate_limit is defined %}
+  limit_req zone={{ zone_name }} burst={{ burst }} {% if nodelay -%}nodelay{%- endif -%};
+  limit_req_status 429;
+  {% endif %}
+  uwsgi_pass unix:/var/run/{{ config['name'] }}/pypi.sock;
+  uwsgi_param SCRIPT_NAME /$1;
+  # the following magic stands for "UWSGI_MODIFIER_MANAGE_PATH_INFO"
+  # .. when setting the SCRIPT_NAME remove that bit from the PATH_INFO
+  uwsgi_modifier1 30;
+}
+
 location ~* ^/(pypi|mirrors|id|oauth|security|tos|google_login|openid_login|openid_claim).* {
   error_page 500 502 503 504 /static/error/500.html;
   error_page 404 /static/error/400.html;
