@@ -16,11 +16,6 @@ rewrite ^/$ {{ config['url'] }}/pypi redirect;
 
 client_max_body_size 100M;
 
-error_page 500 502 503 504 /static/error/500.html;
-error_page 404 /static/error/400.html;
-error_page 429 /static/error/429.html;
-uwsgi_intercept_errors on;
-
 location ~* ^/(daytime|serial).* {
   access_log off;
   include uwsgi_params;
@@ -32,6 +27,10 @@ location ~* ^/(daytime|serial).* {
 }
 
 location ~* ^/(pypi|mirrors|id|oauth|security|tos|google_login|openid_login|openid_claim).* {
+  error_page 500 502 503 504 /static/error/500.html;
+  error_page 404 /static/error/400.html;
+  error_page 429 /static/error/429.html;
+  uwsgi_intercept_errors on;
   include uwsgi_params;
   {% if rate_limit is defined %}
   limit_req zone={{ zone_name }} burst={{ burst }} {% if nodelay -%}nodelay{%- endif -%};
