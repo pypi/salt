@@ -113,6 +113,13 @@ buffer-size = 16384
 ignore-sigpipe = true
 ignore-write-errors = true
 disable-write-exception = true
+plugins-dir = /usr/share/uwsgi/plugins
+
+{% if 'datadog_api_key' in pillar %}
+enable-metrics = true
+plugin = dogstatsd
+stats-push = dogstatsd:127.0.0.1:18125,{{ config['name'] }}
+{% endif %}
 
 ; CDN API
 [fastly]

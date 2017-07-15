@@ -14,6 +14,20 @@ net.core.somaxconn:
   sysctl.present:
     - value: 1024
 
+/usr/share/uwsgi/plugins:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 755
+    - makedirs: True
+
+/usr/share/uwsgi/plugins/dogstatsd_plugin.so:
+  file.managed:
+    - user: root
+    - group: root
+    - mode: 644
+    - source: salt://pypi/files/dogstatsd_plugin.so
+
 /opt/pypi-docs-proxy/env:
   virtualenv.managed:
     - venv_bin: /usr/bin/virtualenv
