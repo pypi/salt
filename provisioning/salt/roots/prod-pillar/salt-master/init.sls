@@ -1,4 +1,8 @@
 
+datadog_tags:
+  - service:pypi
+  - role:salt-master
+
 firewall:
   salt_master_pypi_internal:
     port: 4505:4506
