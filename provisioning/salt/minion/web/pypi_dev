@@ -6,3 +6,7 @@ grains:
   roles:
     - develop
     - pypi
+  datadog_tags:
+    - foo:bar
+    - fizz:buzz
+    - wu
