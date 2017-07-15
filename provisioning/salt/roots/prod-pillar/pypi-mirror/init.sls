@@ -1,7 +1,7 @@
 
 datadog_tags:
-  - service: pypi
-  - role: mirror
+  - service:pypi
+  - role:mirror
 
 firewall:
   http:

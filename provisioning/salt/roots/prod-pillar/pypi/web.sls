@@ -1,7 +1,7 @@
 
 datadog_tags:
-  - service: pypi
-  - role: web
+  - service:pypi
+  - role:web
 
 firewall:
   http:

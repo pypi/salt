@@ -1,7 +1,7 @@
 
 datadog_tags:
-  - service: pypi
-  - role: counter
+  - service:pypi
+  - role:counter
 
 firewall:
   syslog_tcp_72:

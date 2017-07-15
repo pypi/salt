@@ -7,8 +7,8 @@ include:
       key: monitoring_secrets
 
 datadog_tags:
-  - service: pypi
-  - role: monitoring
+  - service:pypi
+  - role:monitoring
 
 firewall:
   riemann_ports:
