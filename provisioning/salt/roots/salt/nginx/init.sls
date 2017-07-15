@@ -86,3 +86,15 @@ nginx:
 
 /etc/nginx/conf.d/ssl.conf:
   file.absent
+
+{% if 'datadog_api_key' in pillar %}
+/etc/dd-agent/conf.d/nginx.yaml:
+  file.managed:
+    - user: root
+    - group: root
+    - mode: '0644'
+    - contents: |
+        init_config:
+        instances:
+            -   nginx_status_url: http://127.0.0.1/nginx_status/
+{% endif %}
