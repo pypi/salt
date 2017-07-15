@@ -4,7 +4,7 @@ datadog_tags:
   - role:web
 
 datadog_dogstreams:
-  - /var/log/nginx/pypi/access.log:/usr/share/datadog-nginx-status-codes.py:parse
+  - /var/log/nginx/pypi/access.log:/usr/share/datadog/datadog-nginx-status-codes.py:parse
 
 firewall:
   http:
