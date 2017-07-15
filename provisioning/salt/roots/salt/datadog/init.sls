@@ -15,7 +15,7 @@ datadog_repo:
     - require:
       - file: /etc/pki/rpm-gpg/RPM-GPG-KEY-DATADOG
 
-{% set in_datadog_tags = pillar.get('datadog_tags', []) + grains.get('datadog_tags', []) %}
+{% set in_datadog_tags = pillar.get('datadog_tags', []) + grains.get('datadog_tags', []) + grains.get('datadog_tags_from_metadata', []) %}
 {% set datadog_tags = [] %}
 {% for tag in in_datadog_tags if tag not in datadog_tags %}
   {% do datadog_tags.append(tag) %}

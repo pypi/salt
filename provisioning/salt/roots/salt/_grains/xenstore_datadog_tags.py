@@ -32,5 +32,5 @@ def xenstore():
                 found[key] = ret['stdout']
         except Exception:
             pass
-    data['datadog_tags'] = ['%s:%s' % (k, v) for k, v in found.items()]
+    data['datadog_tags_from_metadata'] = ['%s:%s' % (k, v) for k, v in found.items()]
     return data
