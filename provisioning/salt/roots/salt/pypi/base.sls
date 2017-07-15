@@ -85,6 +85,21 @@ net.ipv6.conf.all.disable_ipv6:
       - pip: virtualenv-2.7
       - pkg: pypi-system-deps
 
+/opt/{{ config['name'] }}/uwsgi/plugins:
+  file.directory:
+    - user: {{ config['user'] }}
+    - group: {{ config['group'] }}
+    - mode: 755
+    - makedirs: True
+
+build_dogstatsd_uwsgi:
+  cmd.run:
+    - onchanges:
+      - virtualenv: /opt/{{ config['name'] }}/env
+    - name: "/opt/{{ config['name'] }}/env/bin/uwsgi --build-plugin https://github.com/Datadog/uwsgi-dogstatsd"
+    - user: {{ config['user'] }}
+    - cwd: /opt/{{ config['name'] }}/uwsgi/plugins
+
 {{ config['path'] }}/src/config.ini:
   file.managed:
     - source: salt://pypi/config/pypi.ini.jinja
