@@ -15,6 +15,11 @@ datadog_repo:
     - require:
       - file: /etc/pki/rpm-gpg/RPM-GPG-KEY-DATADOG
 
+{% set in_datadog_tags = pillar.get('datadog_tags', []) + grains.get('datadog_tags', []) + grains.get('datadog_tags_from_metadata', []) %}
+{% set datadog_tags = [] %}
+{% for tag in in_datadog_tags if tag not in datadog_tags %}
+  {% do datadog_tags.append(tag) %}
+{% endfor %}
 
 {% if 'datadog_api_key' in pillar %}
 datadog-agent:
@@ -42,6 +47,7 @@ datadog-agent:
         Main:
             dd_url: https://app.datadoghq.com
             api_key: {{ pillar.get('datadog_api_key') }}
+            tags: {{ datadog_tags|join(", ") }}
             use_dogstatsd: yes
             dogstatsd_port: 18125
     - require:

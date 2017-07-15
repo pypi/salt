@@ -1,4 +1,9 @@
 
+datadog_tags:
+  - lol:wut
+  - tang
+  - wu
+
 firewall:
   http:
     port: 80
