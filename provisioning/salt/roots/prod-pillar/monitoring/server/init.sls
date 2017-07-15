@@ -6,6 +6,10 @@ include:
         secret_key: deadbeef
       key: monitoring_secrets
 
+datadog_tags:
+  - service: pypi
+  - role: monitoring
+
 firewall:
   riemann_ports:
     port: 5555:5556

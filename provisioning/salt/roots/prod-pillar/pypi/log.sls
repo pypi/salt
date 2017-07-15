@@ -1,4 +1,8 @@
 
+datadog_tags:
+  - service: pypi
+  - role: counter
+
 firewall:
   syslog_tcp_72:
     source: 199.27.72.0/24

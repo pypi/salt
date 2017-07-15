@@ -1,4 +1,8 @@
 
+datadog_tags:
+  - service: pypi
+  - role: web
+
 firewall:
   http:
     port: 80

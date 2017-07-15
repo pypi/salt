@@ -1,4 +1,8 @@
 
+datadog_tags:
+  - service: pypi
+  - role: mirror
+
 firewall:
   http:
     port: 80
