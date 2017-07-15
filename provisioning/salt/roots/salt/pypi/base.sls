@@ -92,6 +92,13 @@ net.ipv6.conf.all.disable_ipv6:
     - mode: 755
     - makedirs: True
 
+{{ config['name'] }}_initial_build_dogstatsd_uwsgi:
+  cmd.run:
+    - creates: /opt/{{ config['name'] }}/uwsgi/plugins/dogstatsd_plugin.so
+    - name: "/opt/{{ config['name'] }}/env/bin/uwsgi --build-plugin https://github.com/Datadog/uwsgi-dogstatsd"
+    - user: {{ config['user'] }}
+    - cwd: /opt/{{ config['name'] }}/uwsgi/plugins
+
 {{ config['name'] }}_build_dogstatsd_uwsgi:
   cmd.run:
     - onchanges:
