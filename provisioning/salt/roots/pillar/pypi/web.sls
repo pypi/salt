@@ -4,6 +4,9 @@ datadog_tags:
   - tang
   - wu
 
+datadog_dogstreams:
+  - /var/log/nginx/pypi/access.log:/usr/share/datadog-nginx-status-codes.py:parse
+
 firewall:
   http:
     port: 80

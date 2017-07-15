@@ -21,6 +21,12 @@ datadog_repo:
   {% do datadog_tags.append(tag) %}
 {% endfor %}
 
+{% set dogstreams = pillar.get('datadog_dogstreams') %}
+
+/usr/share/datdog:
+  file.recurse:
+    - source: salt://datadog/files
+
 {% if 'datadog_api_key' in pillar %}
 datadog-agent:
   pkg:
@@ -50,6 +56,7 @@ datadog-agent:
             tags: {{ datadog_tags|join(", ") }}
             use_dogstatsd: yes
             dogstatsd_port: 18125
+            dogstreams: "{{ dogstreams|join(", ") if dogstreams else ''}}"
     - require:
       - file: /etc/dd-agent/datadog.conf
 

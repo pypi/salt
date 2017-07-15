@@ -3,6 +3,9 @@ datadog_tags:
   - service:pypi
   - role:web
 
+datadog_dogstreams:
+  - /var/log/nginx/pypi/access.log:/usr/share/datadog-nginx-status-codes.py:parse
+
 firewall:
   http:
     port: 80

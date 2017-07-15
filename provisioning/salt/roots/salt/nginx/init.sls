@@ -76,7 +76,7 @@ nginx:
   file.directory:
     - user: nginx
     - group: root
-    - mode: 0750
+    - mode: 0755
 
 /etc/nginx/conf.d/default.conf:
   file.absent
