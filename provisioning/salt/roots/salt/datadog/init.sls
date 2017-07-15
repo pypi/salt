@@ -23,7 +23,7 @@ datadog_repo:
 
 {% set dogstreams = pillar.get('datadog_dogstreams') %}
 
-/usr/share/datdog:
+/usr/share/datadog:
   file.recurse:
     - source: salt://datadog/files
 
