@@ -92,7 +92,7 @@ net.ipv6.conf.all.disable_ipv6:
     - mode: 755
     - makedirs: True
 
-build_dogstatsd_uwsgi:
+{{ config['name'] }}_build_dogstatsd_uwsgi:
   cmd.run:
     - onchanges:
       - virtualenv: /opt/{{ config['name'] }}/env
