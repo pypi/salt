@@ -145,3 +145,7 @@ secret = {{ secrets.get('authomatic', {}).get('secret', 'randodata') }}
 [google]
 client_id = {{ secrets.get('google', {}).get('client_id', '') }}
 client_secret = {{ secrets.get('google', {}).get('client_secret', '') }}
+
+[datadog]
+dogstatsd_port = 18125
+tags = deployment:{{ config['name'] }}
