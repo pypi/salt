@@ -39,7 +39,7 @@ location ~* ^/pypi/.*/json$ {
   uwsgi_modifier1 30;
 }
 
-location ~* ^/(pypi|mirrors|id|oauth|security|tos|google_login|openid_login|openid_claim).* {
+location ~* ^/(pypi|mirrors|oauth|security|tos|google_login|openid_login|openid_claim).* {
   error_page 500 502 503 504 /static/error/500.html;
   error_page 404 /static/error/400.html;
   error_page 429 /static/error/429.html;
