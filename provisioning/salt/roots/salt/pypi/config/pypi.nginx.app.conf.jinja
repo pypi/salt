@@ -1,6 +1,5 @@
 {% set config = salt['pillar.get'](app_key) %}
 
-root {{ config['path'] }}/src;
 access_log /var/log/nginx/{{ config['name'] }}/access.log;
 error_log /var/log/nginx/{{ config['name'] }}/error.log;
 
