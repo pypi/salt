@@ -17,7 +17,6 @@ pypi-mirror:
     - makedirs: True
   virtualenv.managed:
     - venv_bin: /usr/bin/pyvenv-3.5
-    - python: /usr/bin/python3.5
     - system_site_packages: False
     - require:
       - file: /opt/bandersnatch
