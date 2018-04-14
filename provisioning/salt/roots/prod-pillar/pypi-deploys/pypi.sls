@@ -22,6 +22,7 @@ pypi-deploy-pypi:
 
   server_names:
     - pypi.python.org
+    - legacy.pypi.org
     - pypi.a.ssl.fastly.net
   tls_port: 9000
   docs_port: 9010
